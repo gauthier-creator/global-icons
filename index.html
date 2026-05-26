@@ -18,8 +18,14 @@
   <div class="loader" id="loader" aria-hidden="true">
     <div class="loader__inner">
       <div class="loader__logo">
-        <img src="Logo.svg" alt="" aria-hidden="true" class="loader__logo-base" />
-        <img src="Logo.svg" alt="Global Icons" class="loader__logo-fill" id="loaderLogoFill" />
+        <div class="loader__word loader__word--base">
+          <span class="bm bm--global"></span>
+          <span class="bm bm--icons"></span>
+        </div>
+        <div class="loader__word loader__word--fill" id="loaderLogoFill" aria-label="Global Icons">
+          <span class="bm bm--global"></span>
+          <span class="bm bm--icons"></span>
+        </div>
       </div>
       <div class="loader__count"><span id="loaderCount">0</span><span class="loader__pct">%</span></div>
     </div>
@@ -465,31 +471,22 @@
         </div>
       </div>
       <div class="cats__viewport" data-carousel-viewport>
+        <!-- Équipe — photos réelles ; fonctions à préciser. -->
         <ul class="cats__rail" data-carousel-rail>
           <li class="cat member">
-            <div class="cat__media member__photo" data-tone="1"></div>
-            <h3 class="cat__title">Prénom Nom</h3>
-            <p class="cat__desc">Associé fondateur</p>
+            <div class="cat__media member__photo"><img src="Alexandre.jpg" alt="Alexandre" loading="lazy" /></div>
+            <h3 class="cat__title">Alexandre</h3>
+            <p class="cat__desc">Fonction à préciser</p>
           </li>
           <li class="cat member">
-            <div class="cat__media member__photo" data-tone="2"></div>
-            <h3 class="cat__title">Prénom Nom</h3>
-            <p class="cat__desc">Direction des investissements</p>
+            <div class="cat__media member__photo"><img src="Michael.jpg" alt="Michael" loading="lazy" /></div>
+            <h3 class="cat__title">Michael</h3>
+            <p class="cat__desc">Fonction à préciser</p>
           </li>
           <li class="cat member">
-            <div class="cat__media member__photo" data-tone="3"></div>
-            <h3 class="cat__title">Prénom Nom</h3>
-            <p class="cat__desc">Relations investisseurs</p>
-          </li>
-          <li class="cat member">
-            <div class="cat__media member__photo" data-tone="4"></div>
-            <h3 class="cat__title">Prénom Nom</h3>
-            <p class="cat__desc">Structuration &amp; juridique</p>
-          </li>
-          <li class="cat member">
-            <div class="cat__media member__photo" data-tone="2"></div>
-            <h3 class="cat__title">Prénom Nom</h3>
-            <p class="cat__desc">Asset management</p>
+            <div class="cat__media member__photo"><img src="Julien.jpg" alt="Julien" loading="lazy" /></div>
+            <h3 class="cat__title">Julien</h3>
+            <p class="cat__desc">Fonction à préciser</p>
           </li>
         </ul>
       </div>
