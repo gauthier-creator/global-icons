@@ -1,2 +1,6 @@
 .DS_Store
 *.log
+
+# Master vidéo non compressé (127 Mo) — trop lourd pour le dépôt/web.
+# Seule la version optimisée GLOBAL_ICONS_VF.mp4 est versionnée.
+GLOBAL_ICONSl_VF.mp4

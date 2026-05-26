@@ -450,7 +450,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    MODULES VIDÉO (composant partagé)
    ============================================================ */
 .vframe { position: relative; overflow: hidden; border-radius: 12px; background: var(--ink); }
-.vframe video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vframe video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
 .vframe__ph { position: absolute; inset: 0; background: linear-gradient(130deg, #1a1a18 0%, #2e2e2b 50%, #161615 100%); background-size: 220% 220%; animation: heroPan 20s ease-in-out infinite alternate; }
 .vframe__ph::after { content: attr(data-label); position: absolute; inset: auto 0 22px 0; text-align: center; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.2); }
 .vframe__scrim { position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 50%, transparent 40%, rgba(15,15,14,.25)); pointer-events: none; }
@@ -458,6 +458,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .vplay::after { content: ""; width: 0; height: 0; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent var(--ink); margin-left: 4px; transition: border-color .4s; }
 .vplay:hover { transform: translate(-50%,-50%) scale(1.08); background: #fff; }
 .vframe.is-playing .vplay { opacity: 0; pointer-events: none; }
+.vframe__scrim, .vtag { transition: opacity .5s var(--ease); }
+.vframe.is-playing .vframe__scrim, .vframe.is-playing .vtag { opacity: 0; }
 .vtag { position: absolute; top: 18px; left: 18px; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.55); background: rgba(15,15,14,.4); padding: 5px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
 
 /* Film — grand module 16:9 */
@@ -523,13 +525,13 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    ÉQUIPE
    ============================================================ */
 .team__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 2.6vw, 42px); }
-.member__photo { aspect-ratio: 3/4; border-radius: 6px; margin-bottom: 22px; position: relative; overflow: hidden; filter: grayscale(1) contrast(1.02); transition: filter .7s var(--ease), transform .7s var(--ease); }
+.member__photo { aspect-ratio: 3/4; border-radius: 6px; margin-bottom: 22px; position: relative; overflow: hidden; transition: transform .7s var(--ease); }
 .member__photo[data-tone="1"] { background: linear-gradient(160deg, #3a3a37, #131312); }
 .member__photo[data-tone="2"] { background: linear-gradient(160deg, #444441, #131312); }
 .member__photo[data-tone="3"] { background: linear-gradient(160deg, #323230, #0e0e0d); }
 .member__photo[data-tone="4"] { background: linear-gradient(160deg, #46463f, #131312); }
 .member__photo::after { content: "Photo"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.22); }
-.member:hover .member__photo { filter: grayscale(0) contrast(1); transform: scale(1.015); }
+.member:hover .member__photo { transform: scale(1.015); }
 .member__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .member__photo:has(img)::after { content: none; }
 .member__name { font-weight: 300; font-size: 1.28rem; letter-spacing: -0.025em; color: var(--head); }

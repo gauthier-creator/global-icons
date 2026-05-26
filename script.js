@@ -330,13 +330,17 @@
   $$("[data-video]").forEach((frame) => {
     const btn = $(".vplay", frame);
     const video = $("video", frame);
-    if (!btn) return;
-    btn.addEventListener("click", () => {
+    if (!btn && !video) return;
+    const toggle = () => {
       if (!video) { frame.classList.toggle("is-playing"); return; }
       if (video.paused) { video.play(); frame.classList.add("is-playing"); }
       else { video.pause(); frame.classList.remove("is-playing"); }
-    });
-    if (video) video.addEventListener("ended", () => frame.classList.remove("is-playing"));
+    };
+    if (btn) btn.addEventListener("click", toggle);
+    if (video) {
+      video.addEventListener("click", toggle);
+      video.addEventListener("ended", () => frame.classList.remove("is-playing"));
+    }
   });
 
   /* ============================================================
