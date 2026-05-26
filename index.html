@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=30" />
+  <link rel="stylesheet" href="styles.css?v=31" />
 </head>
 <body>
 
@@ -305,31 +305,126 @@
         <!-- aperçu de la plateforme (mockup) -->
         <div class="parcours__screen reveal" style="--d:.08s">
           <div class="screen" aria-hidden="true">
-            <div class="screen__bar"><span></span><span></span><span></span></div>
-            <div class="screen__body">
-              <aside class="screen__side">
-                <div class="screen__logo">Global Icons</div>
-                <span class="screen__nav is-active"></span>
-                <span class="screen__nav"></span>
-                <span class="screen__nav"></span>
-                <span class="screen__nav"></span>
-                <span class="screen__nav screen__nav--end"></span>
-              </aside>
-              <div class="screen__main">
-                <div class="screen__row">
-                  <div class="screen__stat"><b>180 M€</b><i></i></div>
-                  <div class="screen__stat"><b>+17 %</b><i></i></div>
-                  <div class="screen__stat"><b>24</b><i></i></div>
+            <aside class="screen__side">
+              <div class="screen__brand">
+                <span class="screen__brand-mark"></span>
+                <span class="screen__brand-name">Global Icons</span>
+              </div>
+              <nav class="screen__menu">
+                <span class="screen__item is-active"><i></i>Tableau de bord</span>
+                <span class="screen__item"><i></i>Opportunités</span>
+                <span class="screen__item"><i></i>Mes souscriptions</span>
+                <span class="screen__item"><i></i>Documents</span>
+                <span class="screen__item"><i></i>Reporting</span>
+              </nav>
+              <div class="screen__advisor">
+                <span class="screen__avatar"></span>
+                <span class="screen__advisor-txt"><b>Conseiller dédié</b><i></i></span>
+              </div>
+            </aside>
+
+            <div class="screen__main">
+              <header class="screen__top">
+                <div class="screen__crumb">
+                  <b>Tableau de bord</b>
+                  <span>Vue d'ensemble de votre portefeuille</span>
                 </div>
-                <div class="screen__chart">
-                  <svg class="screen__line" viewBox="0 0 560 150" fill="none" preserveAspectRatio="none" aria-hidden="true">
-                    <line class="g" x1="0" y1="38" x2="560" y2="38"/>
-                    <line class="g" x1="0" y1="76" x2="560" y2="76"/>
-                    <line class="g" x1="0" y1="114" x2="560" y2="114"/>
-                    <path class="area" d="M10 120 L80 104 L150 110 L220 84 L300 90 L380 58 L460 48 L550 30 L550 150 L10 150 Z"/>
-                    <polyline class="ln" points="10,120 80,104 150,110 220,84 300,90 380,58 460,48 550,30"/>
-                  </svg>
+                <div class="screen__tools">
+                  <span class="screen__search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>Rechercher</span>
+                  <span class="screen__bell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><i></i></span>
+                  <span class="screen__user"><span class="screen__avatar"></span><span class="screen__user-txt"><b></b><i></i></span></span>
                 </div>
+              </header>
+
+              <div class="screen__row">
+                <div class="screen__stat">
+                  <span class="screen__stat-label">Capitaux investis</span>
+                  <div class="screen__stat-row">
+                    <b>180 M€</b>
+                    <svg class="screen__spark" viewBox="0 0 80 26" fill="none" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,20 16,18 30,19 44,12 58,13 72,5 80,3"/></svg>
+                  </div>
+                  <span class="screen__delta screen__delta--up">▲ 4,2 % <i>vs N-1</i></span>
+                </div>
+                <div class="screen__stat">
+                  <span class="screen__stat-label">TRI net moyen</span>
+                  <div class="screen__stat-row">
+                    <b>+17 %</b>
+                    <svg class="screen__spark" viewBox="0 0 80 26" fill="none" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,16 16,17 30,12 44,14 58,8 72,9 80,4"/></svg>
+                  </div>
+                  <span class="screen__delta screen__delta--up">▲ 1,1 pt <i>vs N-1</i></span>
+                </div>
+                <div class="screen__stat">
+                  <span class="screen__stat-label">Opérations</span>
+                  <div class="screen__stat-row">
+                    <b>24</b>
+                    <svg class="screen__spark" viewBox="0 0 80 26" fill="none" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,21 16,19 30,16 44,15 58,11 72,9 80,7"/></svg>
+                  </div>
+                  <span class="screen__delta"><em></em> 3 en cours</span>
+                </div>
+              </div>
+
+              <div class="screen__chart">
+                <div class="screen__chart-head">
+                  <span class="screen__chart-title">Valorisation du portefeuille</span>
+                  <div class="screen__period">
+                    <span>1M</span><span>6M</span><span class="is-active">1A</span><span>Max</span>
+                  </div>
+                </div>
+                <div class="screen__chart-body">
+                  <div class="screen__yaxis"><span>200</span><span>150</span><span>100</span><span>50</span></div>
+                  <div class="screen__plot">
+                    <svg class="screen__line" viewBox="0 0 600 200" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="scGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="rgba(21,21,20,.14)"/>
+                          <stop offset="1" stop-color="rgba(21,21,20,0)"/>
+                        </linearGradient>
+                      </defs>
+                      <line class="g" x1="0" y1="40" x2="600" y2="40"/>
+                      <line class="g" x1="0" y1="80" x2="600" y2="80"/>
+                      <line class="g" x1="0" y1="120" x2="600" y2="120"/>
+                      <line class="g" x1="0" y1="160" x2="600" y2="160"/>
+                      <path class="area" d="M0,150 C80,150 120,140 200,135 C280,130 320,140 400,115 C470,95 520,80 600,52 L600,200 L0,200 Z"/>
+                      <path class="ln" d="M0,150 C80,150 120,140 200,135 C280,130 320,140 400,115 C470,95 520,80 600,52"/>
+                    </svg>
+                    <span class="screen__point" style="left:66.6%; top:57.5%;">
+                      <span class="screen__tip"><b>+17 %</b> TRI net · 2025</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="screen__axis">
+                  <span>Jan</span><span>Mar</span><span>Mai</span><span>Juil</span><span>Sep</span><span>Nov</span>
+                </div>
+              </div>
+
+              <div class="screen__ops">
+                <div class="screen__ops-head">
+                  <b>Opérations en cours</b>
+                  <span class="screen__link">Tout voir</span>
+                </div>
+                <ul class="screen__list">
+                  <li class="screen__op">
+                    <span class="screen__thumb" data-tone="1"></span>
+                    <span class="screen__op-id"><b>91 Champs-Élysées</b><i>Paris 8e · Club deal</i></span>
+                    <span class="screen__prog"><span style="width:78%"></span></span>
+                    <span class="screen__badge">78 % collecté</span>
+                    <span class="screen__op-amt">4,2 M€</span>
+                  </li>
+                  <li class="screen__op">
+                    <span class="screen__thumb" data-tone="2"></span>
+                    <span class="screen__op-id"><b>40 Avenue George V</b><i>Paris 8e · Dette privée</i></span>
+                    <span class="screen__prog"><span style="width:54%"></span></span>
+                    <span class="screen__badge">54 % collecté</span>
+                    <span class="screen__op-amt">2,8 M€</span>
+                  </li>
+                  <li class="screen__op">
+                    <span class="screen__thumb" data-tone="3"></span>
+                    <span class="screen__op-id"><b>48 Rue de Provence</b><i>Paris 9e · Preferred equity</i></span>
+                    <span class="screen__prog"><span style="width:31%"></span></span>
+                    <span class="screen__badge screen__badge--soon">31 % collecté</span>
+                    <span class="screen__op-amt">1,5 M€</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -614,6 +709,6 @@
   </footer>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="script.js?v=30"></script>
+  <script src="script.js?v=31"></script>
 </body>
 </html>
