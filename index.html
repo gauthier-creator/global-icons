@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=21" />
+  <link rel="stylesheet" href="styles.css?v=23" />
 </head>
 <body>
 
@@ -362,47 +362,49 @@
 
     <!-- ===================== CADRE RÉGLEMENTÉ / PSI ===================== -->
     <section class="psi section" id="cadre">
-      <div class="container psi__grid">
-        <div class="psi__head">
-          <span class="eyebrow reveal">Cadre réglementé</span>
-          <h2 class="section__title" data-split-text>Une souscription encadrée par un PSI agréé.</h2>
-        </div>
-        <div class="psi__body">
-          <p class="psi__lead reveal" style="--d:.1s">
-            Les souscriptions sont opérées via un Prestataire de Services d'Investissement (PSI) agréé*,
-            garantissant un cadre sécurisé et conforme à la réglementation. Vous investissez avec la
-            protection et la rigueur attendues d'un acteur supervisé.
-          </p>
-          <ul class="psi__points">
-            <li class="reveal" style="--d:.16s">Agrément et supervision réglementaire</li>
-            <li class="reveal" style="--d:.2s">Vérification d'identité (KYC) et test d'adéquation</li>
-            <li class="reveal" style="--d:.24s">Sécurisation des fonds et des flux</li>
-          </ul>
-          <p class="psi__note reveal">* Nom du PSI partenaire à préciser.</p>
-        </div>
+      <div class="container psi__inner">
+        <span class="eyebrow reveal">Cadre réglementé</span>
+        <h2 class="section__title psi__title" data-split-text>Une souscription encadrée par un PSI agréé.</h2>
+        <p class="psi__lead reveal" style="--d:.14s">
+          Les souscriptions sont opérées via un Prestataire de Services d'Investissement (PSI) agréé*,
+          garantissant un cadre sécurisé et conforme à la réglementation — la protection et la rigueur d'un acteur supervisé.
+        </p>
+        <ul class="psi__points">
+          <li class="reveal" style="--d:.05s">
+            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <span>Agrément et supervision réglementaire</span>
+          </li>
+          <li class="reveal" style="--d:.12s">
+            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <span>Vérification d'identité (KYC) et test d'adéquation</span>
+          </li>
+          <li class="reveal" style="--d:.19s">
+            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <span>Sécurisation des fonds et des flux</span>
+          </li>
+        </ul>
+        <p class="psi__note reveal">* Nom du PSI partenaire à préciser.</p>
       </div>
     </section>
 
     <!-- ===================== FONCIÈRE RENAISSANCE (OPÉRATEUR) ===================== -->
     <section class="operator section section--ink" id="operateur">
-      <div class="container operator__grid">
+      <div class="container">
         <div class="operator__head">
           <span class="eyebrow eyebrow--light reveal">L'opérateur</span>
           <h2 class="section__title" data-split-text>Adossé à Foncière Renaissance.</h2>
         </div>
-        <div class="operator__body">
-          <p class="operator__lead reveal" style="--d:.1s">
-            Global Icons est l'entité de collecte de <strong>Foncière Renaissance</strong>, l'opérateur immobilier
-            qui conçoit, mène et pilote chaque opération. Vous investissez ainsi aux côtés d'un acteur établi,
-            sur des dossiers qu'il opère lui-même — gage d'alignement d'intérêts et d'exigence d'exécution.
-          </p>
-          <ul class="operator__stats">
-            <li class="reveal" style="--d:.16s"><b>15 ans</b><span>d'expérience*</span></li>
-            <li class="reveal" style="--d:.22s"><b>+500 M€</b><span>d'actifs opérés*</span></li>
-            <li class="reveal" style="--d:.28s"><b>40+</b><span>opérations menées*</span></li>
-          </ul>
-          <p class="operator__note reveal">* Données Foncière Renaissance — à valider.</p>
-        </div>
+        <p class="operator__lead reveal" style="--d:.1s">
+          Global Icons est l'entité de collecte de <strong>Foncière Renaissance</strong>, l'opérateur immobilier
+          qui conçoit, mène et pilote chaque opération. Vous investissez ainsi aux côtés d'un acteur établi,
+          sur des dossiers qu'il opère lui-même — gage d'alignement d'intérêts et d'exigence d'exécution.
+        </p>
+        <ul class="operator__stats">
+          <li class="reveal" style="--d:.05s"><b>15 ans</b><span>d'expérience*</span></li>
+          <li class="reveal" style="--d:.12s"><b>+500 M€</b><span>d'actifs opérés*</span></li>
+          <li class="reveal" style="--d:.19s"><b>40+</b><span>opérations menées*</span></li>
+        </ul>
+        <p class="operator__note reveal">* Données Foncière Renaissance — à valider.</p>
       </div>
     </section>
 
@@ -701,6 +703,6 @@
   </footer>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="script.js?v=21"></script>
+  <script src="script.js?v=23"></script>
 </body>
 </html>
