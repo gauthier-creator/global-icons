@@ -61,7 +61,6 @@
       </div>
 
       <div class="hero__content">
-        <span class="eyebrow eyebrow--light reveal">Club deal immobilier</span>
         <h1 class="hero__title" data-split-text>Investir dans l'immobilier qui <em class="accent-soft">traverse le temps.</em></h1>
         <p class="hero__lead reveal" style="--d:.2s">
           Une sélection confidentielle d'opérations immobilières d'exception, réservée à un
@@ -93,11 +92,10 @@
       </div>
     </section>
 
-    <!-- ===================== APPROCHE / MANIFESTO ===================== -->
+    <!-- ===================== APPROCHE / MANIFESTO (centré) ===================== -->
     <section class="approche section" id="approche">
-      <div class="container approche__grid">
-        <span class="eyebrow reveal">L'approche</span>
-        <h2 class="approche__statement" data-split-text>
+      <div class="container approche__grid approche__grid--center">
+        <h2 class="approche__statement approche__statement--center" data-split-text>
           Nous donnons accès à des opérations immobilières <em class="accent">habituellement réservées</em>
           aux plus grandes fortunes — avec l'exigence et la transparence
           d'une maison institutionnelle.
@@ -125,27 +123,36 @@
       <p class="container stats__note reveal">* Chiffres illustratifs — à remplacer par les données réelles.</p>
     </section>
 
-    <!-- ===================== MARQUEE ===================== -->
-    <section class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>Immobilier</span><span class="marquee__dot">●</span>
-        <span>Prime</span><span class="marquee__dot">●</span>
-        <span>Rare</span><span class="marquee__dot">●</span>
-        <span>Sélectif</span><span class="marquee__dot">●</span>
-        <span>Confidentiel</span><span class="marquee__dot">●</span>
-        <span>Immobilier</span><span class="marquee__dot">●</span>
-        <span>Prime</span><span class="marquee__dot">●</span>
-        <span>Rare</span><span class="marquee__dot">●</span>
-        <span>Sélectif</span><span class="marquee__dot">●</span>
-        <span>Confidentiel</span><span class="marquee__dot">●</span>
+    <!-- ===================== FILIGRANE LOGO (séparateur façon Osmose) ===================== -->
+    <section class="brandmark" aria-hidden="true">
+      <span class="brandmark__word">
+        <span class="bm bm--global"></span>
+        <span class="bm bm--icons"></span>
+      </span>
+    </section>
+
+    <!-- ===================== MODULE VIDÉO — LE FILM ===================== -->
+    <section class="film section" id="film">
+      <div class="container film__lead">
+        <span class="film__line reveal" aria-hidden="true"></span>
+      </div>
+      <div class="film__frame container">
+        <div class="vframe reveal" data-video>
+          <!-- Remplacer le placeholder par la vidéo :
+          <video playsinline preload="none" poster="assets/film-poster.jpg"><source src="assets/film.mp4" type="video/mp4" /></video>
+          -->
+          <div class="vframe__ph" data-label="Module vidéo — à intégrer"></div>
+          <div class="vframe__scrim"></div>
+          <span class="vtag">02:14 — Présentation</span>
+          <button class="vplay" data-magnetic aria-label="Lire le film"></button>
+        </div>
       </div>
     </section>
 
     <!-- ===================== NOS SOLUTIONS ===================== -->
-    <section class="solutions section" id="solutions">
+    <section class="solutions section section--paper" id="solutions">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal">Nos solutions</span>
           <h2 class="section__title" data-split-text>Trois façons d'investir à nos côtés.</h2>
         </header>
         <ul class="sol__grid">
@@ -171,84 +178,74 @@
       </div>
     </section>
 
-    <!-- ===================== CARROUSEL — CATÉGORIES D'ACTIFS ===================== -->
-    <section class="cats section" id="categories" data-flow data-flow-speed="95">
-      <div class="container cats__head">
-        <div>
-          <span class="eyebrow reveal">Nos terrains de chasse</span>
-          <h2 class="section__title" data-split-text>L'immobilier que nous sélectionnons.</h2>
-        </div>
-        <div class="cats__nav reveal" style="--d:.12s">
-          <button class="round-btn" data-carousel-prev data-magnetic aria-label="Précédent">&larr;</button>
-          <button class="round-btn" data-carousel-next data-magnetic aria-label="Suivant">&rarr;</button>
-        </div>
+    <!-- ===================== MARQUEE ===================== -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Immobilier</span><span class="marquee__dot">●</span>
+        <span>Prime</span><span class="marquee__dot">●</span>
+        <span>Rare</span><span class="marquee__dot">●</span>
+        <span>Sélectif</span><span class="marquee__dot">●</span>
+        <span>Confidentiel</span><span class="marquee__dot">●</span>
+        <span>Immobilier</span><span class="marquee__dot">●</span>
+        <span>Prime</span><span class="marquee__dot">●</span>
+        <span>Rare</span><span class="marquee__dot">●</span>
+        <span>Sélectif</span><span class="marquee__dot">●</span>
+        <span>Confidentiel</span><span class="marquee__dot">●</span>
       </div>
-      <div class="cats__viewport" data-carousel-viewport>
-        <ul class="cats__rail" data-carousel-rail>
-          <li class="cat">
-            <div class="cat__media"><div class="card__ph" data-tone="1"></div><span class="cat__idx">01</span></div>
-            <h3 class="cat__title">Hôtels particuliers</h3>
-            <p class="cat__desc">Adresses rares en cœur de ville, revalorisation patrimoniale.</p>
+    </section>
+
+    <!-- ===================== PARTENAIRES DISTRIBUTEURS ===================== -->
+    <section class="distrib section section--ink" id="partenaires">
+      <div class="container">
+        <header class="section__head">
+          <h2 class="section__title" data-split-text>Pensé pour les prescripteurs du patrimoine.</h2>
+          <p class="distrib__lead reveal" style="--d:.16s">
+            Global Icons s'adresse aux professionnels qui distribuent nos opérations à leurs clients —
+            avec des outils dédiés, un reporting clair et un accompagnement de proximité.
+          </p>
+        </header>
+        <ul class="distrib__grid">
+          <li class="distrib__card reveal" style="--d:.05s">
+            <span class="distrib__idx">Conseillers en gestion de patrimoine</span>
+            <p>Offrez à vos clients un accès à l'immobilier d'exception, avec des dossiers documentés et un suivi transparent, dans un cadre réglementé.</p>
           </li>
-          <li class="cat">
-            <div class="cat__media"><div class="card__ph" data-tone="2"></div><span class="cat__idx">02</span></div>
-            <h3 class="cat__title">Immeubles de rapport</h3>
-            <p class="cat__desc">Actifs locatifs prime, rendement et création de valeur.</p>
+          <li class="distrib__card reveal" style="--d:.13s">
+            <span class="distrib__idx">Family offices</span>
+            <p>Co-investissez sur des opérations sélectionnées, en architecture ouverte, avec le sur-mesure et la confidentialité attendus.</p>
           </li>
-          <li class="cat">
-            <div class="cat__media"><div class="card__ph" data-tone="3"></div><span class="cat__idx">03</span></div>
-            <h3 class="cat__title">Résidentiel prime</h3>
-            <p class="cat__desc">Emplacements d'exception, biens rares, demande soutenue.</p>
-          </li>
-          <li class="cat">
-            <div class="cat__media"><div class="card__ph" data-tone="4"></div><span class="cat__idx">04</span></div>
-            <h3 class="cat__title">Hôtellerie &amp; resorts</h3>
-            <p class="cat__desc">Actifs d'exploitation, murs et fonds, flux récurrents.</p>
-          </li>
-          <li class="cat">
-            <div class="cat__media"><div class="card__ph" data-tone="5"></div><span class="cat__idx">05</span></div>
-            <h3 class="cat__title">Murs commerciaux prime</h3>
-            <p class="cat__desc">Pieds d'immeuble premium, locataires solides, baux longs.</p>
-          </li>
-          <li class="cat">
-            <div class="cat__media"><div class="card__ph" data-tone="1"></div><span class="cat__idx">06</span></div>
-            <h3 class="cat__title">Value-add &amp; repositionnement</h3>
-            <p class="cat__desc">Restructuration, changement d'usage, création de valeur.</p>
+          <li class="distrib__card reveal" style="--d:.21s">
+            <span class="distrib__idx">Banques privées</span>
+            <p>Enrichissez votre offre d'actifs réels, décorrélés des marchés cotés, opérés par un acteur de référence.</p>
           </li>
         </ul>
+        <div class="distrib__cta reveal">
+          <a href="#contact" class="btn btn--solid btn--light" data-magnetic>Devenir partenaire</a>
+        </div>
       </div>
     </section>
 
-    <!-- ===================== FILIGRANE LOGO (séparateur façon Osmose) ===================== -->
-    <section class="brandmark" aria-hidden="true">
-      <span class="brandmark__word">
-        <span class="bm bm--global"></span>
-        <span class="bm bm--icons"></span>
-      </span>
-    </section>
-
-    <!-- ===================== MODULE VIDÉO — LE FILM ===================== -->
-    <section class="film section" id="film">
-      <div class="container">
-        <header class="section__head section__head--center">
-          <span class="eyebrow reveal">En vidéo</span>
-          <h2 class="section__title" data-split-text>Le film de la maison.</h2>
-        </header>
-      </div>
-      <div class="film__frame container">
-        <div class="vframe reveal" data-video>
-          <!-- Remplacer le placeholder par la vidéo :
-          <video playsinline preload="none" poster="assets/film-poster.jpg"><source src="assets/film.mp4" type="video/mp4" /></video>
-          -->
-          <div class="vframe__ph" data-label="Module vidéo — à intégrer"></div>
-          <div class="vframe__scrim"></div>
-          <span class="vtag">02:14 — Présentation</span>
-          <button class="vplay" data-magnetic aria-label="Lire le film"></button>
-        </div>
-        <div class="film__cap">
-          <span>Notre démarche, nos opérations, notre équipe — en deux minutes.</span>
-          <span>Global Icons · 2025</span>
-        </div>
+    <!-- ===================== CADRE RÉGLEMENTÉ / PSI ===================== -->
+    <section class="psi section" id="cadre">
+      <div class="container psi__inner">
+        <h2 class="section__title psi__title" data-split-text>Une souscription encadrée par un PSI agréé.</h2>
+        <p class="psi__lead reveal" style="--d:.14s">
+          Les souscriptions sont opérées via un Prestataire de Services d'Investissement (PSI) agréé*,
+          garantissant un cadre sécurisé et conforme à la réglementation — la protection et la rigueur d'un acteur supervisé.
+        </p>
+        <ul class="psi__points">
+          <li class="reveal" style="--d:.05s">
+            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <span>Agrément et supervision réglementaire</span>
+          </li>
+          <li class="reveal" style="--d:.12s">
+            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <span>Vérification d'identité (KYC) et test d'adéquation</span>
+          </li>
+          <li class="reveal" style="--d:.19s">
+            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
+            <span>Sécurisation des fonds et des flux</span>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -256,7 +253,6 @@
     <section class="methode section section--ink" id="methode">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow eyebrow--light reveal">Comment ça marche</span>
           <h2 class="section__title" data-split-text>Souscrire en trois étapes.</h2>
         </header>
 
@@ -297,7 +293,6 @@
     <section class="parcours section section--paper" id="parcours">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal">La plateforme</span>
           <h2 class="section__title" data-split-text>Un parcours d'investissement 100 % digital.</h2>
         </header>
 
@@ -368,59 +363,10 @@
       </div>
     </section>
 
-    <!-- ===================== CADRE RÉGLEMENTÉ / PSI ===================== -->
-    <section class="psi section" id="cadre">
-      <div class="container psi__inner">
-        <span class="eyebrow reveal">Cadre réglementé</span>
-        <h2 class="section__title psi__title" data-split-text>Une souscription encadrée par un PSI agréé.</h2>
-        <p class="psi__lead reveal" style="--d:.14s">
-          Les souscriptions sont opérées via un Prestataire de Services d'Investissement (PSI) agréé*,
-          garantissant un cadre sécurisé et conforme à la réglementation — la protection et la rigueur d'un acteur supervisé.
-        </p>
-        <ul class="psi__points">
-          <li class="reveal" style="--d:.05s">
-            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
-            <span>Agrément et supervision réglementaire</span>
-          </li>
-          <li class="reveal" style="--d:.12s">
-            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
-            <span>Vérification d'identité (KYC) et test d'adéquation</span>
-          </li>
-          <li class="reveal" style="--d:.19s">
-            <svg class="psi__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.2l2.4 2.4 4.8-5"/></svg>
-            <span>Sécurisation des fonds et des flux</span>
-          </li>
-        </ul>
-        <p class="psi__note reveal">* Nom du PSI partenaire à préciser.</p>
-      </div>
-    </section>
-
-    <!-- ===================== FONCIÈRE RENAISSANCE (OPÉRATEUR) ===================== -->
-    <section class="operator section section--ink" id="operateur">
-      <div class="container">
-        <div class="operator__head">
-          <span class="eyebrow eyebrow--light reveal">L'opérateur</span>
-          <h2 class="section__title" data-split-text>Adossé à Foncière Renaissance.</h2>
-        </div>
-        <p class="operator__lead reveal" style="--d:.1s">
-          Global Icons est l'entité de collecte de <strong>Foncière Renaissance</strong>, l'opérateur immobilier
-          qui conçoit, mène et pilote chaque opération. Vous investissez ainsi aux côtés d'un acteur établi,
-          sur des dossiers qu'il opère lui-même — gage d'alignement d'intérêts et d'exigence d'exécution.
-        </p>
-        <ul class="operator__stats">
-          <li class="reveal" style="--d:.05s"><b>15 ans</b><span>d'expérience*</span></li>
-          <li class="reveal" style="--d:.12s"><b>+500 M€</b><span>d'actifs opérés*</span></li>
-          <li class="reveal" style="--d:.19s"><b>40+</b><span>opérations menées*</span></li>
-        </ul>
-        <p class="operator__note reveal">* Données Foncière Renaissance — à valider.</p>
-      </div>
-    </section>
-
     <!-- ===================== TRACK RECORD (CARROUSEL) ===================== -->
     <section class="track section" id="trackrecord" data-carousel data-carousel-autoplay="5000">
       <div class="container track__head">
         <div>
-          <span class="eyebrow reveal">Track record · Foncière Renaissance</span>
           <h2 class="section__title" data-split-text>Une histoire d'adresses d'exception.</h2>
         </div>
         <div class="track__nav reveal" style="--d:.12s">
@@ -430,67 +376,122 @@
       </div>
 
       <div class="track__viewport" data-carousel-viewport>
+        <!-- Track record — opérations Foncière Renaissance.
+             Photos & adresses réelles ; tag (arrondissement) et métrique de performance à confirmer / remplacer par les vraies données. -->
         <ul class="track__rail" data-carousel-rail>
           <li class="card">
             <div class="card__media">
-              <div class="card__ph" data-tone="1"></div>
-              <span class="card__year">2024</span>            </div>
+              <img src="91CHAMPSELYSEE.png" alt="91 Champs-Élysées" loading="lazy" />
+            </div>
             <div class="card__body">
-              <span class="card__tag">Hôtel particulier</span>
-              <h3 class="card__title">Hôtel particulier — Paris 7e</h3>
-              <p class="card__meta">Acquisition &amp; revalorisation · sortie 22 mois</p>
-              <span class="card__metric">+19% <em>TRI net</em></span>
+              <span class="card__tag">Paris 8e</span>
+              <h3 class="card__title">91 Champs-Élysées</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
             </div>
           </li>
           <li class="card">
             <div class="card__media">
-              <div class="card__ph" data-tone="2"></div>
-              <span class="card__year">2023</span>            </div>
+              <img src="40AVENUEGEORGEV.png" alt="40 Avenue George V" loading="lazy" />
+            </div>
             <div class="card__body">
-              <span class="card__tag">Immeuble de rapport</span>
-              <h3 class="card__title">Immeuble haussmannien — Lyon</h3>
-              <p class="card__meta">Acquisition &amp; division · 18 lots</p>
-              <span class="card__metric">+24% <em>plus-value</em></span>
+              <span class="card__tag">Paris 8e</span>
+              <h3 class="card__title">40 Avenue George V</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
             </div>
           </li>
           <li class="card">
             <div class="card__media">
-              <div class="card__ph" data-tone="3"></div>
-              <span class="card__year">2023</span>            </div>
+              <img src="73RUEDEMIROMESNIL.png" alt="73 Rue de Miromesnil" loading="lazy" />
+            </div>
             <div class="card__body">
-              <span class="card__tag">Résidentiel prime</span>
-              <h3 class="card__title">Villa contemporaine — Côte d'Azur</h3>
-              <p class="card__meta">Acquisition &amp; revente · sortie 16 mois</p>
-              <span class="card__metric">+15% <em>TRI net</em></span>
+              <span class="card__tag">Paris 8e</span>
+              <h3 class="card__title">73 Rue de Miromesnil</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
             </div>
           </li>
           <li class="card">
             <div class="card__media">
-              <div class="card__ph" data-tone="4"></div>
-              <span class="card__year">2022</span>            </div>
+              <img src="48RUEDEPROVENCE.png" alt="48 Rue de Provence" loading="lazy" />
+            </div>
             <div class="card__body">
-              <span class="card__tag">Value-add</span>
-              <h3 class="card__title">Bureaux reconvertis — Paris 9e</h3>
-              <p class="card__meta">Changement d'usage · résidentiel</p>
-              <span class="card__metric">×2,1 <em>multiple</em></span>
+              <span class="card__tag">Paris 9e</span>
+              <h3 class="card__title">48 Rue de Provence</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
             </div>
           </li>
           <li class="card">
             <div class="card__media">
-              <div class="card__ph" data-tone="5"></div>
-              <span class="card__year">2022</span>            </div>
+              <img src="37RUEDEBELFOND.png" alt="37 Rue de Bellefond" loading="lazy" />
+            </div>
             <div class="card__body">
-              <span class="card__tag">Hôtellerie</span>
-              <h3 class="card__title">Hôtel 4★ — Bordeaux</h3>
-              <p class="card__meta">Murs &amp; fonds · exploitation</p>
-              <span class="card__metric">+28% <em>plus-value</em></span>
+              <span class="card__tag">Paris 9e</span>
+              <h3 class="card__title">37 Rue de Bellefond</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__media">
+              <img src="48notredamedesvictoires.png" alt="48 Notre-Dame-des-Victoires" loading="lazy" />
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris 2e</span>
+              <h3 class="card__title">48 Notre-Dame-des-Victoires</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
+            </div>
+          </li>
+          <li class="card">
+            <div class="card__media">
+              <img src="27ruegrandprieure.png" alt="27 Rue du Grand Prieuré" loading="lazy" />
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris 11e</span>
+              <h3 class="card__title">27 Rue du Grand Prieuré</h3>
+              <span class="card__metric">— <em>performance à documenter</em></span>
             </div>
           </li>
         </ul>
       </div>
-      <div class="container track__foot">
-        <div class="track__count"><b data-carousel-cur>01</b> <span>/ <span data-carousel-tot>05</span></span></div>
-        <div class="track__progress"><span data-carousel-progress></span></div>
+    </section>
+
+    <!-- ===================== ÉQUIPE (carrousel à flux continu) ===================== -->
+    <section class="team cats section" id="equipe" data-flow data-flow-speed="60">
+      <div class="container cats__head">
+        <div>
+          <h2 class="section__title" data-split-text>Des opérateurs, pas des intermédiaires.</h2>
+        </div>
+        <div class="cats__nav reveal" style="--d:.12s">
+          <button class="round-btn" data-carousel-prev data-magnetic aria-label="Précédent">&larr;</button>
+          <button class="round-btn" data-carousel-next data-magnetic aria-label="Suivant">&rarr;</button>
+        </div>
+      </div>
+      <div class="cats__viewport" data-carousel-viewport>
+        <ul class="cats__rail" data-carousel-rail>
+          <li class="cat member">
+            <div class="cat__media member__photo" data-tone="1"></div>
+            <h3 class="cat__title">Prénom Nom</h3>
+            <p class="cat__desc">Associé fondateur</p>
+          </li>
+          <li class="cat member">
+            <div class="cat__media member__photo" data-tone="2"></div>
+            <h3 class="cat__title">Prénom Nom</h3>
+            <p class="cat__desc">Direction des investissements</p>
+          </li>
+          <li class="cat member">
+            <div class="cat__media member__photo" data-tone="3"></div>
+            <h3 class="cat__title">Prénom Nom</h3>
+            <p class="cat__desc">Relations investisseurs</p>
+          </li>
+          <li class="cat member">
+            <div class="cat__media member__photo" data-tone="4"></div>
+            <h3 class="cat__title">Prénom Nom</h3>
+            <p class="cat__desc">Structuration &amp; juridique</p>
+          </li>
+          <li class="cat member">
+            <div class="cat__media member__photo" data-tone="2"></div>
+            <h3 class="cat__title">Prénom Nom</h3>
+            <p class="cat__desc">Asset management</p>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -498,7 +499,6 @@
     <section class="duo section section--paper">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal">Coulisses</span>
           <h2 class="section__title" data-split-text>Au plus près de la pierre.</h2>
         </header>
         <div class="duo__grid">
@@ -524,113 +524,10 @@
       </div>
     </section>
 
-    <!-- ===================== ÉQUIPE ===================== -->
-    <section class="team section section--paper" id="equipe">
-      <div class="container">
-        <header class="section__head">
-          <span class="eyebrow reveal">L'équipe</span>
-          <h2 class="section__title" data-split-text>Des opérateurs, pas des intermédiaires.</h2>
-        </header>
-
-        <ul class="team__grid">
-          <li class="member reveal" style="--d:.05s">
-            <div class="member__photo" data-tone="1"></div>
-            <h3 class="member__name">Prénom Nom</h3>
-            <span class="member__role">Associé fondateur</span>
-          </li>
-          <li class="member reveal" style="--d:.12s">
-            <div class="member__photo" data-tone="2"></div>
-            <h3 class="member__name">Prénom Nom</h3>
-            <span class="member__role">Direction des investissements</span>
-          </li>
-          <li class="member reveal" style="--d:.19s">
-            <div class="member__photo" data-tone="3"></div>
-            <h3 class="member__name">Prénom Nom</h3>
-            <span class="member__role">Relations investisseurs</span>
-          </li>
-          <li class="member reveal" style="--d:.26s">
-            <div class="member__photo" data-tone="4"></div>
-            <h3 class="member__name">Prénom Nom</h3>
-            <span class="member__role">Structuration &amp; juridique</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===================== CARROUSEL — TÉMOIGNAGES ===================== -->
-    <section class="quotes section" id="temoignages" data-carousel>
-      <div class="container quotes__head">
-        <div>
-          <span class="eyebrow reveal">Ils investissent avec nous</span>
-          <h2 class="section__title" data-split-text>La confiance d'un cercle exigeant.</h2>
-        </div>
-        <div class="quotes__nav reveal" style="--d:.12s">
-          <button class="round-btn" data-carousel-prev data-magnetic aria-label="Précédent">&larr;</button>
-          <button class="round-btn" data-carousel-next data-magnetic aria-label="Suivant">&rarr;</button>
-        </div>
-      </div>
-      <div class="quotes__viewport" data-carousel-viewport>
-        <ul class="quotes__rail" data-carousel-rail>
-          <li class="quote">
-            <span class="quote__mark">”</span>
-            <blockquote class="quote__text">Une approche d'une rigueur rare, avec un accès à des opérations que l'on ne voit nulle part ailleurs.</blockquote>
-            <div class="quote__by"><span class="quote__name">— Prénom N.</span><span class="quote__role">Family office</span></div>
-          </li>
-          <li class="quote">
-            <span class="quote__mark">”</span>
-            <blockquote class="quote__text">La transparence sur chaque dossier change tout. On comprend exactement ce dans quoi on investit.</blockquote>
-            <div class="quote__by"><span class="quote__name">— Prénom N.</span><span class="quote__role">Investisseur privé</span></div>
-          </li>
-          <li class="quote">
-            <span class="quote__mark">”</span>
-            <blockquote class="quote__text">Un interlocuteur unique, de la pierre tangible, un suivi impeccable. Exactement ce que je cherchais.</blockquote>
-            <div class="quote__by"><span class="quote__name">— Prénom N.</span><span class="quote__role">Conseiller en gestion de patrimoine</span></div>
-          </li>
-          <li class="quote">
-            <span class="quote__mark">”</span>
-            <blockquote class="quote__text">La sélection est exigeante et le cercle reste restreint. C'est ce qui fait la valeur de chaque opération.</blockquote>
-            <div class="quote__by"><span class="quote__name">— Prénom N.</span><span class="quote__role">Dirigeant</span></div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===================== PARTENAIRES DISTRIBUTEURS ===================== -->
-    <section class="distrib section section--ink" id="partenaires">
-      <div class="container">
-        <header class="section__head">
-          <span class="eyebrow eyebrow--light reveal">Partenaires distributeurs</span>
-          <h2 class="section__title" data-split-text>Pensé pour les prescripteurs du patrimoine.</h2>
-          <p class="distrib__lead reveal" style="--d:.16s">
-            Global Icons s'adresse aux professionnels qui distribuent nos opérations à leurs clients —
-            avec des outils dédiés, un reporting clair et un accompagnement de proximité.
-          </p>
-        </header>
-        <ul class="distrib__grid">
-          <li class="distrib__card reveal" style="--d:.05s">
-            <span class="distrib__idx">Conseillers en gestion de patrimoine</span>
-            <p>Offrez à vos clients un accès à l'immobilier d'exception, avec des dossiers documentés et un suivi transparent, dans un cadre réglementé.</p>
-          </li>
-          <li class="distrib__card reveal" style="--d:.13s">
-            <span class="distrib__idx">Family offices</span>
-            <p>Co-investissez sur des opérations sélectionnées, en architecture ouverte, avec le sur-mesure et la confidentialité attendus.</p>
-          </li>
-          <li class="distrib__card reveal" style="--d:.21s">
-            <span class="distrib__idx">Banques privées</span>
-            <p>Enrichissez votre offre d'actifs réels, décorrélés des marchés cotés, opérés par un acteur de référence.</p>
-          </li>
-        </ul>
-        <div class="distrib__cta reveal">
-          <a href="#contact" class="btn btn--solid btn--light" data-magnetic>Devenir partenaire</a>
-        </div>
-      </div>
-    </section>
-
     <!-- ===================== FAQ ===================== -->
     <section class="faq section" id="faq">
       <div class="container faq__grid">
         <div class="faq__intro">
-          <span class="eyebrow reveal">Questions fréquentes</span>
           <h2 class="section__title" data-split-text>Tout ce qu'il faut savoir.</h2>
           <p class="faq__help reveal" style="--d:.16s">
             Une question qui n'apparaît pas&nbsp;? <a href="#contact">Écrivez-nous.</a>
@@ -669,7 +566,6 @@
     <!-- ===================== CONTACT / CTA ===================== -->
     <section class="cta section section--ink" id="contact">
       <div class="container cta__inner">
-        <span class="eyebrow eyebrow--light reveal">Rejoindre le cercle</span>
         <h2 class="cta__title" data-split-text>Prêt à accéder aux prochaines opérations&nbsp;?</h2>
         <p class="cta__lead reveal" style="--d:.16s">L'accès est sélectif et confidentiel. Adressez-nous votre demande.</p>
         <a href="mailto:contact@globalicons.co" class="btn btn--solid btn--light reveal" style="--d:.24s" data-magnetic>contact@globalicons.co</a>
