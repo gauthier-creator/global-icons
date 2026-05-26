@@ -76,6 +76,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .accent-soft { color: var(--accent-soft); }
 
 .section__head { max-width: 820px; margin-bottom: clamp(40px, 5vw, 66px); }
+.section__head--center { margin-left: auto; margin-right: auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.section__head--center .section__title { text-align: center; }
 .section__title {
   font-weight: 300; font-size: clamp(2.1rem, 5.6vw, 4.6rem); line-height: 1.04;
   letter-spacing: -0.03em; color: var(--head);
@@ -121,23 +123,21 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* Header façon Osmose : barre transparente + mix-blend-mode difference.
    Le contenu (blanc) s'inverse tout seul selon le fond derrière :
    blanc sur les sections sombres, noir sur les sections claires. */
+/* reproduction exacte du header osmose.co : barre transparente, hauteur constante,
+   mix-blend-mode difference (auto-inversion selon le fond), CTA pilule pleine quasi-noire */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 800;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 26px var(--gut); color: #fff;
+  padding: 21px var(--gut); color: #fff;
   mix-blend-mode: difference;
-  transition: padding .5s var(--ease);
 }
-.nav.is-solid { padding-top: 18px; padding-bottom: 18px; }
 .nav__brand { display: flex; align-items: center; will-change: transform; }
-.nav__logo { height: 34px; width: auto; display: block; filter: invert(1); }
-.nav__links { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 40px); }
-.nav__links a { font-size: 0.92rem; position: relative; opacity: .85; transition: opacity .3s; }
-.nav__links a::after { content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 0; background: currentColor; transition: width .45s var(--ease); }
+.nav__logo { height: 30px; width: auto; display: block; filter: invert(1); }
+.nav__links { display: flex; align-items: center; gap: 2px; }
+.nav__links a { font-size: 14px; font-weight: 300; color: #fff; padding: 8px 13px; border-radius: 999px; opacity: .9; transition: opacity .3s var(--ease); }
 .nav__links a:hover { opacity: 1; }
-.nav__links a:hover::after { width: 100%; }
-.nav__cta { font-size: 0.9rem; font-weight: 500; padding: .7em 1.6em; border: 1px solid currentColor; border-radius: 999px; opacity: .95; transition: opacity .3s var(--ease); will-change: transform; }
-.nav__cta:hover { opacity: 1; }
+.nav__cta { font-size: 14px; font-weight: 400; color: #fff; background: #0c0a09; padding: 11px 20px; border: none; border-radius: 999px; transition: opacity .3s var(--ease); will-change: transform; }
+.nav__cta:hover { opacity: .82; }
 .nav__burger { display: none; flex-direction: column; gap: 6px; width: 34px; }
 .nav__burger span { height: 1.5px; background: currentColor; transition: transform .4s var(--ease), opacity .3s; }
 /* menu mobile ouvert : on neutralise le blend (sinon l'overlay s'inverse) */
@@ -458,6 +458,22 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .cta__inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .cta__title { font-weight: 300; font-size: clamp(2rem, 5.6vw, 4.6rem); line-height: 1.04; letter-spacing: -0.035em; max-width: 18ch; color: var(--paper); }
 .cta__lead { color: var(--muted-light); margin: 26px 0 40px; max-width: 44ch; font-weight: 300; }
+
+/* ============================================================
+   FILIGRANE LOGO — séparateur (façon Osmose)
+   ============================================================ */
+.brandmark {
+  overflow: hidden; background: var(--paper); display: flex; justify-content: center; align-items: center;
+  padding: clamp(34px, 5.5vw, 80px) var(--gut);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent), linear-gradient(180deg, transparent, #000 34%, #000 66%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent), linear-gradient(180deg, transparent, #000 34%, #000 66%, transparent);
+  mask-composite: intersect;
+}
+.brandmark__word { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 52px); white-space: nowrap; }
+.bm { display: block; height: clamp(58px, 12.5vw, 158px); width: auto; background-color: #f5f5f4; }
+.bm--global { aspect-ratio: 135 / 36; -webkit-mask: url("Globallogo.svg") no-repeat center / contain; mask: url("Globallogo.svg") no-repeat center / contain; }
+.bm--icons { aspect-ratio: 108 / 35; -webkit-mask: url("iconslogo.svg") no-repeat center / contain; mask: url("iconslogo.svg") no-repeat center / contain; }
 
 /* ============================================================
    FOOTER
