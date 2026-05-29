@@ -173,34 +173,55 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* ============================================================
    HERO
    ============================================================ */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; color: var(--paper); overflow: hidden; }
-.hero__media { position: absolute; inset: -12% 0; z-index: -1; will-change: transform; }
-.hero__video { width: 100%; height: 100%; object-fit: cover; }
-.hero__placeholder {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(120% 120% at 18% 8%, #34343180 0%, transparent 55%),
-    radial-gradient(120% 120% at 92% 92%, #45454166 0%, transparent 50%),
-    linear-gradient(135deg, #1c1c1a 0%, #0e0e0d 60%, #1f1f1d 100%);
-  background-size: 200% 200%; animation: heroPan 22s ease-in-out infinite alternate;
+/* hero light/premium avec scène collante (sticky pin) et 3 trophy cards qui se déploient au scroll
+   --p : progression 0→1 du scroll dans le hero, mise à jour en JS */
+.hero { position: relative; min-height: 180vh; color: var(--head); background: var(--paper); overflow: clip; --p: 0; }
+.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
+.hero__stage { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(40px, 6vw, 100px); padding: clamp(110px, 16vh, 160px) var(--gut) clamp(60px, 8vh, 90px); max-width: 1320px; margin: 0 auto; width: 100%; }
+/* colonne copy */
+.hero__copy { position: relative; max-width: 600px; transform: translateY(calc(var(--p, 0) * -50px)); opacity: calc(1 - var(--p, 0) * 0.7); will-change: transform, opacity; }
+.hero__eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 30px; padding-left: 30px; position: relative; }
+.hero__eyebrow::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 20px; height: 1px; background: var(--ink); }
+.hero__title { font-weight: 300; font-size: clamp(2.4rem, 5.6vw, 4.8rem); line-height: 1.04; letter-spacing: -0.035em; margin: 8px 0 28px; color: var(--head); max-width: 16ch; }
+.hero__title em { font-style: italic; color: var(--ink); font-weight: 400; }
+.hero__lead { max-width: 500px; font-size: clamp(1rem, 1.3vw, 1.12rem); color: var(--body); font-weight: 300; line-height: 1.55; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.btn--dark { color: var(--head); border: 1px solid rgba(15,15,14,.28); background: transparent; }
+.btn--dark:hover { border-color: var(--head); background: rgba(15,15,14,.04); }
+
+/* deck (3 trophy cards) — état initial empilé, déployé en main de cartes au scroll */
+.hero__deck { position: relative; height: 100%; min-height: 480px; display: flex; align-items: center; justify-content: center; perspective: 1600px; }
+.trophy {
+  position: absolute; width: clamp(240px, 22vw, 320px); aspect-ratio: 3 / 4.4;
+  border-radius: 18px; overflow: hidden; background: var(--ink); color: #fff;
+  box-shadow: 0 40px 80px -30px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
+  will-change: transform, opacity;
+  transition: box-shadow .6s var(--ease);
 }
-.hero__placeholder::after { content: "Vidéo header — à intégrer"; position: absolute; inset: auto 0 50% 0; text-align: center; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.16); }
-@keyframes heroPan { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
-.hero__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22,19,13,.5) 0%, rgba(22,19,13,.12) 38%, rgba(22,19,13,.8) 100%); }
+.trophy--center { z-index: 3; transform: translate3d(0, calc(var(--p, 0) * -8px), 0) rotateZ(0deg); }
+.trophy--left   { z-index: 2; transform: translate3d(calc(var(--p, 0) * -118%), calc(var(--p, 0) * -10px), 0) rotateZ(calc(var(--p, 0) * -7deg)); opacity: calc(.15 + var(--p, 0) * .85); }
+.trophy--right  { z-index: 1; transform: translate3d(calc(var(--p, 0) *  118%), calc(var(--p, 0) * -10px), 0) rotateZ(calc(var(--p, 0) *  7deg)); opacity: calc(.15 + var(--p, 0) * .85); }
+.trophy__photo { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.02); }
+.trophy__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,15,14,.55) 0%, rgba(15,15,14,0) 28%, rgba(15,15,14,0) 50%, rgba(15,15,14,.94) 100%); }
+.trophy__head  { position: absolute; top: 0; left: 0; right: 0; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.9); }
+.trophy__pill  { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.32); padding: 4px 10px; border-radius: 999px; font-size: 0.58rem; letter-spacing: 0.16em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.trophy__foot  { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+.trophy__loc   { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,.72); }
+.trophy__name  { font-weight: 400; font-size: 1.05rem; letter-spacing: -0.015em; line-height: 1.18; color: #fff; margin: 2px 0 12px; }
+.trophy__row   { display: flex; align-items: baseline; justify-content: space-between; padding-top: 11px; border-top: 1px solid rgba(255,255,255,.2); }
+.trophy__row span { font-size: 0.66rem; color: rgba(255,255,255,.68); letter-spacing: 0.04em; }
+.trophy__row b    { font-weight: 400; font-size: 1.1rem; letter-spacing: -0.02em; color: #fff; font-variant-numeric: tabular-nums; }
 
-.hero__content { position: relative; padding: 0 var(--gut); max-width: 1180px; margin-bottom: clamp(38px, 6vw, 76px); }
-.hero__title { font-weight: 300; font-size: clamp(2.9rem, 8.4vw, 7.4rem); line-height: 0.98; letter-spacing: -0.045em; margin: 10px 0 30px; max-width: 16ch; }
-.hero__lead { max-width: 460px; font-size: clamp(1rem, 1.5vw, 1.18rem); color: rgba(250,248,243,.8); font-weight: 300; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
-
-.hero__foot { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; padding: 0 var(--gut) 34px; }
-.hero__scroll { display: flex; flex-direction: column; gap: 12px; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: .82; }
-.hero__scroll-line { width: 1px; height: 48px; background: linear-gradient(var(--accent-soft), transparent); animation: scrollPulse 2.4s var(--ease) infinite; transform-origin: top; }
+/* foot bar (sous le stage, dans le pin) */
+.hero__foot { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; padding: 0 var(--gut) 28px; color: var(--muted); }
+.hero__scroll { display: flex; flex-direction: column; gap: 12px; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.hero__scroll-line { width: 1px; height: 48px; background: linear-gradient(var(--ink), transparent); animation: scrollPulse 2.4s var(--ease) infinite; transform-origin: top; }
 @keyframes scrollPulse { 0%,100%{ transform: scaleY(.4); opacity:.4;} 50%{ transform: scaleY(1); opacity:1;} }
 .hero__ticker { overflow: hidden; max-width: 46%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent); mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent); }
-.hero__ticker-track { display: inline-flex; gap: 18px; white-space: nowrap; animation: ticker 26s linear infinite; font-size: 0.8rem; letter-spacing: 0.06em; color: rgba(250,248,243,.55); }
-.hero__ticker-track .dot { color: var(--accent-soft); }
+.hero__ticker-track { display: inline-flex; gap: 18px; white-space: nowrap; animation: ticker 26s linear infinite; font-size: 0.8rem; letter-spacing: 0.06em; color: var(--muted); }
+.hero__ticker-track .dot { color: var(--ink); opacity: .5; }
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes heroPan { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
 
 /* ============================================================
    APPROCHE
@@ -650,6 +671,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .screen__spark { display: none; }
   .hero__ticker { display: none; }
   .hero__foot { justify-content: flex-start; }
+  /* hero mobile : on désactive le pin et le deck, carte unique simplifiée */
+  .hero { min-height: 100svh; }
+  .hero__pin { position: relative; height: auto; }
+  .hero__stage { grid-template-columns: 1fr; gap: 36px; padding: 110px var(--gut) 30px; }
+  .hero__copy { max-width: none; transform: none !important; opacity: 1 !important; }
+  .hero__deck { min-height: 360px; padding: 0; perspective: none; }
+  .trophy { transform: none !important; }
+  .trophy--left, .trophy--right { display: none; }
+  .trophy--center { position: relative; width: min(310px, 78vw); }
   .nav__links.is-open { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--ink); color: var(--paper); align-items: center; justify-content: center; gap: 30px; font-size: 1.7rem; font-weight: 300; z-index: 700; }
   .nav__links.is-open a { opacity: 1; }
 }
