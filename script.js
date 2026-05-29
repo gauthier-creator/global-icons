@@ -192,6 +192,70 @@
   }
 
   /* ============================================================
+     HERO PIN — progression --p au scroll (deck façon Revolut)
+     ============================================================ */
+  const heroEl = $("[data-hero]");
+  if (heroEl && !reduce) {
+    const setHeroP = () => {
+      const r = heroEl.getBoundingClientRect();
+      const total = r.height - window.innerHeight;
+      if (total <= 0) { heroEl.style.setProperty("--p", "0"); return; }
+      const scrolled = -r.top;
+      const p = Math.max(0, Math.min(1, scrolled / total));
+      heroEl.style.setProperty("--p", p.toFixed(4));
+    };
+    if (lenis) lenis.on("scroll", setHeroP);
+    else window.addEventListener("scroll", setHeroP, { passive: true });
+    window.addEventListener("resize", setHeroP);
+    setHeroP();
+  }
+
+  /* ============================================================
+     SECTION SNAP — au repos, snap programmatique à la section la plus proche
+     (le hero est exclu pour ne pas casser son animation pilotée par scroll)
+     ============================================================ */
+  if (!reduce) {
+    const snapSections = $$("main > section, footer").filter((s) =>
+      !s.classList.contains("hero") &&
+      !s.classList.contains("brandmark") &&
+      !s.classList.contains("marquee")
+    );
+    let snapTimer = null;
+    let isSnapping = false;
+    const snapNearest = () => {
+      if (isSnapping || !snapSections.length) return;
+      const y = lenis ? lenis.scroll : window.scrollY;
+      // ne snap qu'après le hero (le hero gère son propre scroll)
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 0;
+      if (y < heroBottom - window.innerHeight * 0.5) return;
+      let nearest = snapSections[0];
+      let minDist = Infinity;
+      for (const s of snapSections) {
+        const d = Math.abs(s.offsetTop - y);
+        if (d < minDist) { minDist = d; nearest = s; }
+      }
+      // seuil : pas de snap si déjà très proche ni si trop loin (laisse scroller dans les sections hautes)
+      if (minDist < 8 || minDist > window.innerHeight * 0.32) return;
+      isSnapping = true;
+      if (lenis) {
+        lenis.scrollTo(nearest, { duration: 0.7, onComplete: () => { isSnapping = false; } });
+      } else {
+        nearest.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => { isSnapping = false; }, 700);
+      }
+    };
+    const onScrollEnd = () => {
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(snapNearest, 220);
+    };
+    window.addEventListener("wheel", onScrollEnd, { passive: true });
+    window.addEventListener("touchend", onScrollEnd, { passive: true });
+    window.addEventListener("keyup", (e) => {
+      if (["PageDown", "PageUp", "ArrowDown", "ArrowUp", "Space"].includes(e.code)) onScrollEnd();
+    });
+  }
+
+  /* ============================================================
      Boutons / éléments magnétiques
      ============================================================ */
   if (fine && !reduce) {
