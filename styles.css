@@ -173,13 +173,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* ============================================================
    HERO
    ============================================================ */
-/* hero light/premium — 200vh sticky pin :
-   - état 0 : seule la carte centrale visible au centre du viewport (rien d'autre)
-   - état 1 (scroll) : 3 cartes alignées (centrale + deux latérales qui se déploient)
+/* hero — la carte est intégrée dans un fond plein écran (photo 91 Champs).
+   À l'arrivée : on voit le décor + le contour translucide de la carte.
+   Au scroll : le voile blanc se révèle, la carte se remplit (devient solide), les latérales se déploient.
    --p : progression 0→1 du scroll dans le hero, mise à jour en JS */
 .hero { position: relative; min-height: 200vh; color: var(--head); background: var(--paper); overflow: clip; --p: 0; }
-.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
-.hero__deck { position: relative; width: 100%; height: 100%; perspective: 1600px; }
+.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero__bg, .hero__bg-scrim, .hero__veil { position: absolute; inset: 0; pointer-events: none; }
+.hero__bg { background-size: cover; background-position: center; z-index: 1; transform: scale(calc(1 + var(--p, 0) * 0.06)); transition: transform 80ms linear; }
+.hero__bg-scrim { background: linear-gradient(180deg, rgba(15,15,14,.32) 0%, rgba(15,15,14,.48) 50%, rgba(15,15,14,.62) 100%); z-index: 2; opacity: calc(1 - var(--p, 0) * 0.85); }
+.hero__veil { background: var(--paper); z-index: 3; opacity: var(--p, 0); }
+.hero__deck { position: relative; z-index: 4; width: 100%; height: 100%; perspective: 1600px; }
 .hero__eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 30px; padding-left: 30px; position: relative; }
 .hero__eyebrow::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 20px; height: 1px; background: var(--ink); }
 .hero__title { font-weight: 300; font-size: clamp(2.4rem, 5.6vw, 4.8rem); line-height: 1.04; letter-spacing: -0.035em; margin: 8px 0 28px; color: var(--head); max-width: 16ch; }
@@ -194,14 +198,27 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .trophy {
   position: absolute; top: 50%; left: 50%;
   width: clamp(280px, 26vw, 380px); aspect-ratio: 3 / 4.4;
-  border-radius: 20px; overflow: hidden; background: var(--ink); color: #fff;
-  box-shadow: 0 50px 100px -32px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
-  will-change: transform, opacity;
+  border-radius: 20px; overflow: hidden; color: #fff;
+  will-change: transform, opacity, background;
 }
-/* Centrale toujours pinée au centre du viewport. Les latérales partent du même point et se déploient. */
-.trophy--center { z-index: 3; transform: translate(-50%, -50%); }
+/* Latérales : solides, fade in + déploiement */
+.trophy--left, .trophy--right {
+  background: var(--ink);
+  box-shadow: 0 50px 100px -32px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
+}
 .trophy--left   { z-index: 2; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) * -118%)) rotate(calc(var(--p, 0) * -7deg)); opacity: var(--p, 0); }
 .trophy--right  { z-index: 1; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) *  118%)) rotate(calc(var(--p, 0) *  7deg)); opacity: var(--p, 0); }
+/* Centrale : transparente / contour seul à l'arrivée, devient solide au scroll */
+.trophy--center {
+  z-index: 3; transform: translate(-50%, -50%);
+  background: rgba(15,15,14, var(--p, 0));
+  border: 1px solid rgba(255,255,255, calc(0.55 - var(--p, 0) * 0.45));
+  box-shadow:
+    0 50px 100px -32px rgba(15,15,14, calc(0.55 * var(--p, 0))),
+    0 14px 36px -18px rgba(15,15,14, calc(0.32 * var(--p, 0)));
+}
+.trophy--center .trophy__photo,
+.trophy--center .trophy__scrim { opacity: var(--p, 0); }
 .trophy__photo { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.02); }
 .trophy__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,15,14,.55) 0%, rgba(15,15,14,0) 28%, rgba(15,15,14,0) 50%, rgba(15,15,14,.94) 100%); }
 .trophy__head  { position: absolute; top: 0; left: 0; right: 0; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.9); }
@@ -672,12 +689,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .screen__spark { display: none; }
   .hero__ticker { display: none; }
   .hero__foot { justify-content: flex-start; }
-  /* hero mobile : carte unique centrée, sans animation */
+  /* hero mobile : carte unique centrée, sans décor ni animation */
   .hero { min-height: 100svh; }
   .hero__pin { height: 100vh; }
+  .hero__bg, .hero__bg-scrim, .hero__veil { display: none; }
   .hero__deck { perspective: none; }
   .trophy--left, .trophy--right { display: none; }
-  .trophy--center { width: min(300px, 75vw); opacity: 1 !important; }
+  .trophy--center { width: min(300px, 75vw); opacity: 1 !important; background: var(--ink) !important; border-color: transparent !important; box-shadow: 0 50px 100px -32px rgba(15,15,14,.45), 0 14px 36px -18px rgba(15,15,14,.28) !important; }
+  .trophy--center .trophy__photo, .trophy--center .trophy__scrim { opacity: 1 !important; }
   .nav__links.is-open { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--ink); color: var(--paper); align-items: center; justify-content: center; gap: 30px; font-size: 1.7rem; font-weight: 300; z-index: 700; }
   .nav__links.is-open a { opacity: 1; }
 }
