@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=36" />
+  <link rel="stylesheet" href="styles.css?v=37" />
 </head>
 <body>
 
@@ -54,80 +54,42 @@
 
   <main id="top">
 
-    <!-- ===================== HERO — TROPHY ASSETS (deck scroll-driven, façon Revolut) ===================== -->
+    <!-- ===================== HERO — TROPHY ASSETS (carte unique → 3 cartes au scroll) ===================== -->
     <section class="hero" id="hero" data-hero>
       <div class="hero__pin">
-        <div class="hero__stage container">
+        <div class="hero__deck" aria-hidden="true">
+          <article class="trophy trophy--left">
+            <div class="trophy__photo" style="background-image:url('73RUEDEMIROMESNIL.png')"></div>
+            <div class="trophy__scrim"></div>
+            <header class="trophy__head"><span>Global Icons</span><span class="trophy__pill">En cours</span></header>
+            <footer class="trophy__foot">
+              <span class="trophy__loc">Paris VIII · Hôtel particulier</span>
+              <h3 class="trophy__name">73 Rue de Miromesnil</h3>
+              <div class="trophy__row"><span>TRI op. (est.)</span><b>58,4 %</b></div>
+            </footer>
+          </article>
 
-          <div class="hero__copy">
-            <span class="hero__eyebrow">Trophy assets · Off-market</span>
-            <h1 class="hero__title" data-split-text>
-              Les <em class="accent">trophy assets</em> immobiliers, accessibles à vos clients.
-            </h1>
-            <p class="hero__lead reveal" style="--d:.2s">
-              Global Icons donne aux conseillers en gestion de patrimoine, family offices et banques privées
-              accès à des opérations immobilières prime — sourcées, opérées et co-investies par Foncière&nbsp;Renaissance.
-            </p>
-            <div class="hero__actions reveal" style="--d:.3s">
-              <a href="#contact" class="btn btn--solid" data-magnetic>Devenir partenaire</a>
-              <a href="#trackrecord" class="btn btn--ghost btn--dark" data-magnetic>Voir le track record</a>
-            </div>
-          </div>
+          <article class="trophy trophy--center">
+            <div class="trophy__photo" style="background-image:url('91CHAMPSELYSEE.png')"></div>
+            <div class="trophy__scrim"></div>
+            <header class="trophy__head"><span>Global Icons</span><span class="trophy__pill">Trophy asset</span></header>
+            <footer class="trophy__foot">
+              <span class="trophy__loc">Paris VIII · Commerce prime</span>
+              <h3 class="trophy__name">91 Champs-Élysées</h3>
+              <div class="trophy__row"><span>Valeur</span><b>587 M€</b></div>
+            </footer>
+          </article>
 
-          <div class="hero__deck" aria-hidden="true">
-            <article class="trophy trophy--left">
-              <div class="trophy__photo" style="background-image:url('73RUEDEMIROMESNIL.png')"></div>
-              <div class="trophy__scrim"></div>
-              <header class="trophy__head"><span>Global Icons</span><span class="trophy__pill">En cours</span></header>
-              <footer class="trophy__foot">
-                <span class="trophy__loc">Paris VIII · Hôtel particulier</span>
-                <h3 class="trophy__name">73 Rue de Miromesnil</h3>
-                <div class="trophy__row"><span>TRI op. (est.)</span><b>58,4 %</b></div>
-              </footer>
-            </article>
-
-            <article class="trophy trophy--center">
-              <div class="trophy__photo" style="background-image:url('91CHAMPSELYSEE.png')"></div>
-              <div class="trophy__scrim"></div>
-              <header class="trophy__head"><span>Global Icons</span><span class="trophy__pill">Trophy asset</span></header>
-              <footer class="trophy__foot">
-                <span class="trophy__loc">Paris VIII · Commerce prime</span>
-                <h3 class="trophy__name">91 Champs-Élysées</h3>
-                <div class="trophy__row"><span>Valeur</span><b>587 M€</b></div>
-              </footer>
-            </article>
-
-            <article class="trophy trophy--right">
-              <div class="trophy__photo" style="background-image:url('48notredamedesvictoires.png')"></div>
-              <div class="trophy__scrim"></div>
-              <header class="trophy__head"><span>Global Icons</span><span class="trophy__pill">En cours</span></header>
-              <footer class="trophy__foot">
-                <span class="trophy__loc">Paris IX · Bureaux</span>
-                <h3 class="trophy__name">48 Notre-Dame-des-Victoires</h3>
-                <div class="trophy__row"><span>TRI op. (est.)</span><b>25,3 %</b></div>
-              </footer>
-            </article>
-          </div>
-
-        </div>
-
-        <div class="hero__foot">
-          <a href="#approche" class="hero__scroll" aria-label="Faire défiler">
-            <span>Découvrir</span>
-            <span class="hero__scroll-line"></span>
-          </a>
-          <div class="hero__ticker" aria-hidden="true">
-            <div class="hero__ticker-track">
-              <span>Hôtels particuliers</span><span class="dot">/</span>
-              <span>Immeubles de bureaux</span><span class="dot">/</span>
-              <span>Commerce prime</span><span class="dot">/</span>
-              <span>Résidentiel prime</span><span class="dot">/</span>
-              <span>Hôtels particuliers</span><span class="dot">/</span>
-              <span>Immeubles de bureaux</span><span class="dot">/</span>
-              <span>Commerce prime</span><span class="dot">/</span>
-              <span>Résidentiel prime</span><span class="dot">/</span>
-            </div>
-          </div>
+          <article class="trophy trophy--right">
+            <div class="trophy__photo" style="background-image:url('48notredamedesvictoires.png')"></div>
+            <div class="trophy__scrim"></div>
+            <header class="trophy__head"><span>Global Icons</span><span class="trophy__pill">En cours</span></header>
+            <footer class="trophy__foot">
+              <span class="trophy__loc">Paris IX · Bureaux</span>
+              <h3 class="trophy__name">48 Notre-Dame-des-Victoires</h3>
+              <div class="trophy__row"><span>TRI op. (est.)</span><b>25,3 %</b></div>
+            </footer>
+          </article>
         </div>
       </div>
     </section>
@@ -777,6 +739,6 @@
   </footer>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="script.js?v=36"></script>
+  <script src="script.js?v=37"></script>
 </body>
 </html>

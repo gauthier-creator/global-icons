@@ -211,40 +211,51 @@
   }
 
   /* ============================================================
-     SECTION SNAP — au repos, snap programmatique à la section la plus proche
-     (le hero est exclu pour ne pas casser son animation pilotée par scroll)
+     SECTION SNAP — au repos, snap programmatique au point d'ancrage le plus proche
+     (le hero a un point de snap supplémentaire à mi-section = fin d'animation deck)
      ============================================================ */
   if (!reduce) {
     const snapSections = $$("main > section, footer").filter((s) =>
-      !s.classList.contains("hero") &&
       !s.classList.contains("brandmark") &&
       !s.classList.contains("marquee")
     );
+    const getSnapPoints = () => {
+      const pts = snapSections.map((s) => s.offsetTop);
+      // Ajoute un snap virtuel au moment où l'animation deck est terminée (= heroTop + 100vh)
+      if (heroEl) pts.push(heroEl.offsetTop + window.innerHeight);
+      return pts.sort((a, b) => a - b);
+    };
     let snapTimer = null;
     let isSnapping = false;
+    let lastY = lenis ? lenis.scroll : window.scrollY;
+    let dir = 1;
     const snapNearest = () => {
-      if (isSnapping || !snapSections.length) return;
+      if (isSnapping) return;
       const y = lenis ? lenis.scroll : window.scrollY;
-      // ne snap qu'après le hero (le hero gère son propre scroll)
-      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 0;
-      if (y < heroBottom - window.innerHeight * 0.5) return;
-      let nearest = snapSections[0];
+      const pts = getSnapPoints();
+      let nearest = null;
       let minDist = Infinity;
-      for (const s of snapSections) {
-        const d = Math.abs(s.offsetTop - y);
-        if (d < minDist) { minDist = d; nearest = s; }
+      // Cherche dans la direction du scroll en priorité
+      for (const p of pts) {
+        if (dir > 0 && p < y - 12) continue; // scroll vers le bas -> ignore les snaps au-dessus
+        if (dir < 0 && p > y + 12) continue; // scroll vers le haut -> ignore les snaps en-dessous
+        const d = Math.abs(p - y);
+        if (d < minDist) { minDist = d; nearest = p; }
       }
-      // seuil : pas de snap si déjà très proche ni si trop loin (laisse scroller dans les sections hautes)
-      if (minDist < 8 || minDist > window.innerHeight * 0.32) return;
+      if (nearest === null) return;
+      if (minDist < 8 || minDist > window.innerHeight * 0.7) return;
       isSnapping = true;
       if (lenis) {
-        lenis.scrollTo(nearest, { duration: 0.7, onComplete: () => { isSnapping = false; } });
+        lenis.scrollTo(nearest, { duration: 0.75, onComplete: () => { isSnapping = false; } });
       } else {
-        nearest.scrollIntoView({ behavior: "smooth", block: "start" });
-        setTimeout(() => { isSnapping = false; }, 700);
+        window.scrollTo({ top: nearest, behavior: "smooth" });
+        setTimeout(() => { isSnapping = false; }, 750);
       }
     };
     const onScrollEnd = () => {
+      const cur = lenis ? lenis.scroll : window.scrollY;
+      if (Math.abs(cur - lastY) > 2) dir = cur > lastY ? 1 : -1;
+      lastY = cur;
       clearTimeout(snapTimer);
       snapTimer = setTimeout(snapNearest, 220);
     };
