@@ -180,8 +180,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .hero { position: relative; min-height: 200vh; color: var(--head); background: var(--paper); overflow: clip; --p: 0; }
 .hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1500px; perspective-origin: 50% 50%; }
 .hero__bg, .hero__bg-scrim, .hero__veil { position: absolute; inset: 0; pointer-events: none; }
-/* BG : zoom in fort + léger flou au fur et à mesure que la "caméra" avance vers la scène */
-.hero__bg { background-size: cover; background-position: center; z-index: 1; transform: scale(calc(1 + var(--p, 0) * 0.22)); filter: blur(calc(var(--p, 0) * 4px)); will-change: transform, filter; }
+/* BG : zoom in fort + flou léger qui se renforce au fur et à mesure que la "caméra" traverse la scène */
+.hero__bg { background-size: cover; background-position: center; z-index: 1; transform: scale(calc(1 + var(--p, 0) * 0.35)); filter: blur(calc(var(--p, 0) * 6px)); will-change: transform, filter; }
 .hero__bg-scrim { background: linear-gradient(180deg, rgba(15,15,14,.32) 0%, rgba(15,15,14,.48) 50%, rgba(15,15,14,.62) 100%); z-index: 2; opacity: calc(1 - var(--p, 0) * 0.85); }
 .hero__veil { background: var(--paper); z-index: 3; opacity: var(--p, 0); }
 .hero__deck { position: relative; z-index: 4; width: 100%; height: 100%; transform-style: preserve-3d; }
@@ -207,13 +207,13 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   background: var(--ink);
   box-shadow: 0 50px 100px -32px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
 }
-/* Latérales : émergent depuis la profondeur (translateZ -120 → 0) et se déploient */
-.trophy--left   { z-index: 2; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) * -118%)) translateZ(calc(-120px + var(--p, 0) * 120px)) rotate(calc(var(--p, 0) * -7deg)); opacity: var(--p, 0); }
-.trophy--right  { z-index: 1; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) *  118%)) translateZ(calc(-120px + var(--p, 0) * 120px)) rotate(calc(var(--p, 0) *  7deg)); opacity: var(--p, 0); }
-/* Centrale : contour translucide → carte solide, pop léger vers l'avant pour l'effet "section arrive" */
+/* Latérales : grossissent (0.7→1) + jaillissent depuis la profondeur + se déploient */
+.trophy--left   { z-index: 2; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) * -118%)) translateZ(calc(-260px + var(--p, 0) * 260px)) rotate(calc(var(--p, 0) * -7deg)) scale(calc(0.7 + var(--p, 0) * 0.3)); opacity: var(--p, 0); }
+.trophy--right  { z-index: 1; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) *  118%)) translateZ(calc(-260px + var(--p, 0) * 260px)) rotate(calc(var(--p, 0) *  7deg)) scale(calc(0.7 + var(--p, 0) * 0.3)); opacity: var(--p, 0); }
+/* Centrale : contour translucide → carte solide, GROSSIT de 0.72 à 1 et avance vers l'écran pour l'effet "section arrive" */
 .trophy--center {
   z-index: 3;
-  transform: translate(-50%, -50%) translateZ(calc(-60px + var(--p, 0) * 60px));
+  transform: translate(-50%, -50%) translateZ(calc(-180px + var(--p, 0) * 180px)) scale(calc(0.72 + var(--p, 0) * 0.28));
   background: rgba(15,15,14, var(--p, 0));
   border: 1px solid rgba(255,255,255, calc(0.55 - var(--p, 0) * 0.45));
   box-shadow:
