@@ -192,25 +192,6 @@
   }
 
   /* ============================================================
-     HERO PIN — progression --p (deck de cartes type Revolut)
-     ============================================================ */
-  const heroEl = $("[data-hero]");
-  if (heroEl && !reduce) {
-    const setHeroP = () => {
-      const r = heroEl.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      if (total <= 0) { heroEl.style.setProperty("--p", "0"); return; }
-      const scrolled = -r.top;
-      const p = Math.max(0, Math.min(1, scrolled / total));
-      heroEl.style.setProperty("--p", p.toFixed(4));
-    };
-    if (lenis) lenis.on("scroll", setHeroP);
-    else window.addEventListener("scroll", setHeroP, { passive: true });
-    window.addEventListener("resize", setHeroP);
-    setHeroP();
-  }
-
-  /* ============================================================
      Boutons / éléments magnétiques
      ============================================================ */
   if (fine && !reduce) {

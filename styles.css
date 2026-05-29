@@ -28,12 +28,20 @@
 
 /* ---------------- reset ---------------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; }
-/* Lenis smooth scroll */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Scroll snap : on navigue de section en section */
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+}
+/* Toutes les sections principales sont des points d'ancrage */
+main > section, footer { scroll-snap-align: start; scroll-snap-stop: always; }
+/* Sauf les bandes décoratives qui doivent passer en transit */
+.brandmark, .marquee { scroll-snap-align: none; scroll-snap-stop: normal; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; scroll-behavior: auto; }
+}
 
 body {
   font-family: var(--sans);
@@ -173,13 +181,12 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* ============================================================
    HERO
    ============================================================ */
-/* hero light/premium avec scène collante (sticky pin) et 3 trophy cards qui se déploient au scroll
-   --p : progression 0→1 du scroll dans le hero, mise à jour en JS */
-.hero { position: relative; min-height: 180vh; color: var(--head); background: var(--paper); overflow: clip; --p: 0; }
-.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
-.hero__stage { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(40px, 6vw, 100px); padding: clamp(110px, 16vh, 160px) var(--gut) clamp(60px, 8vh, 90px); max-width: 1320px; margin: 0 auto; width: 100%; }
-/* colonne copy */
-.hero__copy { position: relative; max-width: 600px; transform: translateY(calc(var(--p, 0) * -50px)); opacity: calc(1 - var(--p, 0) * 0.7); will-change: transform, opacity; }
+/* hero light/premium — 100vh une section, deck de 3 trophy cards qui se déploient en cascade à l'arrivée */
+.hero { position: relative; min-height: 100svh; color: var(--head); background: var(--paper); overflow: clip; display: flex; flex-direction: column; }
+.hero__pin { flex: 1; display: flex; flex-direction: column; }
+.hero__stage { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(40px, 6vw, 100px); padding: clamp(110px, 14vh, 150px) var(--gut) clamp(40px, 5vh, 70px); max-width: 1320px; margin: 0 auto; width: 100%; }
+/* colonne copy — l'entrée est gérée par split-text (h1) + .reveal (lead/actions) */
+.hero__copy { position: relative; max-width: 600px; }
 .hero__eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 30px; padding-left: 30px; position: relative; }
 .hero__eyebrow::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 20px; height: 1px; background: var(--ink); }
 .hero__title { font-weight: 300; font-size: clamp(2.4rem, 5.6vw, 4.8rem); line-height: 1.04; letter-spacing: -0.035em; margin: 8px 0 28px; color: var(--head); max-width: 16ch; }
@@ -195,12 +202,26 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   position: absolute; width: clamp(240px, 22vw, 320px); aspect-ratio: 3 / 4.4;
   border-radius: 18px; overflow: hidden; background: var(--ink); color: #fff;
   box-shadow: 0 40px 80px -30px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
-  will-change: transform, opacity;
-  transition: box-shadow .6s var(--ease);
+  opacity: 0; will-change: transform, opacity;
 }
-.trophy--center { z-index: 3; transform: translate3d(0, calc(var(--p, 0) * -8px), 0) rotateZ(0deg); }
-.trophy--left   { z-index: 2; transform: translate3d(calc(var(--p, 0) * -118%), calc(var(--p, 0) * -10px), 0) rotateZ(calc(var(--p, 0) * -7deg)); opacity: calc(.15 + var(--p, 0) * .85); }
-.trophy--right  { z-index: 1; transform: translate3d(calc(var(--p, 0) *  118%), calc(var(--p, 0) * -10px), 0) rotateZ(calc(var(--p, 0) *  7deg)); opacity: calc(.15 + var(--p, 0) * .85); }
+/* Cascade : la centrale tombe d'abord, puis les latérales se déploient depuis le centre */
+.trophy--center { z-index: 3; animation: dealCenter .9s cubic-bezier(.22,.8,.22,1) .15s both; }
+.trophy--left   { z-index: 2; animation: dealLeft   1.15s cubic-bezier(.22,.8,.22,1) .7s both; }
+.trophy--right  { z-index: 1; animation: dealRight  1.15s cubic-bezier(.22,.8,.22,1) .85s both; }
+@keyframes dealCenter {
+  from { opacity: 0; transform: translate3d(0, -42px, 0) scale(.95); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes dealLeft {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0) rotate(0); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: translate3d(-118%, 0, 0) rotate(-7deg); }
+}
+@keyframes dealRight {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0) rotate(0); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: translate3d(118%, 0, 0) rotate(7deg); }
+}
 .trophy__photo { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.02); }
 .trophy__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,15,14,.55) 0%, rgba(15,15,14,0) 28%, rgba(15,15,14,0) 50%, rgba(15,15,14,.94) 100%); }
 .trophy__head  { position: absolute; top: 0; left: 0; right: 0; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.9); }
@@ -671,13 +692,13 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .screen__spark { display: none; }
   .hero__ticker { display: none; }
   .hero__foot { justify-content: flex-start; }
-  /* hero mobile : on désactive le pin et le deck, carte unique simplifiée */
+  /* hero mobile : carte unique sans animation, layout vertical */
   .hero { min-height: 100svh; }
   .hero__pin { position: relative; height: auto; }
   .hero__stage { grid-template-columns: 1fr; gap: 36px; padding: 110px var(--gut) 30px; }
-  .hero__copy { max-width: none; transform: none !important; opacity: 1 !important; }
+  .hero__copy { max-width: none; }
   .hero__deck { min-height: 360px; padding: 0; perspective: none; }
-  .trophy { transform: none !important; }
+  .trophy { animation: none !important; opacity: 1; transform: none !important; }
   .trophy--left, .trophy--right { display: none; }
   .trophy--center { position: relative; width: min(310px, 78vw); }
   .nav__links.is-open { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--ink); color: var(--paper); align-items: center; justify-content: center; gap: 30px; font-size: 1.7rem; font-weight: 300; z-index: 700; }
