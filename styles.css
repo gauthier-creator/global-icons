@@ -180,21 +180,34 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .hero { position: relative; min-height: 200vh; color: var(--head); background: var(--paper); overflow: clip; --p: 0; }
 .hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1500px; perspective-origin: 50% 50%; }
 .hero__bg, .hero__bg-scrim { position: absolute; inset: 0; pointer-events: none; }
-/* BG : zoom in fort + flou léger qui se renforce au fur et à mesure que la "caméra" traverse la scène */
-.hero__bg { background-size: cover; background-position: center; z-index: 1; transform: scale(calc(1 + var(--p, 0) * 0.35)); filter: blur(calc(var(--p, 0) * 6px)); will-change: transform, filter; }
-.hero__bg-scrim { background: linear-gradient(180deg, rgba(15,15,14,.32) 0%, rgba(15,15,14,.48) 50%, rgba(15,15,14,.62) 100%); z-index: 2; opacity: calc(1 - var(--p, 0) * 0.65); }
-/* Voile = la "section suivante" qui se dessine et grossit depuis le centre (taille carte → plein viewport)
-   au fur et à mesure que les cartes apparaissent */
+/* BG : zoom + flou — joué en transition CSS au déclenchement (.is-active) */
+.hero__bg { background-size: cover; background-position: center; z-index: 1; transform: scale(1); filter: blur(0); transition: transform 900ms cubic-bezier(.4,0,.2,1), filter 800ms ease-out; will-change: transform, filter; }
+.hero.is-active .hero__bg { transform: scale(1.25); filter: blur(6px); }
+.hero__bg-scrim { background: linear-gradient(180deg, rgba(15,15,14,.32) 0%, rgba(15,15,14,.48) 50%, rgba(15,15,14,.62) 100%); z-index: 2; opacity: 1; transition: opacity 600ms ease-out; }
+.hero.is-active .hero__bg-scrim { opacity: 0.3; }
+/* Voile = container qui PART à la taille exacte de la carte (clamp 280-380 / 3:4.4) et GROSSIT jusqu'au viewport */
 .hero__veil {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   background: var(--paper); z-index: 3; pointer-events: none;
-  width:  calc(420px + var(--p, 0) * (100vw + 60px - 420px));
-  height: calc(600px + var(--p, 0) * (100vh + 60px - 600px));
-  border-radius: calc(28px * (1 - var(--p, 0)));
-  opacity: calc(min(1, var(--p, 0) * 1.6));
-  box-shadow: 0 40px 100px -30px rgba(15, 15, 14, calc(0.35 * (1 - var(--p, 0))));
-  will-change: width, height, border-radius, opacity;
+  width: clamp(280px, 26vw, 380px);
+  height: calc(clamp(280px, 26vw, 380px) * 4.4 / 3);
+  border-radius: 20px;
+  opacity: 0;
+  box-shadow: 0 50px 100px -30px rgba(15, 15, 14, 0);
+  transition:
+    width 700ms cubic-bezier(.7,0,.2,1),
+    height 700ms cubic-bezier(.7,0,.2,1),
+    border-radius 700ms cubic-bezier(.7,0,.2,1),
+    opacity 300ms ease-out,
+    box-shadow 600ms ease-out;
+  will-change: width, height, opacity;
+}
+.hero.is-active .hero__veil {
+  width: calc(100vw + 60px);
+  height: calc(100vh + 60px);
+  border-radius: 0;
+  opacity: 1;
 }
 .hero__deck { position: relative; z-index: 4; width: 100%; height: 100%; transform-style: preserve-3d; }
 .hero__eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 30px; padding-left: 30px; position: relative; }
@@ -219,21 +232,45 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   background: var(--ink);
   box-shadow: 0 50px 100px -32px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
 }
-/* Latérales : grossissent (0.7→1) + jaillissent depuis la profondeur + se déploient */
-.trophy--left   { z-index: 2; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) * -118%)) translateZ(calc(-260px + var(--p, 0) * 260px)) rotate(calc(var(--p, 0) * -7deg)) scale(calc(0.7 + var(--p, 0) * 0.3)); opacity: var(--p, 0); }
-.trophy--right  { z-index: 1; transform: translate(-50%, -50%) translateX(calc(var(--p, 0) *  118%)) translateZ(calc(-260px + var(--p, 0) * 260px)) rotate(calc(var(--p, 0) *  7deg)) scale(calc(0.7 + var(--p, 0) * 0.3)); opacity: var(--p, 0); }
-/* Centrale : contour translucide → carte solide, GROSSIT de 0.72 à 1 et avance vers l'écran pour l'effet "section arrive" */
+/* Latérales : viennent de la profondeur + se déploient — transitions CSS au déclenchement */
+.trophy--left, .trophy--right {
+  opacity: 0;
+  transition:
+    transform 850ms cubic-bezier(.22,.61,.36,1) 80ms,
+    opacity 450ms ease-out 150ms;
+}
+.trophy--left  { z-index: 2; transform: translate(-50%, -50%) translateX(0) translateZ(-260px) rotate(0deg) scale(0.7); }
+.trophy--right { z-index: 1; transform: translate(-50%, -50%) translateX(0) translateZ(-260px) rotate(0deg) scale(0.7); }
+.hero.is-active .trophy--left  { opacity: 1; transform: translate(-50%, -50%) translateX(-118%) translateZ(0) rotate(-7deg) scale(1); }
+.hero.is-active .trophy--right { opacity: 1; transform: translate(-50%, -50%) translateX( 118%) translateZ(0) rotate( 7deg) scale(1); }
+/* Centrale : contour translucide → carte solide, grossit (0.72→1) et avance */
 .trophy--center {
   z-index: 3;
-  transform: translate(-50%, -50%) translateZ(calc(-180px + var(--p, 0) * 180px)) scale(calc(0.72 + var(--p, 0) * 0.28));
-  background: rgba(15,15,14, var(--p, 0));
-  border: 1px solid rgba(255,255,255, calc(0.55 - var(--p, 0) * 0.45));
+  background: rgba(15,15,14, 0);
+  border: 1px solid rgba(255,255,255, 0.55);
+  box-shadow: 0 0 0 0 transparent;
+  transform: translate(-50%, -50%) translateZ(-180px) scale(0.72);
+  transition:
+    background 550ms ease-out 100ms,
+    border-color 500ms ease-out 80ms,
+    box-shadow 600ms ease-out 100ms,
+    transform 850ms cubic-bezier(.22,.61,.36,1);
+}
+.hero.is-active .trophy--center {
+  background: rgba(15,15,14, 1);
+  border-color: rgba(255,255,255, 0);
   box-shadow:
-    0 50px 100px -32px rgba(15,15,14, calc(0.55 * var(--p, 0))),
-    0 14px 36px -18px rgba(15,15,14, calc(0.32 * var(--p, 0)));
+    0 50px 100px -32px rgba(15,15,14,.55),
+    0 14px 36px -18px rgba(15,15,14,.32);
+  transform: translate(-50%, -50%) translateZ(0) scale(1);
 }
 .trophy--center .trophy__photo,
-.trophy--center .trophy__scrim { opacity: var(--p, 0); }
+.trophy--center .trophy__scrim {
+  opacity: 0;
+  transition: opacity 500ms ease-out 200ms;
+}
+.hero.is-active .trophy--center .trophy__photo,
+.hero.is-active .trophy--center .trophy__scrim { opacity: 1; }
 .trophy__photo { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.02); }
 .trophy__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,15,14,.55) 0%, rgba(15,15,14,0) 28%, rgba(15,15,14,0) 50%, rgba(15,15,14,.94) 100%); }
 .trophy__head  { position: absolute; top: 0; left: 0; right: 0; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,.9); }

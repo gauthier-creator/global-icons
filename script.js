@@ -192,22 +192,18 @@
   }
 
   /* ============================================================
-     HERO PIN — progression --p au scroll (deck façon Revolut)
+     HERO — l'animation se déclenche au premier scroll (classe is-active + transitions CSS)
+     La vitesse n'est PAS contrôlée par le scroll : un coup de molette et ça joue.
      ============================================================ */
   const heroEl = $("[data-hero]");
   if (heroEl && !reduce) {
-    const setHeroP = () => {
-      const r = heroEl.getBoundingClientRect();
-      const total = r.height - window.innerHeight;
-      if (total <= 0) { heroEl.style.setProperty("--p", "0"); return; }
-      const scrolled = -r.top;
-      const p = Math.max(0, Math.min(1, scrolled / total));
-      heroEl.style.setProperty("--p", p.toFixed(4));
+    const updateHero = () => {
+      const y = lenis ? lenis.scroll : window.scrollY;
+      heroEl.classList.toggle("is-active", y > 20);
     };
-    if (lenis) lenis.on("scroll", setHeroP);
-    else window.addEventListener("scroll", setHeroP, { passive: true });
-    window.addEventListener("resize", setHeroP);
-    setHeroP();
+    if (lenis) lenis.on("scroll", updateHero);
+    else window.addEventListener("scroll", updateHero, { passive: true });
+    updateHero();
   }
 
   /* ============================================================
@@ -219,12 +215,7 @@
       !s.classList.contains("brandmark") &&
       !s.classList.contains("marquee")
     );
-    const getSnapPoints = () => {
-      const pts = snapSections.map((s) => s.offsetTop);
-      // Ajoute un snap virtuel au moment où l'animation deck est terminée (= heroTop + 100vh)
-      if (heroEl) pts.push(heroEl.offsetTop + window.innerHeight);
-      return pts.sort((a, b) => a - b);
-    };
+    const getSnapPoints = () => snapSections.map((s) => s.offsetTop).sort((a, b) => a - b);
     let snapTimer = null;
     let isSnapping = false;
     let lastY = lenis ? lenis.scroll : window.scrollY;
