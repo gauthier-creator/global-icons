@@ -45,7 +45,9 @@
      ============================================================ */
   let lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
+    // smoothWheel: false — on gère le wheel nous-mêmes pour le snap strict section-par-section.
+    // Lenis garde la main sur les scrollTo() (smooth scroll programmatique pour les ancres et le snap).
+    lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: false, smoothTouch: false });
     function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
     lenis.stop();
@@ -229,53 +231,80 @@
   }
 
   /* ============================================================
-     SECTION SNAP — au repos, snap programmatique au point d'ancrage le plus proche
-     (le hero a un point de snap supplémentaire à mi-section = fin d'animation deck)
+     SECTION SNAP — strict, section-par-section (façon fullPage.js)
+     EXCEPTION : dans le hero, scroll naturel pour laisser l'animation se jouer.
+     Une fois passé la zone d'animation, chaque wheel/touch/key snape immédiatement
+     vers la section suivante ou précédente, avec un cooldown anti-burst.
      ============================================================ */
-  if (!reduce) {
+  if (!reduce && heroEl) {
     const snapSections = $$("main > section, footer").filter((s) =>
       !s.classList.contains("brandmark") &&
       !s.classList.contains("marquee")
     );
     const getSnapPoints = () => snapSections.map((s) => s.offsetTop).sort((a, b) => a - b);
-    let snapTimer = null;
+    const SNAP_COOLDOWN = 900;
+    let lastSnapTime = 0;
     let isSnapping = false;
-    let lastY = lenis ? lenis.scroll : window.scrollY;
-    let dir = 1;
-    const snapNearest = () => {
-      if (isSnapping) return;
+
+    // Zone hero = première moitié du hero (avant que l'animation deck soit complète).
+    // Tant qu'on y est, on laisse le navigateur scroller naturellement.
+    const inHeroZone = () => {
+      const y = lenis ? lenis.scroll : window.scrollY;
+      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+      return y < heroBottom - window.innerHeight; // dans le premier 100vh du hero
+    };
+
+    const snapInDirection = (direction) => {
+      const now = Date.now();
+      if (now - lastSnapTime < SNAP_COOLDOWN || isSnapping) return;
       const y = lenis ? lenis.scroll : window.scrollY;
       const pts = getSnapPoints();
-      let nearest = null;
-      let minDist = Infinity;
-      // Cherche dans la direction du scroll en priorité
-      for (const p of pts) {
-        if (dir > 0 && p < y - 12) continue; // scroll vers le bas -> ignore les snaps au-dessus
-        if (dir < 0 && p > y + 12) continue; // scroll vers le haut -> ignore les snaps en-dessous
-        const d = Math.abs(p - y);
-        if (d < minDist) { minDist = d; nearest = p; }
-      }
-      if (nearest === null) return;
-      if (minDist < 8 || minDist > window.innerHeight * 0.7) return;
+      let target;
+      if (direction > 0) target = pts.find((p) => p > y + 30);
+      else target = [...pts].reverse().find((p) => p < y - 30);
+      if (target === undefined) return;
+      lastSnapTime = now;
       isSnapping = true;
       if (lenis) {
-        lenis.scrollTo(nearest, { duration: 0.75, onComplete: () => { isSnapping = false; } });
+        lenis.scrollTo(target, { duration: 0.85, onComplete: () => { isSnapping = false; } });
       } else {
-        window.scrollTo({ top: nearest, behavior: "smooth" });
-        setTimeout(() => { isSnapping = false; }, 750);
+        window.scrollTo({ top: target, behavior: "smooth" });
+        setTimeout(() => { isSnapping = false; }, 900);
       }
     };
-    const onScrollEnd = () => {
-      const cur = lenis ? lenis.scroll : window.scrollY;
-      if (Math.abs(cur - lastY) > 2) dir = cur > lastY ? 1 : -1;
-      lastY = cur;
-      clearTimeout(snapTimer);
-      snapTimer = setTimeout(snapNearest, 220);
-    };
-    window.addEventListener("wheel", onScrollEnd, { passive: true });
-    window.addEventListener("touchend", onScrollEnd, { passive: true });
-    window.addEventListener("keyup", (e) => {
-      if (["PageDown", "PageUp", "ArrowDown", "ArrowUp", "Space"].includes(e.code)) onScrollEnd();
+
+    // Wheel : on intercepte et on snape, sauf dans la zone hero
+    window.addEventListener("wheel", (e) => {
+      if (inHeroZone()) return; // scroll naturel
+      e.preventDefault();
+      snapInDirection(e.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+
+    // Touch
+    let touchStartY = null;
+    window.addEventListener("touchstart", (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener("touchmove", (e) => {
+      if (touchStartY === null || inHeroZone()) return;
+      const dy = touchStartY - e.touches[0].clientY;
+      if (Math.abs(dy) < 30) return;
+      e.preventDefault();
+      snapInDirection(dy > 0 ? 1 : -1);
+      touchStartY = null;
+    }, { passive: false });
+    window.addEventListener("touchend", () => { touchStartY = null; }, { passive: true });
+
+    // Clavier
+    window.addEventListener("keydown", (e) => {
+      if (inHeroZone()) return;
+      if (["ArrowDown", "PageDown", "Space"].includes(e.code)) {
+        e.preventDefault();
+        snapInDirection(1);
+      } else if (["ArrowUp", "PageUp"].includes(e.code)) {
+        e.preventDefault();
+        snapInDirection(-1);
+      }
     });
   }
 
