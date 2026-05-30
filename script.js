@@ -237,86 +237,53 @@
   if (heroEl && !reduce && isDesktop) {
     let gestureCount = 0;
     let gestureLock = false;
-    let scrollLocked = false;
-
-    const lockScroll = () => {
-      if (scrollLocked) return;
-      scrollLocked = true;
-      if (lenis) lenis.stop();
-      document.documentElement.style.overflow = "hidden";
-    };
-    const unlockScroll = () => {
-      scrollLocked = false;
-      if (lenis) lenis.start();
-      document.documentElement.style.overflow = "";
-    };
-
-    // Verrouille le scroll dès que possible (après que finishLoad ait fait lenis.start)
-    setTimeout(() => {
-      const y = lenis ? lenis.scroll : window.scrollY;
-      if (y < 50 && gestureCount < 2) lockScroll();
-    }, 250);
-
     const advance = () => {
       if (gestureLock || gestureCount >= 2) return false;
       gestureLock = true;
       gestureCount++;
       if (gestureCount === 1) heroEl.classList.add("is-revealed");
-      else if (gestureCount === 2) {
-        heroEl.classList.add("is-active");
-        // Libère le scroll après que l'animation principale soit jouée
-        setTimeout(unlockScroll, 900);
-      }
-      setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 600 : 800);
+      else if (gestureCount === 2) heroEl.classList.add("is-active");
+      setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 550 : 800);
       return true;
     };
-
-    const tryAdvance = (deltaPositive) => {
-      if (gestureCount >= 2) return;
-      if (!deltaPositive) return;
-      // Garantit que le scroll reste verrouillé même si finishLoad a redémarré Lenis
-      lockScroll();
+    const onWheel = (e) => {
+      if (gestureCount >= 2) return; // tout est joué : Lenis prend la main
+      const y = lenis ? lenis.scroll : window.scrollY;
+      if (y > 50) return; // déjà parti du top du hero
+      if (e.deltaY <= 0) return; // seulement vers le bas
+      e.preventDefault();
+      e.stopPropagation();
       advance();
     };
-
-    // Wheel (capture + passive:false pour bloquer aussi les browsers qui n'écouteraient pas lenis.stop)
-    window.addEventListener("wheel", (e) => {
-      if (gestureCount >= 2) return;
-      if (e.deltaY > 0) {
-        e.preventDefault();
-        tryAdvance(true);
-      }
-    }, { capture: true, passive: false });
-
-    // Touch (mobile : la condition isDesktop ne devrait pas y arriver, mais on couvre)
+    window.addEventListener("wheel", onWheel, { capture: true, passive: false });
+    // Touch
     let touchYStart = null;
-    window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { capture: true, passive: true });
     window.addEventListener("touchmove", (e) => {
       if (gestureCount >= 2 || touchYStart === null) return;
+      const y = lenis ? lenis.scroll : window.scrollY;
+      if (y > 50) return;
       const dy = touchYStart - e.touches[0].clientY;
       if (dy < 30) return;
       e.preventDefault();
-      tryAdvance(true);
+      e.stopPropagation();
+      advance();
       touchYStart = null;
     }, { capture: true, passive: false });
     window.addEventListener("touchend", () => { touchYStart = null; }, { passive: true });
-
     // Clavier
     window.addEventListener("keydown", (e) => {
       if (gestureCount >= 2) return;
-      if (["ArrowDown", "PageDown", "Space"].includes(e.code)) {
-        e.preventDefault();
-        tryAdvance(true);
-      }
+      if (!["ArrowDown", "PageDown", "Space"].includes(e.code)) return;
+      e.preventDefault();
+      advance();
     });
-
-    // Reset si retour en haut (par exemple via anchor #top)
+    // Reset si retour en haut
     const sync = () => {
       const y = lenis ? lenis.scroll : window.scrollY;
       if (y < 5 && gestureCount > 0) {
         gestureCount = 0;
         heroEl.classList.remove("is-revealed", "is-active");
-        lockScroll();
       }
     };
     if (lenis) lenis.on("scroll", sync);
