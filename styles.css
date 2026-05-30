@@ -214,6 +214,42 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   clip-path: inset(0 round 0);
 }
 .hero__deck { position: relative; z-index: 4; width: 100%; height: 100%; }
+/* Copy hero — tagline + CTA, haut-gauche, couleur qui s'inverse selon l'état du voile */
+.hero__copy {
+  position: absolute;
+  top: clamp(110px, 16vh, 180px);
+  left: clamp(24px, 6vw, 80px);
+  z-index: 5;
+  max-width: clamp(280px, 32vw, 460px);
+  color: #fff;
+  transition: color 500ms var(--hero-ease);
+}
+.hero.is-active .hero__copy { color: var(--head); }
+.hero__tagline {
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin: 0 0 26px;
+  color: inherit;
+}
+.hero__tagline em {
+  font-style: italic;
+  font-weight: 400;
+}
+.hero__cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 13px 24px;
+  background: var(--ink); color: #fff;
+  border-radius: 999px;
+  font-size: 0.88rem; font-weight: 400; letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity .3s var(--hero-ease), transform .3s var(--hero-ease);
+  will-change: transform;
+}
+.hero__cta:hover { opacity: .85; }
+.hero__cta span { font-size: 1.05rem; transition: transform .3s var(--hero-ease); }
+.hero__cta:hover span { transform: translateX(4px); }
 /* Trait de continuité vers la section suivante — se dessine après l'animation deck */
 .hero__cue {
   position: absolute; bottom: clamp(36px, 6vh, 70px); left: 50%;
@@ -732,7 +768,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 /* texte révélé mot par mot (masque) */
 [data-split-text] { }
-.word { display: inline-block; overflow: hidden; vertical-align: top; }
+.word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.18em; margin-bottom: -0.18em; }
 .word__in { display: inline-block; transform: translateY(112%); transition: transform .95s var(--ease-soft); transition-delay: var(--wd, 0s); will-change: transform; }
 [data-split-text].is-in .word__in { transform: translateY(0); }
 
