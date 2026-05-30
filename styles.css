@@ -905,4 +905,6 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   .reveal, .word__in { opacity: 1 !important; transform: none !important; }
   .step__svg :is(path, line, rect, circle, polyline, polygon) { stroke-dashoffset: 0 !important; }
+  .trophy--center { opacity: 1 !important; }
+  .trophy--center .trophy__photo, .trophy--center .trophy__scrim { opacity: 1 !important; }
 }
