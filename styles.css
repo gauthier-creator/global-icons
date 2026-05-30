@@ -173,43 +173,59 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* ============================================================
    HERO
    ============================================================ */
-/* hero — la carte est intégrée dans un fond plein écran (photo 91 Champs).
-   À l'arrivée : on voit le décor + le contour translucide de la carte.
-   Au scroll : le voile blanc se révèle, la carte se remplit (devient solide), les latérales se déploient.
-   --p : progression 0→1 du scroll dans le hero, mise à jour en JS */
-.hero { position: relative; min-height: 200vh; color: var(--head); background: var(--paper); overflow: clip; --p: 0; }
-.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1500px; perspective-origin: 50% 50%; }
+/* hero — la carte est intégrée dans le décor.
+   À l'arrivée : décor plein écran + contour translucide de la carte.
+   Au scroll : le voile blanc grossit depuis la carte, les latérales se déploient.
+   Animation déclenchée par .is-active (toggle JS au premier scroll), tout en transitions GPU. */
+.hero {
+  position: relative; min-height: 200vh;
+  color: var(--head); background: var(--paper); overflow: clip;
+  /* tailles partagées entre la carte et le voile pour qu'ils matchent au pixel près */
+  --card-w: clamp(280px, 26vw, 380px);
+  --card-h: calc(var(--card-w) * 4.4 / 3);
+  --hero-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --hero-dur: 700ms;
+}
+.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .hero__bg, .hero__bg-scrim { position: absolute; inset: 0; pointer-events: none; }
-/* BG : zoom + flou — joué en transition CSS au déclenchement (.is-active) */
-.hero__bg { background-size: cover; background-position: center; z-index: 1; transform: scale(1); filter: blur(0); transition: transform 900ms cubic-bezier(.4,0,.2,1), filter 800ms ease-out; will-change: transform, filter; }
-.hero.is-active .hero__bg { transform: scale(1.25); filter: blur(6px); }
-.hero__bg-scrim { background: linear-gradient(180deg, rgba(15,15,14,.32) 0%, rgba(15,15,14,.48) 50%, rgba(15,15,14,.62) 100%); z-index: 2; opacity: 1; transition: opacity 600ms ease-out; }
-.hero.is-active .hero__bg-scrim { opacity: 0.3; }
-/* Voile = container qui PART à la taille exacte de la carte (clamp 280-380 / 3:4.4) et GROSSIT jusqu'au viewport */
+/* BG : fade simple (pas de zoom ni de blur — plus propre) */
+.hero__bg { background-size: cover; background-position: center; z-index: 1; opacity: 1; transition: opacity var(--hero-dur) var(--hero-ease); }
+.hero.is-active .hero__bg { opacity: 0; }
+.hero__bg-scrim { background: linear-gradient(180deg, rgba(15,15,14,.3) 0%, rgba(15,15,14,.55) 100%); z-index: 2; opacity: 1; transition: opacity var(--hero-dur) var(--hero-ease); }
+.hero.is-active .hero__bg-scrim { opacity: 0; }
+/* Voile = plan blanc plein-bleed dont la zone visible (clip-path inset) s'étend depuis la carte jusqu'au viewport.
+   clip-path est GPU-accelerated — animation très smooth, pas de layout. */
 .hero__veil {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute; inset: 0;
   background: var(--paper); z-index: 3; pointer-events: none;
-  width: clamp(280px, 26vw, 380px);
-  height: calc(clamp(280px, 26vw, 380px) * 4.4 / 3);
-  border-radius: 20px;
+  clip-path: inset(
+    calc((100% - var(--card-h)) / 2)
+    calc((100% - var(--card-w)) / 2)
+    round 20px
+  );
   opacity: 0;
-  box-shadow: 0 50px 100px -30px rgba(15, 15, 14, 0);
   transition:
-    width 700ms cubic-bezier(.7,0,.2,1),
-    height 700ms cubic-bezier(.7,0,.2,1),
-    border-radius 700ms cubic-bezier(.7,0,.2,1),
-    opacity 300ms ease-out,
-    box-shadow 600ms ease-out;
-  will-change: width, height, opacity;
+    opacity 250ms var(--hero-ease),
+    clip-path var(--hero-dur) var(--hero-ease);
+  will-change: clip-path, opacity;
 }
 .hero.is-active .hero__veil {
-  width: calc(100vw + 60px);
-  height: calc(100vh + 60px);
-  border-radius: 0;
   opacity: 1;
+  clip-path: inset(0 round 0);
 }
-.hero__deck { position: relative; z-index: 4; width: 100%; height: 100%; transform-style: preserve-3d; }
+.hero__deck { position: relative; z-index: 4; width: 100%; height: 100%; }
+/* Trait de continuité vers la section suivante — se dessine après l'animation deck */
+.hero__cue {
+  position: absolute; bottom: clamp(36px, 6vh, 70px); left: 50%;
+  width: 1px; height: clamp(40px, 6vh, 72px);
+  background: linear-gradient(180deg, transparent, var(--head));
+  transform: translateX(-50%) scaleY(0); transform-origin: top;
+  opacity: 0; z-index: 5; pointer-events: none;
+  transition:
+    opacity 450ms ease-out 550ms,
+    transform 750ms cubic-bezier(.22,.61,.36,1) 550ms;
+}
+.hero.is-active .hero__cue { opacity: 0.5; transform: translateX(-50%) scaleY(1); }
 .hero__eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 30px; padding-left: 30px; position: relative; }
 .hero__eyebrow::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 20px; height: 1px; background: var(--ink); }
 .hero__title { font-weight: 300; font-size: clamp(2.4rem, 5.6vw, 4.8rem); line-height: 1.04; letter-spacing: -0.035em; margin: 8px 0 28px; color: var(--head); max-width: 16ch; }
@@ -223,51 +239,45 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .hero__deck { position: relative; height: 100%; min-height: 480px; display: flex; align-items: center; justify-content: center; perspective: 1600px; }
 .trophy {
   position: absolute; top: 50%; left: 50%;
-  width: clamp(280px, 26vw, 380px); aspect-ratio: 3 / 4.4;
+  width: var(--card-w); aspect-ratio: 3 / 4.4;
   border-radius: 20px; overflow: hidden; color: #fff;
-  will-change: transform, opacity, background;
+  will-change: transform, opacity;
 }
-/* Latérales : solides, fade in + déploiement */
+/* Latérales : translation horizontale + fade, simple et fluide */
 .trophy--left, .trophy--right {
   background: var(--ink);
-  box-shadow: 0 50px 100px -32px rgba(15,15,14,.55), 0 14px 36px -18px rgba(15,15,14,.32), 0 0 0 1px rgba(255,255,255,.04) inset;
-}
-/* Latérales : viennent de la profondeur + se déploient — transitions CSS au déclenchement */
-.trophy--left, .trophy--right {
+  box-shadow: 0 30px 70px -25px rgba(15,15,14,.42);
   opacity: 0;
+  transform: translate(-50%, -50%);
   transition:
-    transform 850ms cubic-bezier(.22,.61,.36,1) 80ms,
-    opacity 450ms ease-out 150ms;
+    opacity 480ms var(--hero-ease) 220ms,
+    transform 700ms var(--hero-ease) 220ms;
 }
-.trophy--left  { z-index: 2; transform: translate(-50%, -50%) translateX(0) translateZ(-260px) rotate(0deg) scale(0.7); }
-.trophy--right { z-index: 1; transform: translate(-50%, -50%) translateX(0) translateZ(-260px) rotate(0deg) scale(0.7); }
-.hero.is-active .trophy--left  { opacity: 1; transform: translate(-50%, -50%) translateX(-118%) translateZ(0) rotate(-7deg) scale(1); }
-.hero.is-active .trophy--right { opacity: 1; transform: translate(-50%, -50%) translateX( 118%) translateZ(0) rotate( 7deg) scale(1); }
-/* Centrale : contour translucide → carte solide, grossit (0.72→1) et avance */
+.trophy--left  { z-index: 2; }
+.trophy--right { z-index: 1; }
+.hero.is-active .trophy--left  { opacity: 1; transform: translate(-50%, -50%) translateX(-118%); }
+.hero.is-active .trophy--right { opacity: 1; transform: translate(-50%, -50%) translateX( 118%); }
+/* Centrale : contour translucide → carte solide (cross-fade propre, aucun mouvement) */
 .trophy--center {
   z-index: 3;
   background: rgba(15,15,14, 0);
-  border: 1px solid rgba(255,255,255, 0.55);
+  border: 1px solid rgba(255,255,255, 0.6);
   box-shadow: 0 0 0 0 transparent;
-  transform: translate(-50%, -50%) translateZ(-180px) scale(0.72);
+  transform: translate(-50%, -50%);
   transition:
-    background 550ms ease-out 100ms,
-    border-color 500ms ease-out 80ms,
-    box-shadow 600ms ease-out 100ms,
-    transform 850ms cubic-bezier(.22,.61,.36,1);
+    background 500ms var(--hero-ease),
+    border-color 400ms var(--hero-ease),
+    box-shadow 500ms var(--hero-ease);
 }
 .hero.is-active .trophy--center {
   background: rgba(15,15,14, 1);
-  border-color: rgba(255,255,255, 0);
-  box-shadow:
-    0 50px 100px -32px rgba(15,15,14,.55),
-    0 14px 36px -18px rgba(15,15,14,.32);
-  transform: translate(-50%, -50%) translateZ(0) scale(1);
+  border-color: transparent;
+  box-shadow: 0 30px 70px -25px rgba(15,15,14,.42);
 }
 .trophy--center .trophy__photo,
 .trophy--center .trophy__scrim {
   opacity: 0;
-  transition: opacity 500ms ease-out 200ms;
+  transition: opacity 450ms var(--hero-ease) 120ms;
 }
 .hero.is-active .trophy--center .trophy__photo,
 .hero.is-active .trophy--center .trophy__scrim { opacity: 1; }
@@ -301,11 +311,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .approche__grid--center { text-align: center; }
 .approche__statement--center { margin-left: auto; margin-right: auto; }
 
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 4vw, 60px); margin-top: clamp(48px, 6vw, 84px); border-top: 1px solid var(--line); padding-top: 44px; }
-.stat { display: flex; flex-direction: column; gap: 8px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 4vw, 60px); margin-top: clamp(48px, 6vw, 84px); border-top: 1px solid var(--line); padding-top: 44px; text-align: center; }
+.stat { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .stat__num { font-weight: 300; font-size: clamp(2.5rem, 5.2vw, 4rem); line-height: 1; letter-spacing: -0.04em; color: var(--head); font-variant-numeric: tabular-nums; }
 .stat__label { font-size: 0.86rem; color: var(--muted); letter-spacing: 0.01em; }
-.stats__note { font-size: 0.74rem; color: var(--muted); margin-top: 24px; }
+.stats__note { font-size: 0.74rem; color: var(--muted); margin-top: 24px; text-align: center; }
 
 /* ============================================================
    MARQUEE
