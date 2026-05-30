@@ -99,7 +99,12 @@
      NAV au scroll + menu mobile
      ============================================================ */
   const nav = $("#nav");
-  function onScrollNav() { nav.classList.toggle("is-solid", getScroll() > 40); }
+  function showNav() { nav && nav.classList.add("is-visible"); }
+  function onScrollNav() {
+    const y = getScroll();
+    nav.classList.toggle("is-solid", y > 40);
+    if (y > 5) showNav();
+  }
   onScrollNav();
   if (lenis) lenis.on("scroll", onScrollNav);
   else window.addEventListener("scroll", onScrollNav, { passive: true });
@@ -261,6 +266,7 @@
       if (gestureLock || gestureCount >= 2) return false;
       gestureLock = true;
       gestureCount++;
+      showNav(); // fait apparaître le nav dès la 1ère interaction hero
       if (gestureCount === 1) heroEl.classList.add("is-revealed");
       else if (gestureCount === 2) {
         heroEl.classList.add("is-active");

@@ -148,7 +148,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    Verre dépoli translucide (blur + saturation), bord lumineux, ombre douce ;
    texte sombre lisible sur le verre, qu'il flotte au-dessus du hero sombre ou des sections claires. */
 .nav {
-  position: fixed; top: clamp(12px, 1.5vw, 20px); left: 50%; transform: translateX(-50%);
+  position: fixed; top: clamp(12px, 1.5vw, 20px); left: 50%;
+  transform: translate(-50%, -30px);
+  opacity: 0; pointer-events: none;
   z-index: 800;
   width: min(1200px, calc(100% - clamp(20px, 4vw, 48px)));
   display: flex; align-items: center; justify-content: space-between; gap: 18px;
@@ -163,7 +165,19 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     0 12px 34px -14px rgba(15, 15, 14, 0.32),
     0 1px 0 rgba(255, 255, 255, 0.65) inset,
     0 -1px 0 rgba(15, 15, 14, 0.05) inset;
-  transition: background .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease), top .45s var(--ease);
+  transition:
+    opacity .55s var(--ease),
+    transform .55s var(--ease),
+    background .45s var(--ease),
+    border-color .45s var(--ease),
+    box-shadow .45s var(--ease),
+    top .45s var(--ease);
+}
+/* Le nav n'apparaît qu'à partir du premier scroll / 1ère interaction hero */
+.nav.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
 }
 /* état au scroll : verre un peu plus dense pour rester net au-dessus du contenu */
 .nav.is-solid {
@@ -447,7 +461,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   -webkit-mask-image: url('logoAVRS.svg'); mask-image: url('logoAVRS.svg');
 }
 .marquee__logo--caption {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 400 / 112;
   -webkit-mask-image: url('logocaption.svg'); mask-image: url('logocaption.svg');
 }
 .marquee__logo:hover { background-color: var(--head); }
