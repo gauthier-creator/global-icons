@@ -207,6 +207,28 @@
   }
 
   /* ============================================================
+     HERO TROPHY CARDS — tilt 3D au curseur (mouvement subtil suivant la souris)
+     ============================================================ */
+  if (heroEl && fine && !reduce) {
+    $$(".hero .trophy").forEach((card) => {
+      let rect = null;
+      const reset = () => {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+      };
+      card.addEventListener("pointerenter", () => { rect = card.getBoundingClientRect(); });
+      card.addEventListener("pointermove", (e) => {
+        if (!rect) rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.setProperty("--tilt-y", (x * 12).toFixed(2) + "deg");
+        card.style.setProperty("--tilt-x", (-y * 12).toFixed(2) + "deg");
+      });
+      card.addEventListener("pointerleave", () => { rect = null; reset(); });
+    });
+  }
+
+  /* ============================================================
      SECTION SNAP — au repos, snap programmatique au point d'ancrage le plus proche
      (le hero a un point de snap supplémentaire à mi-section = fin d'animation deck)
      ============================================================ */

@@ -237,43 +237,62 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 /* deck (3 trophy cards) — état initial empilé, déployé en main de cartes au scroll */
 .hero__deck { position: relative; height: 100%; min-height: 480px; display: flex; align-items: center; justify-content: center; perspective: 1600px; }
+/* TROPHY CARDS — positionnement & déploiement sur .trophy, frame visuelle + tilt curseur sur .trophy__inner
+   Découplage : déploiement long (700ms), tilt court (200ms) → curseur reste responsive. */
 .trophy {
   position: absolute; top: 50%; left: 50%;
   width: var(--card-w); aspect-ratio: 3 / 4.4;
-  border-radius: 20px; overflow: hidden; color: #fff;
+  color: #fff; cursor: pointer;
+  --tilt-x: 0deg; --tilt-y: 0deg;
   will-change: transform, opacity;
 }
-/* Latérales : translation horizontale + fade, simple et fluide */
+.trophy__inner {
+  position: absolute; inset: 0;
+  border-radius: 20px; overflow: hidden;
+  transform: perspective(900px) rotateY(var(--tilt-y)) rotateX(var(--tilt-x));
+  transform-style: preserve-3d;
+  transition: transform 220ms ease-out, box-shadow 350ms ease-out;
+  will-change: transform, box-shadow;
+}
+/* Latérales : déploiement en arc (rotate + translateY pour l'effet éventail) */
 .trophy--left, .trophy--right {
-  background: var(--ink);
-  box-shadow: 0 30px 70px -25px rgba(15,15,14,.42);
   opacity: 0;
   transform: translate(-50%, -50%);
   transition:
     opacity 480ms var(--hero-ease) 220ms,
-    transform 700ms var(--hero-ease) 220ms;
+    transform 720ms var(--hero-ease) 220ms;
 }
 .trophy--left  { z-index: 2; }
 .trophy--right { z-index: 1; }
-.hero.is-active .trophy--left  { opacity: 1; transform: translate(-50%, -50%) translateX(-118%); }
-.hero.is-active .trophy--right { opacity: 1; transform: translate(-50%, -50%) translateX( 118%); }
-/* Centrale : contour translucide → carte solide (cross-fade propre, aucun mouvement) */
-.trophy--center {
-  z-index: 3;
+.hero.is-active .trophy--left  { opacity: 1; transform: translate(-50%, -50%) translateX(-115%) translateY(20px) rotate(-9deg); }
+.hero.is-active .trophy--right { opacity: 1; transform: translate(-50%, -50%) translateX( 115%) translateY(20px) rotate( 9deg); }
+/* Inner latérales : solides dès le départ */
+.trophy--left .trophy__inner, .trophy--right .trophy__inner {
+  background: var(--ink);
+  box-shadow: 0 30px 70px -25px rgba(15,15,14,.42), 0 12px 30px -16px rgba(15,15,14,.25);
+}
+/* Centrale : positionnée fixe, le mouvement de fond se fait via le cross-fade de l'inner */
+.trophy--center { z-index: 3; transform: translate(-50%, -50%); }
+.trophy--center .trophy__inner {
   background: rgba(15,15,14, 0);
   border: 1px solid rgba(255,255,255, 0.6);
   box-shadow: 0 0 0 0 transparent;
-  transform: translate(-50%, -50%);
   transition:
+    transform 220ms ease-out,
     background 500ms var(--hero-ease),
     border-color 400ms var(--hero-ease),
     box-shadow 500ms var(--hero-ease);
 }
-.hero.is-active .trophy--center {
+.hero.is-active .trophy--center .trophy__inner {
   background: rgba(15,15,14, 1);
   border-color: transparent;
-  box-shadow: 0 30px 70px -25px rgba(15,15,14,.42);
+  box-shadow: 0 40px 80px -25px rgba(15,15,14,.5), 0 14px 36px -18px rgba(15,15,14,.32);
 }
+/* Hover : ombre renforcée (uniquement après le déploiement) */
+.hero.is-active .trophy:hover .trophy__inner {
+  box-shadow: 0 60px 120px -25px rgba(15,15,14,.6), 0 22px 50px -20px rgba(15,15,14,.45);
+}
+/* Centrale : photo + scrim se révèlent au cross-fade */
 .trophy--center .trophy__photo,
 .trophy--center .trophy__scrim {
   opacity: 0;
