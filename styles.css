@@ -415,17 +415,30 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 4vw, 60px); margin-top: clamp(48px, 6vw, 84px); border-top: 1px solid var(--line); padding-top: 44px; text-align: center; }
 .stat { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .stat__num { font-weight: 300; font-size: clamp(2.5rem, 5.2vw, 4rem); line-height: 1; letter-spacing: -0.04em; color: var(--head); font-variant-numeric: tabular-nums; }
-.stat__label { font-size: 0.86rem; color: var(--muted); letter-spacing: 0.01em; }
+.stat__label { font-size: 0.86rem; color: var(--muted); letter-spacing: 0.01em; text-align: center; }
 .stats__note { font-size: 0.74rem; color: var(--muted); margin-top: 24px; text-align: center; }
 
 /* ============================================================
    MARQUEE
    ============================================================ */
 .marquee { overflow: hidden; padding: clamp(18px, 2.6vw, 32px) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
-.marquee__track { display: inline-flex; align-items: center; gap: 0.6em; white-space: nowrap; animation: marquee 34s linear infinite; will-change: transform; }
+.marquee__track { display: inline-flex; align-items: center; gap: clamp(34px, 5vw, 70px); white-space: nowrap; animation: marquee 34s linear infinite; will-change: transform; padding: 0 clamp(20px, 3vw, 40px); }
 .marquee__track span { font-size: clamp(1.3rem, 3vw, 2.2rem); font-weight: 300; letter-spacing: -0.02em; color: var(--head); padding: 0 0.25em; }
-.marquee__dot { color: var(--accent) !important; font-size: clamp(0.4rem, 0.8vw, 0.6rem) !important; transform: translateY(-0.25em); }
+.marquee__dot { color: var(--muted) !important; font-size: clamp(0.4rem, 0.8vw, 0.6rem) !important; transform: translateY(-0.25em); opacity: .4; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
+/* Variante logos partenaires */
+.marquee--logos { padding: clamp(28px, 3.6vw, 48px) 0; }
+.marquee__logo {
+  height: clamp(28px, 3.4vw, 44px);
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  opacity: .7;
+  filter: grayscale(1);
+  transition: opacity .3s var(--ease), filter .3s var(--ease);
+}
+.marquee--logos .marquee__track:hover .marquee__logo,
+.marquee__logo:hover { opacity: 1; filter: grayscale(0); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ============================================================
