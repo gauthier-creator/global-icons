@@ -87,17 +87,39 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* ---------------- buttons ---------------- */
 .btn {
   position: relative; display: inline-flex; align-items: center; justify-content: center;
+  gap: 14px;
   padding: 1.05em 2.1em; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.01em;
   border-radius: 999px; border: 1px solid transparent; white-space: nowrap;
-  transition: background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease);
+  transition:
+    background .35s var(--ease),
+    color .35s var(--ease),
+    border-color .35s var(--ease),
+    transform .3s var(--ease),
+    box-shadow .35s var(--ease);
   will-change: transform;
 }
-.btn--solid { background: var(--head); color: var(--paper); }
-.btn--solid:hover { background: transparent; color: var(--head); box-shadow: inset 0 0 0 1px var(--head); }
-.btn--light { background: var(--paper); color: var(--head); }
-.btn--light:hover { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px rgba(255,255,255,.55); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); transition: transform .08s; }
+.btn--solid { background: var(--head); color: var(--paper); box-shadow: 0 8px 22px -10px rgba(15,15,14,.42); }
+.btn--solid:hover { background: var(--head); color: var(--paper); box-shadow: 0 18px 36px -12px rgba(15,15,14,.55); }
+.btn--light { background: var(--paper); color: var(--head); box-shadow: 0 8px 22px -10px rgba(15,15,14,.4); }
+.btn--light:hover { background: var(--paper); color: var(--head); box-shadow: 0 18px 38px -10px rgba(15,15,14,.5); }
 .btn--ghost { border-color: rgba(255,255,255,.42); color: var(--paper); }
 .btn--ghost:hover { border-color: var(--paper); background: rgba(255,255,255,.08); }
+/* Flèche partagée par tous les CTA — slide à droite au hover */
+.btn__arrow {
+  display: inline-block;
+  font-size: 1.15em; line-height: 1;
+  transition: transform .35s var(--ease);
+}
+.btn:hover .btn__arrow,
+.hero__cta:hover .btn__arrow,
+.nav__cta:hover .btn__arrow { transform: translateX(5px); }
+/* Focus visible (clavier) */
+.btn:focus-visible, .nav__cta:focus-visible, .hero__cta:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
 
 /* ============================================================
    LOADER
@@ -158,8 +180,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .nav__links { display: flex; align-items: center; gap: 2px; }
 .nav__links a { font-size: 14px; font-weight: 400; color: var(--head); padding: 9px 15px; border-radius: 999px; opacity: .78; transition: opacity .3s var(--ease), background .3s var(--ease); }
 .nav__links a:hover { opacity: 1; background: rgba(15, 15, 14, 0.05); }
-.nav__cta { font-size: 14px; font-weight: 400; color: #fff; background: var(--ink); padding: 11px 22px; border: none; border-radius: 999px; transition: transform .35s var(--ease), opacity .3s var(--ease); will-change: transform; }
-.nav__cta:hover { opacity: .85; }
+.nav__cta { font-size: 14px; font-weight: 400; color: #fff; background: var(--ink); padding: 11px 22px; border: none; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(15,15,14,.3); transition: transform .3s var(--ease), box-shadow .3s var(--ease); will-change: transform; }
+.nav__cta:hover { transform: translateY(-1px); box-shadow: 0 12px 26px -10px rgba(15,15,14,.5); }
 .nav__burger { display: none; flex-direction: column; gap: 6px; width: 30px; color: var(--head); }
 .nav__burger span { height: 1.5px; background: currentColor; transition: transform .4s var(--ease), opacity .3s; }
 /* menu mobile ouvert : on neutralise le verre et on passe le logo/burger en blanc au-dessus de l'overlay sombre */
@@ -253,9 +275,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   transition: opacity .3s var(--hero-ease), transform .3s var(--hero-ease);
   will-change: transform;
 }
-.hero__cta:hover { opacity: .85; }
-.hero__cta span { font-size: 1.05rem; transition: transform .3s var(--hero-ease); }
-.hero__cta:hover span { transform: translateX(4px); }
+.hero__cta { box-shadow: 0 10px 24px -10px rgba(15,15,14,.4); }
+.hero__cta:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgba(15,15,14,.55); }
 /* Trait de continuité vers la section suivante — se dessine après l'animation deck */
 .hero__cue {
   position: absolute; bottom: clamp(36px, 6vh, 70px); left: 50%;
