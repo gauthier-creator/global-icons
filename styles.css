@@ -217,10 +217,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* Copy hero — tagline + CTA, haut-gauche, couleur qui s'inverse selon l'état du voile */
 .hero__copy {
   position: absolute;
-  top: clamp(110px, 16vh, 180px);
-  left: clamp(24px, 6vw, 80px);
+  bottom: clamp(60px, 8vh, 100px);
+  right: clamp(24px, 6vw, 80px);
   z-index: 5;
   max-width: clamp(280px, 32vw, 460px);
+  text-align: right;
   color: #fff;
   transition: color 500ms var(--hero-ease);
 }
