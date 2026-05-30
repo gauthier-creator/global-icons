@@ -664,7 +664,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .track__btn:disabled { opacity: .28; cursor: not-allowed; }
 .track__btn:disabled:hover { background: none; color: inherit; border-color: var(--line); }
 
-.track__viewport { overflow: hidden; cursor: grab; }
+.track__viewport { overflow-x: hidden; overflow-x: clip; overflow-y: visible; cursor: grab; padding: 12px 0 60px; margin: -12px 0 -60px; }
 .track__viewport.is-drag { cursor: grabbing; }
 .track__rail { display: flex; gap: clamp(18px, 2vw, 28px); padding: 4px var(--gut); will-change: transform; transition: transform .8s var(--ease-soft); }
 .card { flex: 0 0 clamp(280px, 32vw, 410px); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
