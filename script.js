@@ -45,9 +45,7 @@
      ============================================================ */
   let lenis = null;
   if (!reduce && window.Lenis) {
-    // smoothWheel: false — on gère le wheel nous-mêmes pour le snap strict section-par-section.
-    // Lenis garde la main sur les scrollTo() (smooth scroll programmatique pour les ancres et le snap).
-    lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: false, smoothTouch: false });
+    lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
     function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
     lenis.stop();
@@ -273,26 +271,28 @@
       }
     };
 
-    // Wheel : on intercepte et on snape, sauf dans la zone hero
+    // Wheel : capture phase (avant Lenis) — hijack uniquement hors zone hero
     window.addEventListener("wheel", (e) => {
-      if (inHeroZone()) return; // scroll naturel
+      if (inHeroZone()) return; // laisse Lenis smoother le scroll en hero
       e.preventDefault();
+      e.stopPropagation();
       snapInDirection(e.deltaY > 0 ? 1 : -1);
-    }, { passive: false });
+    }, { capture: true, passive: false });
 
-    // Touch
+    // Touch — même logique
     let touchStartY = null;
     window.addEventListener("touchstart", (e) => {
       touchStartY = e.touches[0].clientY;
-    }, { passive: true });
+    }, { capture: true, passive: true });
     window.addEventListener("touchmove", (e) => {
       if (touchStartY === null || inHeroZone()) return;
       const dy = touchStartY - e.touches[0].clientY;
       if (Math.abs(dy) < 30) return;
       e.preventDefault();
+      e.stopPropagation();
       snapInDirection(dy > 0 ? 1 : -1);
       touchStartY = null;
-    }, { passive: false });
+    }, { capture: true, passive: false });
     window.addEventListener("touchend", () => { touchStartY = null; }, { passive: true });
 
     // Clavier
