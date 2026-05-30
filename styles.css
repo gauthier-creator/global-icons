@@ -723,8 +723,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .film__line { display: block; width: 1px; height: clamp(64px, 9vw, 120px); background: linear-gradient(180deg, transparent, var(--line-strong, #c9c7c2) 35%, var(--head)); transform-origin: top; }
 .film__line.reveal { transform: scaleY(0); opacity: 1; transition: transform 1s var(--ease, cubic-bezier(.22,1,.36,1)); }
 .film__line.reveal.is-in, .film__line.reveal.is-visible { transform: scaleY(1); }
-.film__frame { margin-top: clamp(20px, 2.4vw, 32px); }
-.film__frame .vframe { aspect-ratio: 2.3 / 1; }
+.film__frame { margin-top: clamp(20px, 2.4vw, 32px); max-width: min(1560px, 94vw); }
+.film__frame .vframe { aspect-ratio: 16 / 9; }
+.film__frame .vframe video { object-fit: contain; background: #0f0f0e; }
 .film__cap { display: flex; justify-content: space-between; gap: 20px; margin-top: 22px; font-size: 0.86rem; color: var(--muted); flex-wrap: wrap; }
 .film__cap span:last-child { letter-spacing: 0.04em; }
 
