@@ -426,19 +426,27 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .marquee__track span { font-size: clamp(1.3rem, 3vw, 2.2rem); font-weight: 300; letter-spacing: -0.02em; color: var(--head); padding: 0 0.25em; }
 .marquee__dot { color: var(--muted) !important; font-size: clamp(0.4rem, 0.8vw, 0.6rem) !important; transform: translateY(-0.25em); opacity: .4; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
-/* Variante logos partenaires */
+/* Variante logos partenaires — mask SVG + couleur via background-color (full control grey) */
 .marquee--logos { padding: clamp(28px, 3.6vw, 48px) 0; }
 .marquee__logo {
+  display: inline-block;
   height: clamp(28px, 3.4vw, 44px);
-  width: auto;
-  display: block;
   flex-shrink: 0;
-  opacity: .7;
-  filter: grayscale(1);
-  transition: opacity .3s var(--ease), filter .3s var(--ease);
+  background-color: var(--body); /* gris moyen */
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  transition: background-color .35s var(--ease);
 }
-.marquee--logos .marquee__track:hover .marquee__logo,
-.marquee__logo:hover { opacity: 1; filter: grayscale(0); }
+.marquee__logo--fr {
+  aspect-ratio: 137 / 42;
+  -webkit-mask-image: url('logoFR.svg'); mask-image: url('logoFR.svg');
+}
+.marquee__logo--avrs {
+  aspect-ratio: 55 / 20;
+  -webkit-mask-image: url('logoAVRS.svg'); mask-image: url('logoAVRS.svg');
+}
+.marquee__logo:hover { background-color: var(--head); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ============================================================
