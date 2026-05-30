@@ -223,9 +223,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   max-width: clamp(280px, 32vw, 460px);
   text-align: right;
   color: #fff;
-  transition: color 500ms var(--hero-ease);
+  opacity: 1;
+  transition: opacity 300ms var(--hero-ease);
 }
-.hero.is-active .hero__copy { color: var(--head); }
+/* Dès que l'animation se déclenche : tagline + CTA disparaissent */
+.hero.is-active .hero__copy {
+  opacity: 0;
+  pointer-events: none;
+}
 .hero__tagline {
   font-weight: 300;
   font-size: clamp(1.6rem, 2.8vw, 2.6rem);
@@ -805,16 +810,37 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .screen__search, .screen__user-txt, .screen__prog { display: none; }
   .screen__op { gap: 10px; }
   .screen__spark { display: none; }
-  .hero__ticker { display: none; }
-  .hero__foot { justify-content: flex-start; }
-  /* hero mobile : carte unique centrée, sans décor ni animation */
+  /* hero mobile : carte unique centrée + tagline et CTA en bas, sans animation ni décor */
   .hero { min-height: 100svh; }
   .hero__pin { height: 100vh; }
-  .hero__bg, .hero__bg-scrim, .hero__veil { display: none; }
+  .hero__bg, .hero__bg-scrim, .hero__veil, .hero__cue { display: none; }
   .hero__deck { perspective: none; }
   .trophy--left, .trophy--right { display: none; }
-  .trophy--center { width: min(300px, 75vw); opacity: 1 !important; background: var(--ink) !important; border-color: transparent !important; box-shadow: 0 50px 100px -32px rgba(15,15,14,.45), 0 14px 36px -18px rgba(15,15,14,.28) !important; }
-  .trophy--center .trophy__photo, .trophy--center .trophy__scrim { opacity: 1 !important; }
+  .trophy--center {
+    width: min(240px, 62vw);
+    top: 40%;
+    opacity: 1 !important;
+  }
+  .trophy--center .trophy__inner {
+    background: var(--ink) !important;
+    border-color: transparent !important;
+    box-shadow: 0 28px 60px -22px rgba(15,15,14,.4), 0 10px 26px -14px rgba(15,15,14,.25) !important;
+    transform: none !important; /* désactive le tilt 3D sur mobile */
+  }
+  .trophy--center .trophy__photo,
+  .trophy--center .trophy__scrim { opacity: 1 !important; }
+  /* Hero copy : pleine largeur en bas, centré, toujours visible (pas d'animation à déclencher) */
+  .hero__copy {
+    top: auto;
+    left: 24px;
+    right: 24px;
+    bottom: clamp(40px, 6vh, 70px);
+    max-width: none;
+    text-align: center;
+  }
+  .hero.is-active .hero__copy { opacity: 1; pointer-events: auto; }
+  .hero__tagline { font-size: clamp(1.1rem, 4.5vw, 1.5rem); margin-bottom: 18px; color: var(--head); }
+  .hero__cta { justify-content: center; }
   .nav__links.is-open { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--ink); color: var(--paper); align-items: center; justify-content: center; gap: 30px; font-size: 1.7rem; font-weight: 300; z-index: 700; }
   .nav__links.is-open a { opacity: 1; }
 }
