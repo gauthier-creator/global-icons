@@ -192,18 +192,69 @@
   }
 
   /* ============================================================
-     HERO — l'animation se déclenche au premier scroll (classe is-active + transitions CSS)
-     La vitesse n'est PAS contrôlée par le scroll : un coup de molette et ça joue.
+     HERO — 3 états :
+       0 (arrivée)    : BG + tagline + CTA visibles, pas de carte
+       1 (.is-revealed, 1er scroll) : la carte centrale apparaît
+       2 (.is-active, 2e scroll) : l'animation se déclenche (deck + voile)
+     Les 2 premiers scrolls sont hijack (preventDefault) pour rester en place.
+     Au 3e scroll, on libère et Lenis prend la main pour scroller vers la suite.
      ============================================================ */
   const heroEl = $("[data-hero]");
-  if (heroEl && !reduce) {
-    const updateHero = () => {
-      const y = lenis ? lenis.scroll : window.scrollY;
-      heroEl.classList.toggle("is-active", y > 20);
+  const isDesktop = window.matchMedia("(min-width: 821px)").matches;
+  if (heroEl && !reduce && isDesktop) {
+    let gestureCount = 0;
+    let gestureLock = false;
+    const advance = () => {
+      if (gestureLock || gestureCount >= 2) return false;
+      gestureLock = true;
+      gestureCount++;
+      if (gestureCount === 1) heroEl.classList.add("is-revealed");
+      else if (gestureCount === 2) heroEl.classList.add("is-active");
+      setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 550 : 800);
+      return true;
     };
-    if (lenis) lenis.on("scroll", updateHero);
-    else window.addEventListener("scroll", updateHero, { passive: true });
-    updateHero();
+    const onWheel = (e) => {
+      if (gestureCount >= 2) return; // tout est joué : Lenis prend la main
+      const y = lenis ? lenis.scroll : window.scrollY;
+      if (y > 50) return; // déjà parti du top du hero
+      if (e.deltaY <= 0) return; // seulement vers le bas
+      e.preventDefault();
+      e.stopPropagation();
+      advance();
+    };
+    window.addEventListener("wheel", onWheel, { capture: true, passive: false });
+    // Touch
+    let touchYStart = null;
+    window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { capture: true, passive: true });
+    window.addEventListener("touchmove", (e) => {
+      if (gestureCount >= 2 || touchYStart === null) return;
+      const y = lenis ? lenis.scroll : window.scrollY;
+      if (y > 50) return;
+      const dy = touchYStart - e.touches[0].clientY;
+      if (dy < 30) return;
+      e.preventDefault();
+      e.stopPropagation();
+      advance();
+      touchYStart = null;
+    }, { capture: true, passive: false });
+    window.addEventListener("touchend", () => { touchYStart = null; }, { passive: true });
+    // Clavier
+    window.addEventListener("keydown", (e) => {
+      if (gestureCount >= 2) return;
+      if (!["ArrowDown", "PageDown", "Space"].includes(e.code)) return;
+      e.preventDefault();
+      advance();
+    });
+    // Reset si retour en haut
+    const sync = () => {
+      const y = lenis ? lenis.scroll : window.scrollY;
+      if (y < 5 && gestureCount > 0) {
+        gestureCount = 0;
+        heroEl.classList.remove("is-revealed", "is-active");
+      }
+    };
+    if (lenis) lenis.on("scroll", sync);
+    else window.addEventListener("scroll", sync, { passive: true });
   }
 
   /* ============================================================

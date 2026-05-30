@@ -313,8 +313,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   background: var(--ink);
   box-shadow: 0 30px 70px -25px rgba(15,15,14,.42), 0 12px 30px -16px rgba(15,15,14,.25);
 }
-/* Centrale : positionnée fixe, le mouvement de fond se fait via le cross-fade de l'inner */
-.trophy--center { z-index: 3; transform: translate(-50%, -50%); }
+/* Centrale : invisible à l'arrivée, apparaît au 1er scroll (.is-revealed), s'anime au 2e (.is-active) */
+.trophy--center {
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 600ms var(--hero-ease);
+}
+.hero.is-revealed .trophy--center,
+.hero.is-active .trophy--center { opacity: 1; }
 .trophy--center .trophy__inner {
   background: rgba(15,15,14, 0);
   border: 1px solid rgba(255,255,255, 0.6);
