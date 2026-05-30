@@ -446,6 +446,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   aspect-ratio: 55 / 20;
   -webkit-mask-image: url('logoAVRS.svg'); mask-image: url('logoAVRS.svg');
 }
+.marquee__logo--caption {
+  aspect-ratio: 1 / 1;
+  -webkit-mask-image: url('logocaption.svg'); mask-image: url('logocaption.svg');
+}
 .marquee__logo:hover { background-color: var(--head); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
