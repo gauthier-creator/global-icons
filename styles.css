@@ -178,12 +178,24 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .nav__brand { display: flex; align-items: center; will-change: transform; }
 .nav__logo { height: 28px; width: auto; display: block; filter: none; }
 .nav__links { display: flex; align-items: center; gap: 2px; }
-.nav__links a { font-size: 14px; font-weight: 400; color: var(--head); padding: 9px 15px; border-radius: 999px; opacity: .78; transition: opacity .3s var(--ease), background .3s var(--ease); }
-.nav__links a:hover { opacity: 1; background: rgba(15, 15, 14, 0.05); }
+.nav__links a { position: relative; font-size: 14px; font-weight: 400; color: var(--head); padding: 9px 15px; border-radius: 999px; opacity: .72; transition: opacity .3s var(--ease); }
+.nav__links a:hover { opacity: 1; }
+.nav__links a::after {
+  content: ""; position: absolute; left: 15px; right: 15px; bottom: 5px;
+  height: 1px; background: currentColor; opacity: .55;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .4s var(--ease);
+}
+.nav__links a:hover::after,
+.nav__links a.is-current::after { transform: scaleX(1); }
+.nav__links a.is-current { opacity: 1; }
 .nav__cta { font-size: 14px; font-weight: 400; color: #fff; background: var(--ink); padding: 11px 22px; border: none; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(15,15,14,.3); transition: transform .3s var(--ease), box-shadow .3s var(--ease); will-change: transform; }
 .nav__cta:hover { transform: translateY(-1px); box-shadow: 0 12px 26px -10px rgba(15,15,14,.5); }
-.nav__burger { display: none; flex-direction: column; gap: 6px; width: 30px; color: var(--head); }
-.nav__burger span { height: 1.5px; background: currentColor; transition: transform .4s var(--ease), opacity .3s; }
+.nav__burger { display: none; flex-direction: column; gap: 6px; width: 30px; color: var(--head); position: relative; background: none; border: none; cursor: pointer; padding: 6px 0; }
+.nav__burger span { display: block; height: 1.5px; background: currentColor; transition: transform .4s var(--ease), opacity .3s var(--ease); transform-origin: center; }
+/* Burger -> X quand menu ouvert */
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
 /* menu mobile ouvert : on neutralise le verre et on passe le logo/burger en blanc au-dessus de l'overlay sombre */
 .nav:has(.nav__links.is-open) {
   color: var(--paper);
@@ -869,8 +881,16 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .hero.is-active .hero__copy { opacity: 1; pointer-events: auto; }
   .hero__tagline { font-size: clamp(1.1rem, 4.5vw, 1.5rem); margin-bottom: 18px; color: var(--head); }
   .hero__cta { justify-content: center; }
-  .nav__links.is-open { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--ink); color: var(--paper); align-items: center; justify-content: center; gap: 30px; font-size: 1.7rem; font-weight: 300; z-index: 700; }
-  .nav__links.is-open a { opacity: 1; }
+  .nav__links.is-open { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--ink); color: var(--paper); align-items: center; justify-content: center; gap: 30px; font-size: 1.7rem; font-weight: 300; z-index: 700; animation: navMenuFade .35s var(--ease); }
+  .nav__links.is-open a { opacity: 0; transform: translateY(12px); animation: navItemSlide .55s var(--ease) forwards; }
+  .nav__links.is-open a::after { display: none; }
+  .nav__links.is-open a:nth-child(1) { animation-delay: .08s; }
+  .nav__links.is-open a:nth-child(2) { animation-delay: .14s; }
+  .nav__links.is-open a:nth-child(3) { animation-delay: .20s; }
+  .nav__links.is-open a:nth-child(4) { animation-delay: .26s; }
+  .nav__links.is-open a:nth-child(5) { animation-delay: .32s; }
+  @keyframes navMenuFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes navItemSlide { to { opacity: 1; transform: translateY(0); } }
 }
 @media (max-width: 560px) {
   .team__grid { grid-template-columns: 1fr 1fr; }

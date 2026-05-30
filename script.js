@@ -121,6 +121,36 @@
     );
   }
 
+  /* Lien actif selon la section visible (IntersectionObserver) */
+  const navLinks = $$('.nav__links a[href^="#"]');
+  if (navLinks.length && "IntersectionObserver" in window) {
+    const sectionMap = new Map();
+    navLinks.forEach((a) => {
+      const id = a.getAttribute("href");
+      if (!id || id.length < 2) return;
+      const target = document.querySelector(id);
+      if (target) sectionMap.set(target, a);
+    });
+    if (sectionMap.size) {
+      const setCurrent = (link) => {
+        navLinks.forEach((a) => a.classList.toggle("is-current", a === link));
+      };
+      const obs = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible) {
+            const link = sectionMap.get(visible.target);
+            if (link) setCurrent(link);
+          }
+        },
+        { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+      );
+      sectionMap.forEach((_, section) => obs.observe(section));
+    }
+  }
+
   /* ============================================================
      REVEAL + split-in au scroll
      ============================================================ */
