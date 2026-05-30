@@ -160,11 +160,14 @@
   function animateCount(el) {
     const target = parseFloat(el.dataset.count);
     const suffix = el.dataset.suffix || "";
+    const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals, 10) : 0;
     const dur = 1500; const start = performance.now();
     function stepFn(now) {
       const t = Math.min((now - start) / dur, 1);
       const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = Math.round(target * eased) + suffix;
+      const v = target * eased;
+      const formatted = decimals > 0 ? v.toFixed(decimals).replace(".", ",") : String(Math.round(v));
+      el.textContent = formatted + suffix;
       if (t < 1) requestAnimationFrame(stepFn);
     }
     requestAnimationFrame(stepFn);
