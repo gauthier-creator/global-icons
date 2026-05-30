@@ -130,16 +130,22 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   transition: transform 1.05s var(--ease-soft); will-change: transform;
 }
 .loader.is-done { transform: translateY(-101%); }
-.loader__inner { width: min(440px, 78vw); display: flex; flex-direction: column; align-items: center; }
+.loader__inner { width: min(560px, 88vw); display: flex; flex-direction: column; align-items: center; padding: 0 16px; }
 /* wordmark Global Icons qui se remplit pendant le chargement (sur fond blanc) */
-.loader__logo { position: relative; opacity: 0; animation: loaderFade .8s var(--ease) forwards; }
+.loader__logo { position: relative; opacity: 0; animation: loaderFade .8s var(--ease) forwards; max-width: 100%; }
 /* identique au filigrane séparateur (.brandmark__word) : horizontal, même gap, même taille de .bm */
-.loader__word { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 52px); white-space: nowrap; }
+.loader__word { display: flex; align-items: center; justify-content: center; gap: clamp(14px, 3vw, 52px); white-space: nowrap; }
 .loader__word--fill { position: absolute; inset: 0; clip-path: inset(0 100% 0 0); transition: clip-path .25s linear; }
 .loader__word--base .bm { background-color: #f5f5f4; }
 .loader__word--fill .bm { background-color: var(--ink); }
+/* Taille .bm responsive — sur petit écran, plus modeste pour éviter l'overflow horizontal */
+.loader__logo .bm { height: clamp(44px, 11vw, 120px); }
 @keyframes loaderFade { to { opacity: 1; } }
-.loader__count { margin-top: 30px; font-size: 0.78rem; letter-spacing: 0.18em; color: var(--muted); display: flex; gap: 1px; font-variant-numeric: tabular-nums; }
+.loader__count { margin-top: clamp(18px, 3vw, 30px); font-size: clamp(0.7rem, 1.8vw, 0.78rem); letter-spacing: 0.18em; color: var(--muted); display: flex; gap: 1px; font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) {
+  .loader__logo .bm { height: clamp(34px, 9vw, 48px); }
+  .loader__word { gap: clamp(12px, 4vw, 24px); }
+}
 
 /* ============================================================
    NAV
