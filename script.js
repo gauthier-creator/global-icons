@@ -229,83 +229,57 @@
   }
 
   /* ============================================================
-     SECTION SNAP — strict, section-par-section (façon fullPage.js)
-     EXCEPTION : dans le hero, scroll naturel pour laisser l'animation se jouer.
-     Une fois passé la zone d'animation, chaque wheel/touch/key snape immédiatement
-     vers la section suivante ou précédente, avec un cooldown anti-burst.
+     SECTION SNAP — soft, après scroll-end. Lenis gère le wheel naturellement.
+     EXCEPTION : on ne snape pas dans le hero pour laisser son animation se jouer.
      ============================================================ */
   if (!reduce && heroEl) {
     const snapSections = $$("main > section, footer").filter((s) =>
       !s.classList.contains("brandmark") &&
       !s.classList.contains("marquee")
     );
-    const getSnapPoints = () => snapSections.map((s) => s.offsetTop).sort((a, b) => a - b);
-    const SNAP_COOLDOWN = 900;
-    let lastSnapTime = 0;
+    let scrollEndTimer = null;
     let isSnapping = false;
+    let lastDir = 1;
+    let lastSeenY = lenis ? lenis.scroll : window.scrollY;
 
-    // Zone hero = première moitié du hero (avant que l'animation deck soit complète).
-    // Tant qu'on y est, on laisse le navigateur scroller naturellement.
-    const inHeroZone = () => {
+    const snapNearest = () => {
+      if (isSnapping) return;
       const y = lenis ? lenis.scroll : window.scrollY;
+      // ne pas snaper si on est encore dans la zone d'animation du hero
       const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      return y < heroBottom - window.innerHeight; // dans le premier 100vh du hero
-    };
-
-    const snapInDirection = (direction) => {
-      const now = Date.now();
-      if (now - lastSnapTime < SNAP_COOLDOWN || isSnapping) return;
-      const y = lenis ? lenis.scroll : window.scrollY;
-      const pts = getSnapPoints();
-      let target;
-      if (direction > 0) target = pts.find((p) => p > y + 30);
-      else target = [...pts].reverse().find((p) => p < y - 30);
-      if (target === undefined) return;
-      lastSnapTime = now;
+      if (y < heroBottom - window.innerHeight * 0.5) return;
+      // cherche la section la plus proche, biaisée dans la direction du dernier scroll
+      let target = null;
+      let minDist = Infinity;
+      for (const s of snapSections) {
+        const dist = Math.abs(s.offsetTop - y);
+        // léger biais : si scroll vers le bas, favorise les sections plus bas (et inversement)
+        const adj = dist + (lastDir > 0 && s.offsetTop < y ? 40 : 0) + (lastDir < 0 && s.offsetTop > y ? 40 : 0);
+        if (adj < minDist) { minDist = adj; target = s; }
+      }
+      if (!target) return;
+      const realDist = Math.abs(target.offsetTop - y);
+      // ne snape que si proche d'une frontière (entre 12px et ~45% du viewport)
+      if (realDist < 12 || realDist > window.innerHeight * 0.45) return;
       isSnapping = true;
       if (lenis) {
-        lenis.scrollTo(target, { duration: 0.85, onComplete: () => { isSnapping = false; } });
+        lenis.scrollTo(target.offsetTop, { duration: 0.7, onComplete: () => { isSnapping = false; } });
       } else {
-        window.scrollTo({ top: target, behavior: "smooth" });
-        setTimeout(() => { isSnapping = false; }, 900);
+        window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
+        setTimeout(() => { isSnapping = false; }, 750);
       }
     };
 
-    // Wheel : capture phase (avant Lenis) — hijack uniquement hors zone hero
-    window.addEventListener("wheel", (e) => {
-      if (inHeroZone()) return; // laisse Lenis smoother le scroll en hero
-      e.preventDefault();
-      e.stopPropagation();
-      snapInDirection(e.deltaY > 0 ? 1 : -1);
-    }, { capture: true, passive: false });
+    const onScroll = () => {
+      const y = lenis ? lenis.scroll : window.scrollY;
+      if (Math.abs(y - lastSeenY) > 2) lastDir = y > lastSeenY ? 1 : -1;
+      lastSeenY = y;
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(snapNearest, 180);
+    };
 
-    // Touch — même logique
-    let touchStartY = null;
-    window.addEventListener("touchstart", (e) => {
-      touchStartY = e.touches[0].clientY;
-    }, { capture: true, passive: true });
-    window.addEventListener("touchmove", (e) => {
-      if (touchStartY === null || inHeroZone()) return;
-      const dy = touchStartY - e.touches[0].clientY;
-      if (Math.abs(dy) < 30) return;
-      e.preventDefault();
-      e.stopPropagation();
-      snapInDirection(dy > 0 ? 1 : -1);
-      touchStartY = null;
-    }, { capture: true, passive: false });
-    window.addEventListener("touchend", () => { touchStartY = null; }, { passive: true });
-
-    // Clavier
-    window.addEventListener("keydown", (e) => {
-      if (inHeroZone()) return;
-      if (["ArrowDown", "PageDown", "Space"].includes(e.code)) {
-        e.preventDefault();
-        snapInDirection(1);
-      } else if (["ArrowUp", "PageUp"].includes(e.code)) {
-        e.preventDefault();
-        snapInDirection(-1);
-      }
-    });
+    if (lenis) lenis.on("scroll", onScroll);
+    else window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   /* ============================================================
