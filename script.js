@@ -245,10 +245,10 @@
     let scrollLocked = false;
 
     const lockScroll = () => {
-      if (scrollLocked) return;
-      scrollLocked = true;
+      // Idempotent — toujours re-stopper Lenis (au cas où finishLoad l'aurait redémarré)
       if (lenis) lenis.stop();
       document.documentElement.style.overflow = "hidden";
+      scrollLocked = true;
     };
     const unlockScroll = () => {
       scrollLocked = false;
@@ -256,11 +256,19 @@
       document.documentElement.style.overflow = "";
     };
 
-    // Verrouille le scroll dès que possible (après que finishLoad ait fait lenis.start)
-    setTimeout(() => {
-      const y = lenis ? lenis.scroll : window.scrollY;
-      if (y < 50 && gestureCount < 2) lockScroll();
-    }, 250);
+    // Garde : ne pas traiter les gestes tant que le loader est visible
+    const isLoading = () => document.body.classList.contains("is-loading");
+
+    // Verrouille le scroll dès que possible (avant et après finishLoad)
+    lockScroll();
+    // Re-applique le lock juste après que finishLoad ait potentiellement appelé lenis.start()
+    const reapplyLock = () => { if (!isLoading() && gestureCount < 2) lockScroll(); };
+    const lockWatcher = setInterval(() => {
+      if (!isLoading()) {
+        reapplyLock();
+        clearInterval(lockWatcher);
+      }
+    }, 80);
 
     const advance = () => {
       if (gestureLock || gestureCount >= 2) return false;
@@ -278,16 +286,16 @@
     };
 
     const tryAdvance = (deltaPositive) => {
+      if (isLoading()) return;       // pas de geste tant que le loader est là
       if (gestureCount >= 2) return;
       if (!deltaPositive) return;
-      // Garantit que le scroll reste verrouillé même si finishLoad a redémarré Lenis
       lockScroll();
       advance();
     };
 
     // Wheel (capture + passive:false pour bloquer aussi les browsers qui n'écouteraient pas lenis.stop)
     window.addEventListener("wheel", (e) => {
-      if (gestureCount >= 2) return;
+      if (isLoading() || gestureCount >= 2) return;
       if (e.deltaY > 0) {
         e.preventDefault();
         tryAdvance(true);
@@ -298,7 +306,7 @@
     let touchYStart = null;
     window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { passive: true });
     window.addEventListener("touchmove", (e) => {
-      if (gestureCount >= 2 || touchYStart === null) return;
+      if (isLoading() || gestureCount >= 2 || touchYStart === null) return;
       const dy = touchYStart - e.touches[0].clientY;
       if (dy < 30) return;
       e.preventDefault();
@@ -309,7 +317,7 @@
 
     // Clavier
     window.addEventListener("keydown", (e) => {
-      if (gestureCount >= 2) return;
+      if (isLoading() || gestureCount >= 2) return;
       if (["ArrowDown", "PageDown", "Space"].includes(e.code)) {
         e.preventDefault();
         tryAdvance(true);
