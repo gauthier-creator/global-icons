@@ -270,32 +270,46 @@
       }
     }, 80);
 
+    // Fenêtre de "silence" après l'unlock : on consomme l'inertie résiduelle
+    // (trackpad / touch swipe long) pendant ~700ms pour empêcher qu'un même
+    // geste déclenche à la fois l'animation ET un saut dans la section suivante.
+    let silenceUntil = 0;
+    const SILENCE_MS = 700;
+
     const advance = () => {
       if (gestureLock || gestureCount >= 2) return false;
       gestureLock = true;
       gestureCount++;
-      showNav(); // fait apparaître le nav dès la 1ère interaction hero
+      showNav();
       if (gestureCount === 1) heroEl.classList.add("is-revealed");
       else if (gestureCount === 2) {
         heroEl.classList.add("is-active");
-        // Libère le scroll après que l'animation principale soit jouée
-        setTimeout(unlockScroll, 900);
+        setTimeout(() => {
+          unlockScroll();
+          silenceUntil = performance.now() + SILENCE_MS;
+        }, 900);
       }
       setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 600 : 800);
       return true;
     };
 
     const tryAdvance = (deltaPositive) => {
-      if (isLoading()) return;       // pas de geste tant que le loader est là
+      if (isLoading()) return;
       if (gestureCount >= 2) return;
       if (!deltaPositive) return;
       lockScroll();
       advance();
     };
 
-    // Wheel (capture + passive:false pour bloquer aussi les browsers qui n'écouteraient pas lenis.stop)
+    const inSilence = () => performance.now() < silenceUntil;
+
+    // Wheel : intercepte aussi pendant la fenêtre de silence post-unlock
     window.addEventListener("wheel", (e) => {
-      if (isLoading() || gestureCount >= 2) return;
+      if (isLoading()) return;
+      if (gestureCount >= 2) {
+        if (inSilence()) e.preventDefault();
+        return;
+      }
       if (e.deltaY > 0) {
         e.preventDefault();
         tryAdvance(true);
@@ -306,7 +320,12 @@
     let touchYStart = null;
     window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { passive: true });
     window.addEventListener("touchmove", (e) => {
-      if (isLoading() || gestureCount >= 2 || touchYStart === null) return;
+      if (isLoading()) return;
+      if (gestureCount >= 2) {
+        if (inSilence()) e.preventDefault();
+        return;
+      }
+      if (touchYStart === null) return;
       const dy = touchYStart - e.touches[0].clientY;
       if (dy < 30) return;
       e.preventDefault();
@@ -360,58 +379,11 @@
   }
 
   /* ============================================================
-     SECTION SNAP — soft, après scroll-end. Lenis gère le wheel naturellement.
-     EXCEPTION : on ne snape pas dans le hero pour laisser son animation se jouer.
+     SECTION SNAP — DÉSACTIVÉ
+     Le snap automatique aspirait l'utilisateur vers la section voisine quand il
+     s'arrêtait au milieu — UX agressive sur trackpad/touch. Lenis gère le smooth
+     scroll naturellement, c'est suffisant.
      ============================================================ */
-  if (!reduce && heroEl) {
-    const snapSections = $$("main > section, footer").filter((s) =>
-      !s.classList.contains("brandmark") &&
-      !s.classList.contains("marquee")
-    );
-    let scrollEndTimer = null;
-    let isSnapping = false;
-    let lastDir = 1;
-    let lastSeenY = lenis ? lenis.scroll : window.scrollY;
-
-    const snapNearest = () => {
-      if (isSnapping) return;
-      const y = lenis ? lenis.scroll : window.scrollY;
-      // ne pas snaper si on est encore dans la zone d'animation du hero
-      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      if (y < heroBottom - window.innerHeight * 0.5) return;
-      // cherche la section la plus proche, biaisée dans la direction du dernier scroll
-      let target = null;
-      let minDist = Infinity;
-      for (const s of snapSections) {
-        const dist = Math.abs(s.offsetTop - y);
-        // léger biais : si scroll vers le bas, favorise les sections plus bas (et inversement)
-        const adj = dist + (lastDir > 0 && s.offsetTop < y ? 40 : 0) + (lastDir < 0 && s.offsetTop > y ? 40 : 0);
-        if (adj < minDist) { minDist = adj; target = s; }
-      }
-      if (!target) return;
-      const realDist = Math.abs(target.offsetTop - y);
-      // ne snape que si proche d'une frontière (entre 12px et ~45% du viewport)
-      if (realDist < 12 || realDist > window.innerHeight * 0.45) return;
-      isSnapping = true;
-      if (lenis) {
-        lenis.scrollTo(target.offsetTop, { duration: 0.7, onComplete: () => { isSnapping = false; } });
-      } else {
-        window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
-        setTimeout(() => { isSnapping = false; }, 750);
-      }
-    };
-
-    const onScroll = () => {
-      const y = lenis ? lenis.scroll : window.scrollY;
-      if (Math.abs(y - lastSeenY) > 2) lastDir = y > lastSeenY ? 1 : -1;
-      lastSeenY = y;
-      clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(snapNearest, 180);
-    };
-
-    if (lenis) lenis.on("scroll", onScroll);
-    else window.addEventListener("scroll", onScroll, { passive: true });
-  }
 
   /* ============================================================
      Boutons / éléments magnétiques

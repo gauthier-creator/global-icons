@@ -45,7 +45,7 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
-body.is-loading { overflow: hidden; height: 100vh; }
+body.is-loading { overflow: hidden; height: 100svh; }
 img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
@@ -232,7 +232,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    Au scroll : le voile blanc grossit depuis la carte, les latérales se déploient.
    Animation déclenchée par .is-active (toggle JS au premier scroll), tout en transitions GPU. */
 .hero {
-  position: relative; min-height: 200vh;
+  position: relative; min-height: 100svh;
   color: var(--head); background: var(--paper); overflow: clip;
   /* tailles partagées entre la carte et le voile pour qu'ils matchent au pixel près */
   --card-w: clamp(280px, 26vw, 380px);
@@ -240,7 +240,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   --hero-ease: cubic-bezier(0.65, 0, 0.35, 1);
   --hero-dur: 700ms;
 }
-.hero__pin { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero__pin { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .hero__bg, .hero__bg-scrim { position: absolute; inset: 0; pointer-events: none; }
 /* BG : fade simple (pas de zoom ni de blur — plus propre) */
 .hero__bg { background-size: cover; background-position: center; z-index: 1; opacity: 1; transition: opacity var(--hero-dur) var(--hero-ease); }
@@ -898,7 +898,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .screen__spark { display: none; }
   /* hero mobile : carte unique centrée + tagline et CTA en bas, sans animation ni décor */
   .hero { min-height: 100svh; }
-  .hero__pin { height: 100vh; }
+  .hero__pin { height: 100svh; }
   .hero__bg, .hero__bg-scrim, .hero__veil, .hero__cue { display: none; }
   .hero__deck { perspective: none; }
   .trophy--left, .trophy--right { display: none; }
