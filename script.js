@@ -289,7 +289,10 @@
           silenceUntil = performance.now() + SILENCE_MS;
         }, 900);
       }
-      setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 600 : 800);
+      // gestureLock plus court pour permettre 2 scrolls discrets rapides (souris).
+      // Sur trackpad, l'inertie continue à fournir des wheel events, on s'en sert pour
+      // pouvoir enchaîner les 2 gestes en un seul swipe.
+      setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 220 : 500);
       return true;
     };
 
