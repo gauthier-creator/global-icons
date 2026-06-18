@@ -731,7 +731,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 /* Duo — deux vidéos côte à côte */
 .duo__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 32px); }
-.duo__item .vframe { aspect-ratio: 4 / 3; }
+.duo__item .vframe { aspect-ratio: 16 / 9; }
+.duo__item .vframe video { object-fit: contain; background: #0f0f0e; }
 .duo__item h3 { font-weight: 300; font-size: 1.2rem; letter-spacing: -0.025em; color: var(--head); margin: 20px 0 6px; }
 .duo__item p { font-size: 0.92rem; color: var(--muted); }
 
