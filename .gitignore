@@ -1,6 +1,9 @@
 .DS_Store
 *.log
 
-# Master vidéo non compressé (127 Mo) — trop lourd pour le dépôt/web.
-# Seule la version optimisée GLOBAL_ICONS_VF.mp4 est versionnée.
+# Masters vidéos non compressés (115-405 Mo) — trop lourds pour le dépôt/web.
+# Seules les versions optimisées (luca-itw.mp4, hugo-itw.mp4, julien-itw.mp4) sont versionnées.
 GLOBAL_ICONSl_VF.mp4
+LUCA ITW FINAL.mp4
+HUGO ITW FINAL.mp4
+JULIEN ITW FINAL.mp4
