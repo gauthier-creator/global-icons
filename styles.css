@@ -127,9 +127,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .loader {
   position: fixed; inset: 0; z-index: 10000; background: var(--paper); color: var(--head);
   display: flex; align-items: center; justify-content: center;
-  transition: transform 1.05s var(--ease-soft); will-change: transform;
+  transition: opacity .4s var(--ease-soft); will-change: opacity;
 }
-.loader.is-done { transform: translateY(-101%); }
+/* Fade-out à la fin du chargement (au lieu d'un translateY qui crée une fausse perception de scroll). */
+.loader.is-done { opacity: 0; pointer-events: none; }
 /* Container : largeur calée sur le wordmark intérieur — assez large pour que la fill noire
    couvre toute la base grise, sinon visuel cassé (gris dépassait à G/I à 100%). */
 .loader__inner { width: min(960px, 92vw); display: flex; flex-direction: column; align-items: center; padding: 0 16px; }

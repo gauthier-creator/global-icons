@@ -76,7 +76,13 @@
     if (lenis) lenis.start();
     loader.classList.add("is-done");
     initReveals();
-    setTimeout(() => loader && loader.remove(), 1150);
+    // Le loader fade out en 400ms (cf .loader transition). On le retire ensuite
+    // et on flag page-ready : tant que ce flag n'est pas là, la gesture system
+    // ignore les wheel events (évite la perception 'ça remonte' pendant l'exit).
+    setTimeout(() => {
+      loader && loader.remove();
+      document.body.classList.add("page-ready");
+    }, 450);
   }
 
   if (reduce) {
@@ -256,8 +262,9 @@
       document.documentElement.style.overflow = "";
     };
 
-    // Garde : ne pas traiter les gestes tant que le loader est visible
-    const isLoading = () => document.body.classList.contains("is-loading");
+    // Garde : ne pas traiter les gestes tant que le loader n'est pas totalement parti
+    // (sinon le fade-out du loader donne l'illusion d'un scroll qui 'remonte')
+    const isLoading = () => document.body.classList.contains("is-loading") || !document.body.classList.contains("page-ready");
 
     // Verrouille le scroll dès que possible (avant et après finishLoad)
     lockScroll();
