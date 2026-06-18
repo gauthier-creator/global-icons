@@ -277,29 +277,28 @@
       }
     }, 80);
 
-    // Fenêtre de "silence" après l'unlock : on consomme l'inertie résiduelle
-    // (trackpad / touch swipe long) pendant ~700ms pour empêcher qu'un même
-    // geste déclenche à la fois l'animation ET un saut dans la section suivante.
-    let silenceUntil = 0;
-    const SILENCE_MS = 700;
+    // Anti-multi-gesture : on n'autorise la prochaine étape QUE si la séquence wheel
+    // précédente est terminée (>180ms sans event). Sur trackpad, un swipe = stream
+    // d'events ~800ms — sans cette garde, un seul swipe enchainerait gesture 1 + 2.
+    let canAdvance = true;
+    let wheelEndTimer = null;
+    const armWheelEnd = () => {
+      if (wheelEndTimer) clearTimeout(wheelEndTimer);
+      wheelEndTimer = setTimeout(() => { canAdvance = true; }, 180);
+    };
 
     const advance = () => {
-      if (gestureLock || gestureCount >= 2) return false;
+      if (gestureLock || gestureCount >= 2 || !canAdvance) return false;
       gestureLock = true;
+      canAdvance = false;
       gestureCount++;
       showNav();
       if (gestureCount === 1) heroEl.classList.add("is-revealed");
       else if (gestureCount === 2) {
         heroEl.classList.add("is-active");
-        setTimeout(() => {
-          unlockScroll();
-          silenceUntil = performance.now() + SILENCE_MS;
-        }, 900);
+        setTimeout(() => unlockScroll(), 900);
       }
-      // gestureLock plus court pour permettre 2 scrolls discrets rapides (souris).
-      // Sur trackpad, l'inertie continue à fournir des wheel events, on s'en sert pour
-      // pouvoir enchaîner les 2 gestes en un seul swipe.
-      setTimeout(() => { gestureLock = false; }, gestureCount === 1 ? 220 : 500);
+      setTimeout(() => { gestureLock = false; }, 250);
       return true;
     };
 
@@ -311,34 +310,33 @@
       advance();
     };
 
-    const inSilence = () => performance.now() < silenceUntil;
-
-    // Wheel : intercepte aussi pendant la fenêtre de silence post-unlock
+    // Wheel : on bloque TOUS les events pendant la phase hero (les deux directions
+    // ET stopImmediatePropagation pour que Lenis n'accumule pas de deltas qui
+    // s'exécuteraient au unlock et feraient 'remonter' la page).
     window.addEventListener("wheel", (e) => {
       if (isLoading()) return;
-      if (gestureCount >= 2) {
-        if (inSilence()) e.preventDefault();
+      if (gestureCount < 2) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        armWheelEnd();
+        if (e.deltaY > 0) tryAdvance(true);
         return;
       }
-      if (e.deltaY > 0) {
-        e.preventDefault();
-        tryAdvance(true);
-      }
+      // Post-gesture 2 : on laisse Lenis gérer normalement (scroll standard).
     }, { capture: true, passive: false });
 
-    // Touch (mobile : la condition isDesktop ne devrait pas y arriver, mais on couvre)
+    // Touch (mobile : isDesktop ne devrait pas y arriver, mais on couvre)
     let touchYStart = null;
     window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { passive: true });
     window.addEventListener("touchmove", (e) => {
       if (isLoading()) return;
-      if (gestureCount >= 2) {
-        if (inSilence()) e.preventDefault();
-        return;
-      }
+      if (gestureCount >= 2) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      armWheelEnd();
       if (touchYStart === null) return;
       const dy = touchYStart - e.touches[0].clientY;
       if (dy < 30) return;
-      e.preventDefault();
       tryAdvance(true);
       touchYStart = null;
     }, { capture: true, passive: false });
