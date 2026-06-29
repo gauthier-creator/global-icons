@@ -296,7 +296,16 @@
       if (gestureCount === 1) heroEl.classList.add("is-revealed");
       else if (gestureCount === 2) {
         heroEl.classList.add("is-active");
-        setTimeout(() => unlockScroll(), 900);
+        // Apres l'anim deck, on enchaine automatiquement dans Approche.
+        // Sinon il faudrait un 3e scroll pour passer le hero (UX confusante).
+        setTimeout(() => {
+          unlockScroll();
+          const approche = document.querySelector("#approche");
+          if (approche) {
+            if (lenis) lenis.scrollTo(approche, { duration: 1.0 });
+            else window.scrollTo({ top: approche.offsetTop, behavior: "smooth" });
+          }
+        }, 900);
       }
       setTimeout(() => { gestureLock = false; }, 250);
       return true;
