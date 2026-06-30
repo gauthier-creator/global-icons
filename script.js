@@ -247,7 +247,6 @@
   const isDesktop = window.matchMedia("(min-width: 821px)").matches;
   if (heroEl && !reduce && isDesktop) {
     let gestureCount = 0;
-    let gestureLock = false;
     let scrollLocked = false;
 
     const lockScroll = () => {
@@ -277,20 +276,16 @@
       }
     }, 80);
 
-    // Anti-multi-gesture : on n'autorise la prochaine étape QUE si la séquence wheel
-    // précédente est terminée (>180ms sans event). Sur trackpad, un swipe = stream
-    // d'events ~800ms — sans cette garde, un seul swipe enchainerait gesture 1 + 2.
-    let canAdvance = true;
-    let wheelEndTimer = null;
-    const armWheelEnd = () => {
-      if (wheelEndTimer) clearTimeout(wheelEndTimer);
-      wheelEndTimer = setTimeout(() => { canAdvance = true; }, 180);
-    };
+    // Detection 'nouveau geste' par gap entre wheel events.
+    // Un swipe trackpad = events tous les 16-30ms en continu.
+    // Un click souris ou un nouveau swipe = gap >> 80ms par rapport au precedent.
+    // -> chaque "nouveau geste" (gap > 80ms du dernier event) declenche un advance.
+    let lastEventTime = 0;
+    let isNewGesture = true;
+    const GAP_NEW_GESTURE = 80; // ms
 
     const advance = () => {
-      if (gestureLock || gestureCount >= 2 || !canAdvance) return false;
-      gestureLock = true;
-      canAdvance = false;
+      if (gestureCount >= 2) return false;
       gestureCount++;
       showNav();
       if (gestureCount === 1) heroEl.classList.add("is-revealed");
@@ -307,49 +302,53 @@
           }
         }, 900);
       }
-      setTimeout(() => { gestureLock = false; }, 250);
       return true;
     };
 
-    const tryAdvance = (deltaPositive) => {
-      if (isLoading()) return;
-      if (gestureCount >= 2) return;
-      if (!deltaPositive) return;
-      lockScroll();
-      advance();
-    };
-
-    // Wheel : on bloque TOUS les events pendant la phase hero (les deux directions
-    // ET stopImmediatePropagation pour que Lenis n'accumule pas de deltas qui
-    // s'exécuteraient au unlock et feraient 'remonter' la page).
+    // Wheel : bloque tout pendant la phase hero (deux directions + stopImmediatePropagation
+    // pour eviter que Lenis accumule des deltas et 'remonte' au unlock).
     window.addEventListener("wheel", (e) => {
       if (isLoading()) return;
       if (gestureCount < 2) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        armWheelEnd();
-        if (e.deltaY > 0) tryAdvance(true);
+        const now = performance.now();
+        if (now - lastEventTime > GAP_NEW_GESTURE) isNewGesture = true;
+        lastEventTime = now;
+        if (isNewGesture && e.deltaY > 0) {
+          isNewGesture = false;
+          advance();
+        }
         return;
       }
-      // Post-gesture 2 : on laisse Lenis gérer normalement (scroll standard).
+      // Post-gesture 2 : Lenis gere normalement le scroll.
     }, { capture: true, passive: false });
 
-    // Touch (mobile : isDesktop ne devrait pas y arriver, mais on couvre)
+    // Touch (mobile : isDesktop bloque normalement, on garde une safety net)
     let touchYStart = null;
-    window.addEventListener("touchstart", (e) => { touchYStart = e.touches[0].clientY; }, { passive: true });
+    let touchYLast = null;
+    window.addEventListener("touchstart", (e) => {
+      touchYStart = e.touches[0].clientY;
+      touchYLast = touchYStart;
+    }, { passive: true });
     window.addEventListener("touchmove", (e) => {
       if (isLoading()) return;
       if (gestureCount >= 2) return;
       e.preventDefault();
       e.stopImmediatePropagation();
-      armWheelEnd();
       if (touchYStart === null) return;
       const dy = touchYStart - e.touches[0].clientY;
       if (dy < 30) return;
-      tryAdvance(true);
+      advance();
       touchYStart = null;
     }, { capture: true, passive: false });
-    window.addEventListener("touchend", () => { touchYStart = null; }, { passive: true });
+    window.addEventListener("touchend", () => {
+      touchYStart = null;
+      touchYLast = null;
+      // Reset du gap pour qu'un nouveau touch compte comme nouveau geste
+      isNewGesture = true;
+      lastEventTime = 0;
+    }, { passive: true });
 
     // Clavier
     window.addEventListener("keydown", (e) => {
