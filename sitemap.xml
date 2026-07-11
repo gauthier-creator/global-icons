@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.globalicons.io/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.globalicons.io/" />
+    <xhtml:link rel="alternate" hreflang="fr-LU" href="https://www.globalicons.io/" />
+    <xhtml:link rel="alternate" hreflang="fr-BE" href="https://www.globalicons.io/" />
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.globalicons.io/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.globalicons.io/" />
+  </url>
+  <url>
+    <loc>https://www.globalicons.io/mentions-legales.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.globalicons.io/confidentialite.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.globalicons.io/risques.html</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
