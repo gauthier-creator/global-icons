@@ -49,7 +49,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=85" />
+  <link rel="stylesheet" href="styles.css?v=86" />
   <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8"></script>
 </head>
 <body>
@@ -86,7 +86,10 @@
       <a href="#equipe">Équipe</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="https://pro.app.globalicons.io/auth/login" target="_blank" rel="noopener noreferrer" class="nav__cta">Accéder à la plateforme</a>
+    <div class="nav__actions">
+      <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="nav__cta nav__cta--ghost">Prendre RDV</a>
+      <a href="https://pro.app.globalicons.io/auth/login" target="_blank" rel="noopener noreferrer" class="nav__cta">Accéder à la plateforme</a>
+    </div>
     <button class="nav__burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span><span></span>
     </button>
@@ -662,6 +665,17 @@
       </div>
     </section>
 
+    <!-- ===================== BANNER CTA — entre track record et équipe ===================== -->
+    <section class="banner-cta" aria-label="Prendre rendez-vous">
+      <div class="banner-cta__inner">
+        <div class="banner-cta__text">
+          <h2 class="banner-cta__title">Envie de discuter d'une opération en cours ?</h2>
+          <p class="banner-cta__lead">CGP, family offices, banques privées : nos analystes vous présentent les opérations en cours et le cadre de la distribution partenaire dans un échange confidentiel.</p>
+        </div>
+        <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="banner-cta__btn">Prendre rendez-vous →</a>
+      </div>
+    </section>
+
     <!-- ===================== ÉQUIPE (carrousel à flux continu) ===================== -->
     <section class="team cats section" id="equipe" data-flow data-flow-speed="60">
       <div class="container cats__head">
@@ -782,7 +796,8 @@
       <div class="container cta__inner">
         <h2 class="cta__title" data-split-text>Devenez partenaire distributeur.</h2>
         <p class="cta__lead reveal" style="--d:.16s">Référencez votre cabinet et ouvrez l'immobilier d'exception à vos clients. L'accès se fait sur sélection.</p>
-        <a href="mailto:contact@globalicons.io" class="btn btn--solid btn--light reveal" style="--d:.24s">contact@globalicons.io<span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--light reveal" style="--d:.24s">Prendre rendez-vous<span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a href="mailto:contact@globalicons.io" class="cta__mailto reveal" style="--d:.32s">ou écrivez-nous à contact@globalicons.io</a>
       </div>
     </section>
 
@@ -790,6 +805,39 @@
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
+        <div class="container footer__resources">
+      <div class="footer__col">
+        <span class="footer__col-title">Marchés</span>
+        <a href="/villes/club-deal-immobilier-prime-paris-8.html">Paris VIII · Triangle d'or</a>
+        <a href="/villes/club-deal-immobilier-prime-paris-6.html">Paris VI · Saint-Germain</a>
+        <a href="/villes/club-deal-immobilier-prime-neuilly-sur-seine.html">Neuilly-sur-Seine</a>
+        <a href="/villes/investir-immobilier-prime-luxembourg.html">Luxembourg</a>
+        <a href="/villes/club-deal-immobilier-prime-monaco.html">Monaco</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Guides partenaires</span>
+        <a href="/guides/cgp-acceder-club-deal-immobilier-prime.html">Accès CGP au club deal</a>
+        <a href="/guides/cgp-retrocessions-club-deal-immobilier.html">Rétrocessions CGP</a>
+        <a href="/guides/family-office-acceder-club-deal-immobilier.html">Family office</a>
+        <a href="/guides/banque-privee-distribution-club-deal-titrise.html">Banque privée</a>
+        <a href="/guides/fiscalite-club-deal-luxembourg-investisseur-francais.html">Fiscalité Luxembourg</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Analyses marché</span>
+        <a href="/analyses/marche-prime-paris-qca-2026.html">Marché Paris QCA 2026</a>
+        <a href="/analyses/rendement-club-deal-vs-scpi-2026.html">Rendement vs SCPI 2026</a>
+        <a href="/analyses/impact-taux-interet-prime-immobilier-2026.html">Impact des taux 2026</a>
+        <a href="/analyses/perspectives-2026-2028-immobilier-prime-francais.html">Perspectives 2026-2028</a>
+        <a href="/analyses/marche-club-deal-immobilier-france-2026-tendances.html">Marché club deal France</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Ressources</span>
+        <a href="/glossaire/club-deal-immobilier.html">Glossaire patrimonial</a>
+        <a href="/comparatifs/club-deal-vs-scpi.html">Comparatifs d'instruments</a>
+        <a href="/track-record/40-avenue-george-v-paris-8.html">Track record</a>
+        <a href="/partenaires-cgp.html">Devenir partenaire</a>
+      </div>
+    </div>
     <div class="container footer__grid">
       <div class="footer__brand">
         <img src="Logo.svg" alt="Logo Global Icons" class="footer__logo-img" width="140" height="52" />

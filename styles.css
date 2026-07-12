@@ -212,7 +212,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .nav__links a:hover::after,
 .nav__links a.is-current::after { transform: scaleX(1); }
 .nav__links a.is-current { opacity: 1; }
+.nav__actions { display: inline-flex; align-items: center; gap: 10px; }
 .nav__cta { font-size: 14px; font-weight: 400; color: #fff; background: var(--ink); padding: 11px 22px; border: none; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(15,15,14,.3); transition: transform .3s var(--ease), box-shadow .3s var(--ease); will-change: transform; }
+.nav__cta--ghost { background: transparent; color: var(--ink); border: 1px solid rgba(15,15,14,.14); box-shadow: none; }
+.nav__cta--ghost:hover { background: rgba(15,15,14,.05); transform: none; }
 .nav__cta:hover { transform: translateY(-1px); box-shadow: 0 12px 26px -10px rgba(15,15,14,.5); }
 .nav__burger { display: none; flex-direction: column; gap: 6px; width: 30px; color: var(--head); position: relative; background: none; border: none; cursor: pointer; padding: 6px 0; }
 .nav__burger span { display: block; height: 1.5px; background: currentColor; transition: transform .4s var(--ease), opacity .3s var(--ease); transform-origin: center; }
@@ -826,6 +829,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .cta__inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .cta__title { font-weight: 300; font-size: clamp(2rem, 5.6vw, 4.6rem); line-height: 1.04; letter-spacing: -0.035em; max-width: 18ch; color: var(--paper); }
 .cta__lead { color: var(--muted-light); margin: 26px 0 40px; max-width: 44ch; font-weight: 300; }
+.cta__mailto { display: inline-block; margin-top: 20px; font-size: 0.86rem; color: var(--muted-light); text-decoration: underline; text-underline-offset: 4px; opacity: 0.7; transition: opacity .3s; }
+.cta__mailto:hover { opacity: 1; color: var(--paper); }
+
+/* Inline banner CTA (mid-page, after key sections) */
+.banner-cta { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: clamp(48px, 6vw, 72px) 0; }
+.banner-cta__inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; max-width: var(--container); margin: 0 auto; padding: 0 var(--gut); }
+.banner-cta__text { flex: 1; max-width: 640px; }
+.banner-cta__title { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 400; color: var(--head); margin: 0 0 10px; line-height: 1.15; letter-spacing: -0.015em; }
+.banner-cta__lead { font-size: 0.96rem; color: var(--body); line-height: 1.55; margin: 0; }
+.banner-cta__btn { flex-shrink: 0; padding: 14px 28px; background: var(--ink); color: var(--paper); border-radius: 999px; font-size: 0.94rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: transform .3s; text-decoration: none; }
+.banner-cta__btn:hover { transform: translateY(-1px); color: var(--paper); }
+@media (max-width: 720px) { .banner-cta__inner { flex-direction: column; align-items: flex-start; gap: 20px; } .banner-cta__btn { align-self: stretch; justify-content: center; } }
 
 /* ============================================================
    FILIGRANE LOGO — séparateur (façon Osmose)
@@ -848,6 +863,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
    ============================================================ */
 .footer { background: var(--ink); color: var(--paper); padding: clamp(64px, 8vw, 110px) 0 42px; }
 .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 64px; border-bottom: 1px solid var(--line-light); }
+.footer__resources { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-bottom: 48px; margin-bottom: 48px; border-bottom: 1px solid var(--line-light); }
+@media (max-width: 900px) { .footer__resources { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .footer__resources { grid-template-columns: 1fr; gap: 32px; } }
 .footer__logo-img { height: 52px; width: auto; display: block; margin-bottom: 20px; filter: invert(1); }
 .footer__brand p { color: var(--muted-light); font-weight: 300; }
 .footer__col { display: flex; flex-direction: column; gap: 12px; }
