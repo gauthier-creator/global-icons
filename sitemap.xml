@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.globalicons.io/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.globalicons.io/" />
@@ -13,21 +13,65 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.globalicons.io/" />
   </url>
   <url>
-    <loc>https://www.globalicons.io/mentions-legales.html</loc>
-    <lastmod>2026-06-19</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://www.globalicons.io/partenaires-cgp.html</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://www.globalicons.io/confidentialite.html</loc>
-    <lastmod>2026-06-19</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.globalicons.io/risques.html</loc>
-    <lastmod>2026-06-19</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
+
+  <!-- Track record - 7 fiches opération -->
+  <url><loc>https://www.globalicons.io/track-record/73-rue-miromesnil-paris-8.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.globalicons.io/track-record/48-rue-de-provence-paris-9.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.globalicons.io/track-record/37-rue-de-bellefond-paris-9.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.globalicons.io/track-record/27-rue-du-grand-prieure-paris-11.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.globalicons.io/track-record/48-notre-dame-des-victoires-paris-9.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.globalicons.io/track-record/91-champs-elysees-paris-8.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.globalicons.io/track-record/40-avenue-george-v-paris-8.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Comparatifs - 8 pages -->
+  <url><loc>https://www.globalicons.io/comparatifs/club-deal-vs-scpi.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/club-deal-vs-opci.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/dette-privee-immobiliere-vs-opci.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/preferred-equity-vs-actions-ordinaires.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/club-deal-vs-immobilier-direct.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/titrisation-luxembourgeoise-vs-fcpr-fcpi.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/fonciere-cotee-vs-club-deal.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.globalicons.io/comparatifs/dette-senior-privee-vs-dette-mezzanine.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Glossaire - 30 termes -->
+  <url><loc>https://www.globalicons.io/glossaire/club-deal-immobilier.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/dette-privee-immobiliere.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/preferred-equity.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/tri-taux-de-rendement-interne.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/cap-rate-taux-de-capitalisation.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/ltv-loan-to-value.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/multiple-sur-capital.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/waterfall-structure-distribution.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/carried-interest.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/dette-mezzanine.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/dette-senior-privee.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/value-add-strategie.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/core-strategie.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/core-plus-strategie.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/opportuniste-strategie.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/titrisation.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/compartiment-titrisation.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/business-plan-immobilier.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/due-diligence-immobiliere.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/prime-immobilier-marche.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/fonciere-cotee-siic.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/noi-net-operating-income.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/dscr-debt-service-coverage-ratio.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/var-value-at-risk.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/scpi.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/opci.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/fcpr.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/cif-conseiller-en-investissements-financiers.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/family-office.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.globalicons.io/glossaire/hnwi-high-net-worth-individual.html</loc><lastmod>2026-07-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Pages légales -->
+  <url><loc>https://www.globalicons.io/risques.html</loc><lastmod>2026-06-19</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.globalicons.io/mentions-legales.html</loc><lastmod>2026-06-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.globalicons.io/confidentialite.html</loc><lastmod>2026-06-19</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
