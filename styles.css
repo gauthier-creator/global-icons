@@ -980,6 +980,20 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .legal__nav-logo { height: 24px; width: auto; }
 .legal__nav-back { font-size: 0.86rem; color: var(--head); display: inline-flex; align-items: center; gap: 8px; }
 .legal__nav-back:hover { opacity: 0.7; }
+.legal__nav-actions { display: inline-flex; align-items: center; gap: 22px; }
+.legal__nav-cta { font-size: 0.82rem; color: var(--paper); background: var(--ink); padding: 9px 18px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; transition: transform .3s; white-space: nowrap; }
+.legal__nav-cta:hover { transform: translateY(-1px); }
+@media (max-width: 640px) { .legal__nav-actions { gap: 12px; } .legal__nav-cta { padding: 8px 14px; font-size: 0.78rem; } .legal__nav-back { display: none; } }
+
+/* Sticky mobile CTA bar */
+.mobile-cta { display: none; }
+@media (max-width: 640px) {
+  .mobile-cta { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90; background: var(--ink); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); }
+  .mobile-cta__label { color: var(--paper); font-size: 0.82rem; line-height: 1.25; font-weight: 500; opacity: 0.9; }
+  .mobile-cta__btn { background: var(--paper); color: var(--ink); padding: 10px 16px; border-radius: 999px; font-size: 0.82rem; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; transition: transform .3s; }
+  .mobile-cta__btn:hover, .mobile-cta__btn:active { transform: translateY(-1px); }
+  body.has-mobile-cta { padding-bottom: 72px; }
+}
 
 /* ============================================================
    CONTENT PAGES — landings, fiches op, comparatifs, glossaire (SEO Pilier 2)
@@ -1028,6 +1042,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .content__cta p { color: var(--muted-light); font-size: 1rem; margin-bottom: 24px; max-width: 540px; margin-left: auto; margin-right: auto; }
 .content__cta a { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; background: var(--paper); color: var(--ink); border-radius: 999px; font-weight: 500; font-size: 0.94rem; text-decoration: none; transition: transform .3s; }
 .content__cta a:hover { transform: translateY(-2px); opacity: 1; }
+
+/* Mid-content inline CTA (before FAQ) */
+.mid-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--paper-2); border: 1px solid var(--line); border-left: 3px solid var(--accent); padding: 22px 26px; margin: 36px 0 32px; border-radius: 0 8px 8px 0; }
+.mid-cta__text { flex: 1; }
+.mid-cta__text strong { display: block; font-size: 0.96rem; color: var(--head); margin-bottom: 4px; }
+.mid-cta__text span { font-size: 0.86rem; color: var(--body); line-height: 1.5; }
+.content .mid-cta__btn, .mid-cta__btn { flex-shrink: 0; padding: 11px 22px; background: var(--ink); color: var(--paper); border-radius: 999px; font-size: 0.86rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: transform .3s; white-space: nowrap; text-decoration: none; }
+.content .mid-cta__btn:hover, .mid-cta__btn:hover { transform: translateY(-1px); opacity: 1; color: var(--paper); }
+@media (max-width: 640px) { .mid-cta { flex-direction: column; align-items: stretch; text-align: left; gap: 14px; padding: 18px 20px; } .mid-cta__btn { justify-content: center; } }
 
 /* Related pages (link cluster in footer of each page) */
 .content__related { margin-top: 60px; padding-top: 32px; border-top: 1px solid var(--line); }
