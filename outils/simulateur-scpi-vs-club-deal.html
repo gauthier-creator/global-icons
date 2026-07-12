@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur SCPI vs Club deal immobilier | Global Icons</title>
+  <meta name="description" content="Simulateur interactif : comparez sur 10 ans le rendement SCPI vs club deal immobilier prime selon votre ticket. TRI, multiple, revenu net." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+  <link rel="alternate" hreflang="fr-FR" href="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+  <link rel="alternate" hreflang="fr-LU" href="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+  <link rel="alternate" hreflang="fr-BE" href="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+  <link rel="alternate" hreflang="fr-CH" href="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Global Icons" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:url" content="https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html" />
+  <meta property="og:title" content="Simulateur SCPI vs Club deal immobilier | Global Icons" />
+  <meta property="og:description" content="Simulateur interactif : comparez sur 10 ans le rendement SCPI vs club deal immobilier prime selon votre ticket." />
+  <meta property="og:image" content="https://www.globalicons.io/og-image.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f0f0e" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=87" />
+  <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8"></script>
+</head>
+<body class="has-mobile-cta">
+
+  <header class="legal__nav">
+    <div class="legal__nav-inner">
+      <a href="/index.html" aria-label="Retour à l'accueil Global Icons">
+        <img src="/Logo.svg" alt="Logo Global Icons" class="legal__nav-logo" width="140" height="24" />
+      </a>
+      <div class="legal__nav-actions">
+        <a href="/index.html" class="legal__nav-back">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Retour
+        </a>
+        <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="sim">
+      <div class="sim__container">
+        <div class="sim__intro">
+          <span class="sim__eyebrow">Outil · CGP · Family office</span>
+          <h1 class="sim__title">Simulateur SCPI vs Club deal immobilier prime</h1>
+          <p class="sim__lead">Comparez sur un horizon donné le rendement estimé d'un ticket investi en SCPI versus un club deal immobilier prime. Résultat instantané en TRI, multiple sur capital et revenu net cumulé.</p>
+        </div>
+
+        <div class="sim__grid">
+          <div>
+            <p class="sim__panel-title">Paramètres</p>
+
+            <div class="sim__field">
+              <label>Ticket investi <span class="sim__field-value" id="ticketValue">100 000 €</span></label>
+              <input type="range" class="sim__range" id="ticket" min="20000" max="1000000" step="10000" value="100000" />
+              <span class="sim__field-hint">De 20 k€ (SCPI retail) à 1 M€ (family office)</span>
+            </div>
+
+            <div class="sim__field">
+              <label>Horizon <span class="sim__field-value" id="horizonValue">7 ans</span></label>
+              <input type="range" class="sim__range" id="horizon" min="3" max="12" step="1" value="7" />
+              <span class="sim__field-hint">Durée fermée du club deal / horizon SCPI</span>
+            </div>
+
+            <div class="sim__field">
+              <label>Stratégie club deal
+                <span class="sim__field-hint" id="stratValue">Value-add</span>
+              </label>
+              <select class="sim__select" id="strategie">
+                <option value="core">Core (bail long, actif stabilisé)</option>
+                <option value="core-plus">Core+ (léger repositionnement)</option>
+                <option value="value-add" selected>Value-add (restructuration)</option>
+                <option value="opportunistic">Opportunistic (dev / distressed)</option>
+              </select>
+            </div>
+
+            <div class="sim__field">
+              <label>Hypothèse SCPI</label>
+              <select class="sim__select" id="scpiProfil">
+                <option value="diversifiee">SCPI diversifiée (TDVM 4,5 % + revalo 0,5 %)</option>
+                <option value="rendement">SCPI rendement (TDVM 5,5 % + revalo 0 %)</option>
+                <option value="fiscale">SCPI fiscale Pinel (TDVM 3 % + réduc fiscale 12 %)</option>
+                <option value="thematique">SCPI thématique (TDVM 5 % + revalo 1 %)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sim__results">
+            <div class="sim__results-headline">
+              <strong>Simulation sur <span id="horizonOut">7 ans</span></strong>
+            </div>
+
+            <div class="sim__compare">
+              <div class="sim__card">
+                <p class="sim__card-label">SCPI</p>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Revenu net cumulé</span>
+                  <span class="sim__stat-value" id="scpiRevenus">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Capital final estimé</span>
+                  <span class="sim__stat-value" id="scpiFinal">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">TRI annualisé</span>
+                  <span class="sim__stat-value sim__stat-value--big" id="scpiTri">—</span>
+                </div>
+              </div>
+
+              <div class="sim__card sim__card--highlight">
+                <span class="sim__card-badge">Club deal</span>
+                <p class="sim__card-label">Club deal prime</p>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Multiple sur capital</span>
+                  <span class="sim__stat-value" id="cdMultiple">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Capital final estimé</span>
+                  <span class="sim__stat-value" id="cdFinal">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">TRI annualisé cible</span>
+                  <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="cdTri">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim__note" id="note">
+              <strong>Écart estimé :</strong> <span id="ecart">—</span>. Simulation indicative sur hypothèses centrales. Les performances passées ne préjugent pas des performances futures. Le club deal comporte un risque de perte en capital et une illiquidité pendant toute la durée de l'opération.
+            </div>
+
+            <div class="sim__cta">
+              <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="sim__cta-btn">Discuter des opérations en cours →</a>
+              <span class="sim__cta-hint">Réservé aux CGP, family offices et banques privées.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content__container" style="margin-top: 60px;">
+          <h2>Comment lire ce simulateur ?</h2>
+          <p>Ce simulateur applique des hypothèses de marché 2026 pour comparer deux instruments d'investissement immobilier accessibles aux CGP et family offices.</p>
+
+          <h3>Hypothèses SCPI</h3>
+          <p>Chaque profil SCPI utilise un TDVM (Taux de Distribution sur Valeur de Marché) et un taux de revalorisation annuel typiques :</p>
+          <ul>
+            <li><strong>SCPI diversifiée</strong> : 4,5 % TDVM + 0,5 % revalorisation/an (profil bureau + commerce + résidentiel européen).</li>
+            <li><strong>SCPI rendement</strong> : 5,5 % TDVM, revalorisation nulle (SCPI matures avec parc stabilisé).</li>
+            <li><strong>SCPI fiscale Pinel</strong> : 3 % TDVM + réduction Pinel étalée sur 9 ans (assiette 12 % max).</li>
+            <li><strong>SCPI thématique</strong> : 5 % TDVM + 1 % revalorisation (santé, logistique, résidentiel).</li>
+          </ul>
+          <p>Frais d'entrée standard 10 % pris en compte. Fiscalité PFU 30 % sur les revenus, non appliquée dans l'affichage.</p>
+
+          <h3>Hypothèses club deal</h3>
+          <p>Le TRI cible et le multiple sur capital dépendent de la stratégie retenue :</p>
+          <ul>
+            <li><strong>Core</strong> : TRI 5-7 %, multiple 1,3-1,5x sur 5-7 ans.</li>
+            <li><strong>Core+</strong> : TRI 8-11 %, multiple 1,4-1,7x sur 4-6 ans.</li>
+            <li><strong>Value-add</strong> : TRI 14-18 %, multiple 1,5-1,9x sur 3-5 ans.</li>
+            <li><strong>Opportunistic</strong> : TRI 18-24 %, multiple 1,6-2,2x sur 3-5 ans.</li>
+          </ul>
+          <p>La simulation prend la valeur centrale de chaque fourchette. Aucune garantie n'est donnée sur ces cibles — voir la page <a href="/risques.html">Avertissement sur les risques</a>.</p>
+
+          <h3>Ce que ne montre pas ce simulateur</h3>
+          <ul>
+            <li>La liquidité intermédiaire (SCPI = marché secondaire ouvert, club deal = fermé jusqu'à la sortie).</li>
+            <li>La fiscalité personnelle exacte (varie selon situation, structure d'acquisition, résidence).</li>
+            <li>Les risques spécifiques à chaque opération (vacance, retard, exit décalé).</li>
+            <li>Les rétrocessions CGP — voir le <a href="/outils/simulateur-retrocessions-cgp.html">simulateur dédié</a>.</li>
+          </ul>
+
+          <div class="content__related">
+            <h3>Ressources complémentaires</h3>
+            <ul>
+              <li><a href="/comparatifs/club-deal-vs-scpi.html">Comparatif détaillé Club deal vs SCPI</a></li>
+              <li><a href="/analyses/rendement-club-deal-vs-scpi-2026.html">Analyse rendement 2026</a></li>
+              <li><a href="/guides/cgp-acceder-club-deal-immobilier-prime.html">Comment un CGP accède aux club deals</a></li>
+              <li><a href="/outils/simulateur-retrocessions-cgp.html">Simulateur rétrocessions CGP</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__resources">
+      <div class="footer__col">
+        <span class="footer__col-title">Marchés</span>
+        <a href="/villes/club-deal-immobilier-prime-paris-8.html">Paris VIII · Triangle d'or</a>
+        <a href="/villes/club-deal-immobilier-prime-paris-6.html">Paris VI · Saint-Germain</a>
+        <a href="/villes/club-deal-immobilier-prime-neuilly-sur-seine.html">Neuilly-sur-Seine</a>
+        <a href="/villes/investir-immobilier-prime-luxembourg.html">Luxembourg</a>
+        <a href="/villes/club-deal-immobilier-prime-monaco.html">Monaco</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Guides partenaires</span>
+        <a href="/guides/cgp-acceder-club-deal-immobilier-prime.html">Accès CGP au club deal</a>
+        <a href="/guides/cgp-retrocessions-club-deal-immobilier.html">Rétrocessions CGP</a>
+        <a href="/guides/family-office-acceder-club-deal-immobilier.html">Family office</a>
+        <a href="/guides/banque-privee-distribution-club-deal-titrise.html">Banque privée</a>
+        <a href="/guides/fiscalite-club-deal-luxembourg-investisseur-francais.html">Fiscalité Luxembourg</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Analyses marché</span>
+        <a href="/analyses/marche-prime-paris-qca-2026.html">Marché Paris QCA 2026</a>
+        <a href="/analyses/rendement-club-deal-vs-scpi-2026.html">Rendement vs SCPI 2026</a>
+        <a href="/analyses/impact-taux-interet-prime-immobilier-2026.html">Impact des taux 2026</a>
+        <a href="/analyses/perspectives-2026-2028-immobilier-prime-francais.html">Perspectives 2026-2028</a>
+        <a href="/analyses/marche-club-deal-immobilier-france-2026-tendances.html">Marché club deal France</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Ressources</span>
+        <a href="/glossaire/club-deal-immobilier.html">Glossaire patrimonial</a>
+        <a href="/comparatifs/club-deal-vs-scpi.html">Comparatifs d'instruments</a>
+        <a href="/track-record/40-avenue-george-v-paris-8.html">Track record</a>
+        <a href="/partenaires-cgp.html">Devenir partenaire</a>
+      </div>
+    </div>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <img src="/Logo.svg" alt="Logo Global Icons" class="footer__logo-img" width="140" height="52" />
+        <p>L'immobilier d'exception pour les distributeurs du patrimoine.<br />Entité de collecte de Foncière Renaissance.</p>
+      </div>
+      <nav class="footer__col" aria-label="Pied de page, navigation">
+        <span class="footer__col-title">Naviguer</span>
+        <a href="/index.html#approche">Approche</a>
+        <a href="/index.html#methode">Méthode</a>
+        <a href="/index.html#trackrecord">Track record</a>
+        <a href="/index.html#equipe">Équipe</a>
+      </nav>
+      <nav class="footer__col" aria-label="Pied de page, légal">
+        <span class="footer__col-title">Informations</span>
+        <a href="/mentions-legales.html">Mentions légales</a>
+        <a href="/confidentialite.html">Politique de confidentialité</a>
+        <a href="/risques.html">Avertissement sur les risques</a>
+      </nav>
+      <div class="footer__col">
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:contact@globalicons.io">contact@globalicons.io</a>
+      </div>
+    </div>
+    <div class="container footer__base">
+      <span>© 2026 Global Icons S.à r.l. Tous droits réservés.</span>
+      <span>Investir comporte un risque de perte en capital.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const fmt = (n, s) => (Math.round(n).toLocaleString('fr-FR')) + (s || '');
+      const fmtM = n => Math.abs(n) >= 1000000 ? (n/1000000).toFixed(2).replace('.',',') + ' M€' : Math.round(n).toLocaleString('fr-FR') + ' €';
+      const fmtPct = n => (n * 100).toFixed(2).replace('.', ',') + ' %';
+      const fmtMult = n => 'x ' + n.toFixed(2).replace('.', ',');
+
+      // Central hypotheses
+      const SCPI = {
+        diversifiee: {tdvm: 0.045, revalo: 0.005, fees: 0.10, label: 'diversifiée'},
+        rendement: {tdvm: 0.055, revalo: 0.000, fees: 0.10, label: 'rendement'},
+        fiscale: {tdvm: 0.030, revalo: 0.000, fees: 0.10, fiscal: 0.12/9, label: 'fiscale Pinel'},
+        thematique: {tdvm: 0.050, revalo: 0.010, fees: 0.10, label: 'thématique'}
+      };
+      const CD = {
+        'core': {tri: 0.06, mult: 1.40, label: 'core', duration: 6},
+        'core-plus': {tri: 0.095, mult: 1.55, label: 'core+', duration: 5},
+        'value-add': {tri: 0.16, mult: 1.70, label: 'value-add', duration: 4},
+        'opportunistic': {tri: 0.21, mult: 1.90, label: 'opportunistic', duration: 4}
+      };
+      const STRAT_LABELS = {'core':'Core','core-plus':'Core+','value-add':'Value-add','opportunistic':'Opportunistic'};
+
+      const el = id => document.getElementById(id);
+
+      function compute() {
+        const ticket = +el('ticket').value;
+        const horizon = +el('horizon').value;
+        const strat = el('strategie').value;
+        const scpiKey = el('scpiProfil').value;
+
+        el('ticketValue').textContent = fmt(ticket, ' €');
+        el('horizonValue').textContent = horizon + ' ans';
+        el('horizonOut').textContent = horizon + ' ans';
+        el('stratValue').textContent = STRAT_LABELS[strat];
+
+        // SCPI compute
+        const scpi = SCPI[scpiKey];
+        const scpiCapitalPost = ticket * (1 - scpi.fees);
+        // Revenus annuels bruts sur ticket total (souscription à valeur), revalo capitale
+        let scpiRevenusCumul = 0;
+        let scpiCapital = ticket; // Value marché initiale = ticket brut
+        for (let y = 1; y <= horizon; y++) {
+          scpiRevenusCumul += ticket * scpi.tdvm;
+          scpiCapital = ticket * Math.pow(1 + scpi.revalo, y);
+        }
+        // Fiscale bonus (approx annualisé)
+        if (scpi.fiscal) scpiRevenusCumul += ticket * scpi.fiscal * horizon;
+        const scpiFinal = scpiCapital + scpiRevenusCumul;
+        const scpiTRI = Math.pow(scpiFinal / ticket, 1/horizon) - 1;
+
+        // Club deal
+        const cd = CD[strat];
+        // Le multiple s'applique sur la durée cible du deal, on projette proportionnellement
+        // Si horizon >= duration, on prend le multiple complet. Sinon, on interpole.
+        const dur = cd.duration;
+        let cdMultiple;
+        if (horizon <= dur) {
+          // proportionnellement
+          cdMultiple = 1 + (cd.mult - 1) * (horizon / dur);
+        } else {
+          // au-delà de la duration, on suppose réinvestissement au TRI cible
+          const surplus = horizon - dur;
+          cdMultiple = cd.mult * Math.pow(1 + cd.tri, surplus);
+        }
+        const cdFinal = ticket * cdMultiple;
+        const cdTRI = Math.pow(cdMultiple, 1/horizon) - 1;
+
+        // Rendus
+        el('scpiRevenus').textContent = fmtM(scpiRevenusCumul);
+        el('scpiFinal').textContent = fmtM(scpiFinal);
+        el('scpiTri').textContent = fmtPct(scpiTRI);
+
+        el('cdMultiple').textContent = fmtMult(cdMultiple);
+        el('cdFinal').textContent = fmtM(cdFinal);
+        el('cdTri').textContent = fmtPct(cdTRI);
+
+        const ecart = cdFinal - scpiFinal;
+        const ecartTxt = (ecart >= 0 ? '+' : '') + fmtM(ecart) + ' en capital final (' + (ecart >= 0 ? '+' : '') + fmtPct(cdTRI - scpiTRI) + ' de TRI supplémentaire)';
+        el('ecart').textContent = ecartTxt;
+      }
+
+      ['ticket','horizon','strategie','scpiProfil'].forEach(id => el(id).addEventListener('input', compute));
+      compute();
+    })();
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur SCPI vs Club deal immobilier prime",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "url": "https://www.globalicons.io/outils/simulateur-scpi-vs-club-deal.html",
+  "description": "Comparez le rendement estimé sur 10 ans entre SCPI et club deal immobilier prime selon votre ticket, stratégie et horizon.",
+  "offers": {"@type": "Offer", "price": "0"},
+  "provider": {"@type": "Organization", "name": "Global Icons"},
+  "inLanguage": "fr-FR"
+}
+  </script>
+
+  <aside class="mobile-cta" role="complementary" aria-label="Prendre rendez-vous">
+    <span class="mobile-cta__label">Discuter des opérations en cours</span>
+    <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
+  </aside>
+</body>
+</html>

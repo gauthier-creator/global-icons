@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur assurance-vie Luxembourg vs France | Global Icons</title>
+  <meta name="description" content="Simulateur fiscal : comparez sur 10 ans un contrat d'assurance-vie luxembourgeois vs français pour un client HNW. IFI, succession, rachats, PFU." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+  <link rel="alternate" hreflang="fr-FR" href="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+  <link rel="alternate" hreflang="fr-LU" href="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+  <link rel="alternate" hreflang="fr-BE" href="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+  <link rel="alternate" hreflang="fr-CH" href="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Global Icons" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:url" content="https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html" />
+  <meta property="og:title" content="Simulateur assurance-vie Luxembourg vs France | Global Icons" />
+  <meta property="og:description" content="Simulateur fiscal : comparez sur 10 ans un contrat d'assurance-vie luxembourgeois vs français pour un client HNW." />
+  <meta property="og:image" content="https://www.globalicons.io/og-image.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f0f0e" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=87" />
+  <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8"></script>
+</head>
+<body class="has-mobile-cta">
+
+  <header class="legal__nav">
+    <div class="legal__nav-inner">
+      <a href="/index.html" aria-label="Retour à l'accueil Global Icons">
+        <img src="/Logo.svg" alt="Logo Global Icons" class="legal__nav-logo" width="140" height="24" />
+      </a>
+      <div class="legal__nav-actions">
+        <a href="/index.html" class="legal__nav-back">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Retour
+        </a>
+        <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="sim">
+      <div class="sim__container">
+        <div class="sim__intro">
+          <span class="sim__eyebrow">Outil · CGP · Family office</span>
+          <h1 class="sim__title">Simulateur assurance-vie luxembourgeoise vs française</h1>
+          <p class="sim__lead">Estimez sur 10 ans les différences fiscales, patrimoniales et successorales entre un contrat d'assurance-vie luxembourgeois et français pour un client HNW ou UHNWI français.</p>
+        </div>
+
+        <div class="sim__grid">
+          <div>
+            <p class="sim__panel-title">Paramètres du contrat</p>
+
+            <div class="sim__field">
+              <label>Prime versée <span class="sim__field-value" id="primeValue">500 000 €</span></label>
+              <input type="range" class="sim__range" id="prime" min="100000" max="10000000" step="50000" value="500000" />
+              <span class="sim__field-hint">De 100 k€ à 10 M€</span>
+            </div>
+
+            <div class="sim__field">
+              <label>Horizon <span class="sim__field-value" id="horValue">10 ans</span></label>
+              <input type="range" class="sim__range" id="horizon" min="5" max="20" step="1" value="10" />
+            </div>
+
+            <div class="sim__field">
+              <label>Rendement annuel brut <span class="sim__field-value" id="rendValue">5,0 %</span></label>
+              <input type="range" class="sim__range" id="rend" min="20" max="120" step="5" value="50" />
+              <span class="sim__field-hint">Performance nette d'UC visée</span>
+            </div>
+
+            <div class="sim__field">
+              <label>Âge au versement</label>
+              <select class="sim__select" id="age">
+                <option value="avant70" selected>Avant 70 ans (art. 990 I CGI)</option>
+                <option value="apres70">Après 70 ans (art. 757 B CGI)</option>
+              </select>
+            </div>
+
+            <div class="sim__field">
+              <label>Situation IFI du foyer</label>
+              <select class="sim__select" id="ifi">
+                <option value="non">Non redevable IFI</option>
+                <option value="oui" selected>Redevable IFI (patrimoine immo &gt; 1,3 M€)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sim__results">
+            <div class="sim__results-headline">
+              <strong>Simulation sur <span id="horOut">10 ans</span></strong>
+            </div>
+
+            <div class="sim__compare">
+              <div class="sim__card">
+                <p class="sim__card-label">Assurance-vie française</p>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Capital brut à N ans</span>
+                  <span class="sim__stat-value" id="frBrut">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Fiscalité rachat total (après 8 ans)</span>
+                  <span class="sim__stat-value" id="frFisc">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Assiette IFI (si UC titrisation immo)</span>
+                  <span class="sim__stat-value" id="frIfi">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Capital net rachat total</span>
+                  <span class="sim__stat-value sim__stat-value--big" id="frNet">—</span>
+                </div>
+              </div>
+
+              <div class="sim__card sim__card--highlight">
+                <span class="sim__card-badge">Luxembourg</span>
+                <p class="sim__card-label">Assurance-vie luxembourgeoise</p>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Capital brut à N ans</span>
+                  <span class="sim__stat-value" id="luxBrut">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Fiscalité rachat total (après 8 ans)</span>
+                  <span class="sim__stat-value" id="luxFisc">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Assiette IFI</span>
+                  <span class="sim__stat-value" id="luxIfi">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Capital net rachat total</span>
+                  <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="luxNet">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim__note" id="note">
+              <strong>Gain net Luxembourg :</strong> <span id="gain">—</span>. <span id="transmis">Transmission au décès : abattement 152 500 € par bénéficiaire (versements avant 70 ans).</span>
+              Estimation indicative sur hypothèses centrales 2026, fiscalité française applicable au résident français. Chaque situation nécessite une analyse patrimoniale personnalisée.
+            </div>
+
+            <div class="sim__cta">
+              <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="sim__cta-btn">Échanger avec un expert →</a>
+              <span class="sim__cta-hint">Réservé aux CGP, family offices et banques privées.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content__container" style="margin-top: 60px;">
+          <h2>Ce que ce simulateur compare</h2>
+
+          <h3>Capital brut à N ans</h3>
+          <p>La prime versée capitalise au rendement annuel choisi. Aucune différence structurelle entre les deux contrats sur cette base — la performance dépend de l'allocation d'unités de compte, identique dans les deux cas si l'on suppose des UC symétriques (par exemple une UC titrisation immobilière référencée sur les deux places).</p>
+
+          <h3>Fiscalité rachat total après 8 ans</h3>
+          <p>Le régime fiscal français est appliqué au résident français, quel que soit le pays d'établissement du contrat (principe de résidence fiscale). Après 8 ans :</p>
+          <ul>
+            <li>Abattement annuel : 4 600 € (célibataire) / 9 200 € (couple)</li>
+            <li>Au-delà : PFL 7,5 % (versements &lt; 150 k€) ou PFU 12,8 % (au-delà)</li>
+            <li>Prélèvements sociaux : 17,2 % sur les gains</li>
+          </ul>
+          <p>Le simulateur applique un mix PFL/PFU proportionnel au volume, avec les prélèvements sociaux au taux légal 2026.</p>
+
+          <h3>Assiette IFI (Impôt sur la Fortune Immobilière)</h3>
+          <p>C'est <strong>ici que la différence Luxembourg-France est structurelle</strong>. En France, si le contrat contient des UC adossées à de l'immobilier (SCPI, OPCI, titrisation immobilière), la fraction correspondante entre dans l'assiette IFI.</p>
+          <p>Au Luxembourg, la <strong>doctrine dominante et la jurisprudence stabilisée</strong> considèrent que la partie UC titrisation immobilière échappe à l'assiette IFI côté français, dans la mesure où l'investisseur ne détient qu'un contrat d'assurance-vie de droit luxembourgeois donnant droit à une prestation en euros — pas une propriété immobilière directe ou une SCI.</p>
+          <p>Cette optimisation IFI est un des drivers majeurs de la souscription luxembourgeoise pour la clientèle française HNW/UHNWI.</p>
+
+          <h3>Transmission au décès</h3>
+          <p>Pour les versements <strong>avant 70 ans</strong>, l'article 990 I du CGI s'applique côté français :</p>
+          <ul>
+            <li>Abattement 152 500 € par bénéficiaire</li>
+            <li>Taxation 20 % puis 31,25 % au-delà de 852 500 € par bénéficiaire</li>
+          </ul>
+          <p>Ce régime s'applique <strong>que le contrat soit français ou luxembourgeois</strong>, dès lors que le souscripteur est résident fiscal français. C'est un point souvent mal compris : le Luxembourg n'améliore pas directement le régime successoral au sens du 990 I, mais il permet d'autres optimisations (démembrement, clauses bénéficiaires sur mesure) plus difficiles à mettre en œuvre en droit français.</p>
+
+          <h3>Ce que ce simulateur ne montre pas</h3>
+          <ul>
+            <li>Le <strong>triangle de sécurité</strong> luxembourgeois (super-privilège de l'assuré + ségrégation d'actifs + fonds dédiés) qui protège en cas de faillite de l'assureur.</li>
+            <li>Les <strong>fonds dédiés (FID/FAS)</strong> qui permettent de loger des actifs non standards (private equity, immobilier direct via holding, œuvres d'art) — indisponibles en assurance-vie française.</li>
+            <li>La <strong>portabilité européenne</strong> du contrat luxembourgeois (utile en cas de mobilité géographique du souscripteur).</li>
+            <li>Les <strong>frais de gestion</strong>, généralement 30-70 pb supérieurs sur du contrat luxembourgeois haut de gamme.</li>
+          </ul>
+
+          <div class="content__related">
+            <h3>Ressources complémentaires</h3>
+            <ul>
+              <li><a href="/guides/assurance-vie-luxembourgeoise-cgp-complet.html">Guide complet assurance-vie luxembourgeoise pour CGP</a></li>
+              <li><a href="/guides/fiscalite-club-deal-luxembourg-investisseur-francais.html">Fiscalité club deal Luxembourg pour investisseur français</a></li>
+              <li><a href="/guides/cif-referencement-club-deal-titrise.html">CIF et référencement club deal titrisé</a></li>
+              <li><a href="/glossaire/titrisation.html">Titrisation luxembourgeoise</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__resources">
+      <div class="footer__col">
+        <span class="footer__col-title">Marchés</span>
+        <a href="/villes/club-deal-immobilier-prime-paris-8.html">Paris VIII · Triangle d'or</a>
+        <a href="/villes/club-deal-immobilier-prime-paris-6.html">Paris VI · Saint-Germain</a>
+        <a href="/villes/club-deal-immobilier-prime-neuilly-sur-seine.html">Neuilly-sur-Seine</a>
+        <a href="/villes/investir-immobilier-prime-luxembourg.html">Luxembourg</a>
+        <a href="/villes/club-deal-immobilier-prime-monaco.html">Monaco</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Guides partenaires</span>
+        <a href="/guides/cgp-acceder-club-deal-immobilier-prime.html">Accès CGP au club deal</a>
+        <a href="/guides/cgp-retrocessions-club-deal-immobilier.html">Rétrocessions CGP</a>
+        <a href="/guides/family-office-acceder-club-deal-immobilier.html">Family office</a>
+        <a href="/guides/banque-privee-distribution-club-deal-titrise.html">Banque privée</a>
+        <a href="/guides/fiscalite-club-deal-luxembourg-investisseur-francais.html">Fiscalité Luxembourg</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Analyses marché</span>
+        <a href="/analyses/marche-prime-paris-qca-2026.html">Marché Paris QCA 2026</a>
+        <a href="/analyses/rendement-club-deal-vs-scpi-2026.html">Rendement vs SCPI 2026</a>
+        <a href="/analyses/impact-taux-interet-prime-immobilier-2026.html">Impact des taux 2026</a>
+        <a href="/analyses/perspectives-2026-2028-immobilier-prime-francais.html">Perspectives 2026-2028</a>
+        <a href="/analyses/marche-club-deal-immobilier-france-2026-tendances.html">Marché club deal France</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Ressources</span>
+        <a href="/glossaire/club-deal-immobilier.html">Glossaire patrimonial</a>
+        <a href="/comparatifs/club-deal-vs-scpi.html">Comparatifs d'instruments</a>
+        <a href="/track-record/40-avenue-george-v-paris-8.html">Track record</a>
+        <a href="/partenaires-cgp.html">Devenir partenaire</a>
+      </div>
+    </div>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <img src="/Logo.svg" alt="Logo Global Icons" class="footer__logo-img" width="140" height="52" />
+        <p>L'immobilier d'exception pour les distributeurs du patrimoine.<br />Entité de collecte de Foncière Renaissance.</p>
+      </div>
+      <nav class="footer__col" aria-label="Pied de page, navigation">
+        <span class="footer__col-title">Naviguer</span>
+        <a href="/index.html#approche">Approche</a>
+        <a href="/index.html#methode">Méthode</a>
+        <a href="/index.html#trackrecord">Track record</a>
+        <a href="/index.html#equipe">Équipe</a>
+      </nav>
+      <nav class="footer__col" aria-label="Pied de page, légal">
+        <span class="footer__col-title">Informations</span>
+        <a href="/mentions-legales.html">Mentions légales</a>
+        <a href="/confidentialite.html">Politique de confidentialité</a>
+        <a href="/risques.html">Avertissement sur les risques</a>
+      </nav>
+      <div class="footer__col">
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:contact@globalicons.io">contact@globalicons.io</a>
+      </div>
+    </div>
+    <div class="container footer__base">
+      <span>© 2026 Global Icons S.à r.l. Tous droits réservés.</span>
+      <span>Investir comporte un risque de perte en capital.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const fmtM = n => Math.abs(n) >= 1000000 ? (n/1000000).toFixed(2).replace('.',',') + ' M€' : (n >= 0 ? '' : '- ') + Math.round(Math.abs(n)).toLocaleString('fr-FR') + ' €';
+      const fmtPct = n => (n * 100).toFixed(2).replace('.', ',') + ' %';
+      const el = id => document.getElementById(id);
+
+      function compute() {
+        const prime = +el('prime').value;
+        const horizon = +el('horizon').value;
+        const rend = +el('rend').value / 1000; // 50 -> 5.0%
+        const age = el('age').value;
+        const ifi = el('ifi').value === 'oui';
+
+        el('primeValue').textContent = Math.round(prime).toLocaleString('fr-FR') + ' €';
+        el('horValue').textContent = horizon + ' ans';
+        el('rendValue').textContent = (rend * 100).toFixed(1).replace('.', ',') + ' %';
+        el('horOut').textContent = horizon + ' ans';
+
+        // Capital brut identique
+        const brut = prime * Math.pow(1 + rend, horizon);
+        const gains = brut - prime;
+
+        // Fiscalité rachat total après 8 ans (approx)
+        // Abattement 4600 (individuel)
+        const abattement = 4600;
+        const assiette = Math.max(0, gains - abattement);
+        // Répartition primes < 150k au taux 7.5% (PFL), > 150k au taux 12.8% (PFU)
+        // Simplification : si prime > 150k, la fraction >150k des gains taxée à 12.8%
+        const gainsFraction150 = gains * Math.min(1, 150000 / prime);
+        const gainsFraction150p = gains - gainsFraction150;
+        const irRacahtBase = Math.max(0, gainsFraction150 - abattement) * 0.075 + gainsFraction150p * 0.128;
+        const ps = gains * 0.172;
+        const fiscaliteFR = irRacahtBase + ps;
+        const netFR = brut - fiscaliteFR;
+
+        // Luxembourg : même fiscalité française sur les rachats (résidence fiscale)
+        const fiscaliteLUX = fiscaliteFR;
+        const netLUX = brut - fiscaliteLUX;
+
+        // IFI (approximation : sur assiette immobilière à 100%, 30% du contrat = UC titrisation immo, moyenne HNW)
+        // Taux IFI moyen ~1% patrimoine soumis * horizon
+        let ifiAnneesFR = 0, ifiAnneesLUX = 0;
+        if (ifi) {
+          const partImmo = 0.30; // hypothèse 30% du contrat en UC titrisation immo
+          // IFI FR : la partie UC immo entre dans l'assiette
+          for (let y = 1; y <= horizon; y++) {
+            const capitalAn = prime * Math.pow(1 + rend, y);
+            ifiAnneesFR += capitalAn * partImmo * 0.008; // 0.8% moyen (barème IFI progressif)
+            // IFI LUX : partie UC titrisation immo n'entre pas dans l'assiette (doctrine dominante)
+            // ifiAnneesLUX reste 0
+          }
+        }
+
+        // Total net final
+        const netFRfinal = netFR - ifiAnneesFR;
+        const netLUXfinal = netLUX - ifiAnneesLUX;
+
+        el('frBrut').textContent = fmtM(brut);
+        el('frFisc').textContent = '- ' + fmtM(fiscaliteFR).replace('- ', '');
+        el('frIfi').textContent = ifi ? '- ' + fmtM(ifiAnneesFR).replace('- ', '') : '0 €';
+        el('frNet').textContent = fmtM(netFRfinal);
+
+        el('luxBrut').textContent = fmtM(brut);
+        el('luxFisc').textContent = '- ' + fmtM(fiscaliteLUX).replace('- ', '');
+        el('luxIfi').textContent = '0 € (hors assiette IFI)';
+        el('luxNet').textContent = fmtM(netLUXfinal);
+
+        const gain = netLUXfinal - netFRfinal;
+        el('gain').textContent = fmtM(gain) + ' sur ' + horizon + ' ans (+' + fmtPct(gain/prime/horizon) + '/an sur la prime versée)';
+
+        // Transmission text
+        if (age === 'avant70') {
+          el('transmis').textContent = 'Transmission avant 70 ans (art. 990 I) : abattement 152 500 € par bénéficiaire, applicable dans les deux régimes.';
+        } else {
+          el('transmis').textContent = 'Transmission après 70 ans (art. 757 B) : abattement global 30 500 € tous bénéficiaires, applicable dans les deux régimes.';
+        }
+      }
+
+      ['prime','horizon','rend','age','ifi'].forEach(id => el(id).addEventListener('input', compute));
+      compute();
+    })();
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur assurance-vie Luxembourg vs France",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "url": "https://www.globalicons.io/outils/simulateur-assurance-vie-luxembourg-vs-france.html",
+  "description": "Compare la fiscalité et le rendement net d'un contrat d'assurance-vie luxembourgeois vs français pour un client HNW.",
+  "offers": {"@type": "Offer", "price": "0"},
+  "provider": {"@type": "Organization", "name": "Global Icons"},
+  "inLanguage": "fr-FR"
+}
+  </script>
+
+  <aside class="mobile-cta" role="complementary" aria-label="Prendre rendez-vous">
+    <span class="mobile-cta__label">Échanger avec un expert</span>
+    <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
+  </aside>
+</body>
+</html>

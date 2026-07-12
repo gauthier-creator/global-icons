@@ -843,6 +843,50 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 @media (max-width: 720px) { .banner-cta__inner { flex-direction: column; align-items: flex-start; gap: 20px; } .banner-cta__btn { align-self: stretch; justify-content: center; } }
 
 /* ============================================================
+   SIMULATEURS / OUTILS INTERACTIFS
+   ============================================================ */
+.sim { padding: clamp(64px, 8vw, 100px) 0 clamp(48px, 6vw, 80px); }
+.sim__container { max-width: 1080px; margin: 0 auto; padding: 0 var(--gut); }
+.sim__intro { max-width: 720px; margin: 0 auto 48px; text-align: center; }
+.sim__eyebrow { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.sim__title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--head); margin: 12px 0 16px; letter-spacing: -0.025em; }
+.sim__lead { font-size: 1.02rem; color: var(--body); line-height: 1.55; }
+.sim__grid { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: 48px; align-items: start; background: var(--paper-2); border: 1px solid var(--line); border-radius: 14px; padding: clamp(28px, 4vw, 48px); }
+@media (max-width: 900px) { .sim__grid { grid-template-columns: 1fr; gap: 32px; padding: 24px; } }
+.sim__panel-title { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 0 0 24px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.sim__field { margin-bottom: 22px; }
+.sim__field label { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.92rem; color: var(--head); font-weight: 500; margin-bottom: 8px; }
+.sim__field-hint { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+.sim__field-value { font-size: 0.98rem; color: var(--accent); font-weight: 500; font-variant-numeric: tabular-nums; }
+.sim__input, .sim__select { width: 100%; padding: 11px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); font-size: 0.96rem; color: var(--head); font-family: inherit; font-variant-numeric: tabular-nums; transition: border-color .2s; }
+.sim__input:focus, .sim__select:focus { outline: none; border-color: var(--ink); }
+.sim__range { width: 100%; margin-top: 6px; -webkit-appearance: none; appearance: none; height: 4px; background: var(--line); border-radius: 2px; outline: none; }
+.sim__range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--ink); border-radius: 50%; cursor: pointer; transition: transform .2s; border: 3px solid var(--paper); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.sim__range::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.sim__range::-moz-range-thumb { width: 20px; height: 20px; background: var(--ink); border-radius: 50%; cursor: pointer; border: 3px solid var(--paper); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.sim__results { min-height: 200px; }
+.sim__results-headline { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.sim__results-headline strong { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.sim__compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+@media (max-width: 640px) { .sim__compare { grid-template-columns: 1fr; } }
+.sim__card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 20px; position: relative; }
+.sim__card--highlight { border-color: var(--ink); box-shadow: 0 4px 20px -8px rgba(0,0,0,0.12); }
+.sim__card-label { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
+.sim__card-badge { position: absolute; top: 14px; right: 14px; background: var(--ink); color: var(--paper); font-size: 0.66rem; padding: 3px 8px; border-radius: 999px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+.sim__stat { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.sim__stat:last-child { border-bottom: none; }
+.sim__stat-label { font-size: 0.86rem; color: var(--body); }
+.sim__stat-value { font-size: 1.02rem; color: var(--head); font-weight: 500; }
+.sim__stat-value--big { font-size: 1.6rem; font-weight: 400; letter-spacing: -0.02em; }
+.sim__stat-value--positive { color: #2c7a4b; }
+.sim__stat-value--negative { color: #a3322f; }
+.sim__note { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 16px; line-height: 1.5; padding: 12px 14px; background: var(--paper-2); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; }
+.sim__cta { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); text-align: center; }
+.sim__cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--ink); color: var(--paper); border-radius: 999px; font-size: 0.96rem; font-weight: 500; text-decoration: none; transition: transform .3s; }
+.sim__cta-btn:hover { transform: translateY(-1px); color: var(--paper); }
+.sim__cta-hint { display: block; margin-top: 10px; font-size: 0.86rem; color: var(--muted); }
+
+/* ============================================================
    FILIGRANE LOGO — séparateur (façon Osmose)
    ============================================================ */
 .brandmark {
