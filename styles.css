@@ -332,6 +332,68 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* Stats CTA inline */
 .stats__cta { color: var(--head); text-decoration: underline; text-underline-offset: 3px; opacity: 0.8; transition: opacity .3s; }
 .stats__cta:hover { opacity: 1; }
+
+/* ============================================================
+   COOKIE CONSENT BANNER (Clarity / analytics)
+   ============================================================ */
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  z-index: 200;
+  max-width: 640px;
+  width: calc(100% - 40px);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px 24px;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.cookie-banner.is-visible { transform: translateX(-50%) translateY(0); }
+.cookie-banner__text {
+  flex: 1;
+  min-width: 260px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--muted-light);
+}
+.cookie-banner__text a {
+  color: var(--paper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.8;
+}
+.cookie-banner__text a:hover { opacity: 1; }
+.cookie-banner__actions { display: inline-flex; gap: 10px; flex-shrink: 0; }
+.cookie-banner__btn {
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s, opacity .2s;
+  font-family: inherit;
+  letter-spacing: 0.005em;
+}
+.cookie-banner__btn:hover { transform: translateY(-1px); }
+.cookie-banner__btn--accept { background: var(--paper); color: var(--ink); }
+.cookie-banner__btn--refuse { background: transparent; color: var(--paper); border: 1px solid rgba(255,255,255,0.24); }
+.cookie-banner__btn--refuse:hover { background: rgba(255,255,255,0.06); }
+@media (max-width: 640px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; gap: 14px; padding: 18px 20px; bottom: 12px; width: calc(100% - 24px); }
+  .cookie-banner__actions { justify-content: flex-end; }
+}
+/* Ne pas empiler avec la sticky mobile CTA */
+body.has-mobile-cta .cookie-banner { bottom: 88px; }
+@media (max-width: 640px) { body.has-mobile-cta .cookie-banner { bottom: 76px; } }
 /* Trait de continuité vers la section suivante — se dessine après l'animation deck */
 .hero__cue {
   position: absolute; bottom: clamp(36px, 6vh, 70px); left: 50%;
