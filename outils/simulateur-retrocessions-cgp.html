@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulateur rétrocessions CGP club deal | Global Icons</title>
-  <meta name="description" content="Simulateur revenus CGP : estimez vos rétrocessions annuelles + carried sur des club deals immobiliers prime selon votre volume de collecte." />
+  <meta name="description" content="Simulateur revenus CGP : estimez la rétrocession upfront (3-5 %) sur des club deals immobiliers prime selon votre volume de collecte annuel." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://www.globalicons.io/outils/simulateur-retrocessions-cgp.html" />
   <link rel="alternate" hreflang="fr-FR" href="https://www.globalicons.io/outils/simulateur-retrocessions-cgp.html" />
@@ -18,7 +18,7 @@
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:url" content="https://www.globalicons.io/outils/simulateur-retrocessions-cgp.html" />
   <meta property="og:title" content="Simulateur rétrocessions CGP club deal | Global Icons" />
-  <meta property="og:description" content="Simulateur revenus CGP : estimez vos rétrocessions annuelles + carried sur des club deals immobiliers prime." />
+  <meta property="og:description" content="Simulateur revenus CGP : estimez la rétrocession upfront (3-5 %) sur des club deals immobiliers prime." />
   <meta property="og:image" content="https://www.globalicons.io/og-image.jpg" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=88" />
+  <link rel="stylesheet" href="/styles.css?v=90" />
   <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8"></script>
 </head>
 <body class="has-mobile-cta">
@@ -55,7 +55,7 @@
         <div class="sim__intro">
           <span class="sim__eyebrow">Outil · CGP · Réseau distributeur</span>
           <h1 class="sim__title">Simulateur rétrocessions CGP sur club deal immobilier</h1>
-          <p class="sim__lead">Estimez les revenus annuels + performance qu'un CGP peut générer sur un pipeline de club deals immobiliers prime, en fonction du volume de collecte et de la structure de rémunération négociée.</p>
+          <p class="sim__lead">Estimez la rétrocession upfront perçue par un CGP sur un pipeline de club deals immobiliers prime, en fonction du volume de collecte annuel et du taux de rétro négocié avec l'opérateur.</p>
         </div>
 
         <div class="sim__grid">
@@ -75,71 +75,69 @@
             </div>
 
             <div class="sim__field">
-              <label>Commission d'entrée négociée <span class="sim__field-value" id="entreeValue">1,25 %</span></label>
-              <input type="range" class="sim__range" id="entree" min="50" max="200" step="5" value="125" />
-              <span class="sim__field-hint">Typique : 0,5 % à 2 % de la collecte</span>
+              <label>Ticket moyen par client <span class="sim__field-value" id="ticketValue">150 000 €</span></label>
+              <input type="range" class="sim__range" id="ticket" min="50000" max="1000000" step="10000" value="150000" />
+              <span class="sim__field-hint">Ticket moyen de vos clients qualifiés</span>
             </div>
 
             <div class="sim__field">
-              <label>Commission de gestion annuelle <span class="sim__field-value" id="gestionValue">0,50 %</span></label>
-              <input type="range" class="sim__range" id="gestion" min="25" max="75" step="5" value="50" />
-              <span class="sim__field-hint">Typique : 0,25 % à 0,75 % par an sur l'engagement</span>
-            </div>
-
-            <div class="sim__field">
-              <label>Quote-part du carried opérateur <span class="sim__field-value" id="carriedValue">10 %</span></label>
-              <input type="range" class="sim__range" id="carried" min="0" max="20" step="1" value="10" />
-              <span class="sim__field-hint">Fraction du carried de l'opérateur reversée au CGP</span>
+              <label>Taux de rétrocession upfront <span class="sim__field-value" id="retroValue">4,0 %</span></label>
+              <input type="range" class="sim__range" id="retro" min="300" max="500" step="10" value="400" />
+              <span class="sim__field-hint">Fourchette marché : 3 à 5 % de la collecte</span>
             </div>
           </div>
 
           <div class="sim__results">
             <div class="sim__results-headline">
-              <strong>Revenus estimés sur 4 ans (cycle type d'opération)</strong>
+              <strong>Rétrocession upfront estimée</strong>
             </div>
 
             <div class="sim__compare" style="grid-template-columns: 1fr;">
               <div class="sim__card sim__card--highlight">
                 <span class="sim__card-badge">CGP</span>
-                <p class="sim__card-label">Revenus d'un cycle 4 ans par million collecté</p>
+                <p class="sim__card-label">Revenu annuel sur la collecte</p>
                 <div class="sim__stat">
-                  <span class="sim__stat-label">Année 1 · Commission d'entrée</span>
-                  <span class="sim__stat-value" id="entreeYr1">—</span>
+                  <span class="sim__stat-label">Collecte annuelle</span>
+                  <span class="sim__stat-value" id="collecteOut">—</span>
                 </div>
                 <div class="sim__stat">
-                  <span class="sim__stat-label">Années 1-4 · Gestion cumulée</span>
-                  <span class="sim__stat-value" id="gestionCumul">—</span>
+                  <span class="sim__stat-label">Nombre de clients servis (estim.)</span>
+                  <span class="sim__stat-value" id="nbClients">—</span>
                 </div>
                 <div class="sim__stat">
-                  <span class="sim__stat-label">Année 4 · Quote-part carried (si TRI atteint)</span>
-                  <span class="sim__stat-value" id="carriedFinal">—</span>
+                  <span class="sim__stat-label">Rétrocession upfront (versée à la souscription)</span>
+                  <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="retroTotal">—</span>
                 </div>
                 <div class="sim__stat">
-                  <span class="sim__stat-label">Total sur 4 ans / M€ collecté</span>
-                  <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="totalM">—</span>
+                  <span class="sim__stat-label">Rétrocession moyenne par opération</span>
+                  <span class="sim__stat-value" id="retroParOp">—</span>
+                </div>
+                <div class="sim__stat">
+                  <span class="sim__stat-label">Rétrocession moyenne par client</span>
+                  <span class="sim__stat-value" id="retroParClient">—</span>
                 </div>
               </div>
             </div>
 
             <div class="sim__compare">
               <div class="sim__card">
-                <p class="sim__card-label">Revenus annualisés (année 1)</p>
+                <p class="sim__card-label">Revenu par million collecté</p>
                 <div class="sim__stat">
-                  <span class="sim__stat-label">Entrée + gestion sur collecte an</span>
-                  <span class="sim__stat-value sim__stat-value--big" id="revYr1">—</span>
+                  <span class="sim__stat-label">Rétro upfront / M€</span>
+                  <span class="sim__stat-value sim__stat-value--big" id="retroParMillion">—</span>
                 </div>
               </div>
               <div class="sim__card">
-                <p class="sim__card-label">Régime de croisière (année 4+)</p>
+                <p class="sim__card-label">Projection sur 3 ans (collecte constante)</p>
                 <div class="sim__stat">
-                  <span class="sim__stat-label">Entrée + gestion + carried moyen</span>
-                  <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="revYrN">—</span>
+                  <span class="sim__stat-label">Rétro cumulée 3 ans</span>
+                  <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="retro3ans">—</span>
                 </div>
               </div>
             </div>
 
             <div class="sim__note">
-              <strong>Comparatif :</strong> pour la même collecte de <span id="collecteRef">2 M€</span> en SCPI (rétrocessions ~1,5 % entrée + 0,4 % gestion), un CGP toucherait environ <span id="scpiCompar">—</span> par an. Le club deal génère <span id="ratio">—</span> de plus en régime de croisière — <strong>mais nécessite un effort de conseil, de suivi et de qualification client bien plus intense.</strong>
+              <strong>À noter :</strong> sur un club deal immobilier prime, la rémunération CGP est <strong>exclusivement une rétrocession upfront</strong> versée à la souscription, comprise entre <strong>3 % et 5 %</strong> de la collecte. Contrairement à la SCPI, il n'y a pas de commission de gestion annuelle ni de quote-part du carried opérateur. Cette structure simple récompense l'effort commercial et le devoir de conseil réalisé à la souscription, sur des tickets client significativement plus élevés qu'en SCPI (100-500 k€ vs 15-50 k€).
             </div>
 
             <div class="sim__cta">
@@ -161,25 +159,32 @@
       </section>
       <div class="content__container" style="margin-top: 60px;">
           <h2>Comment lire ce simulateur ?</h2>
-          <p>Ce simulateur estime le revenu d'un CGP indépendant distribuant des club deals immobiliers prime, sur un cycle type de 4 ans (durée moyenne d'un club deal value-add avec sortie).</p>
+          <p>Ce simulateur estime le revenu d'un CGP indépendant distribuant des club deals immobiliers prime. La rémunération CGP sur un club deal a une structure spécifique, différente de celle d'une SCPI ou d'un OPCI.</p>
 
-          <h3>Les trois lignes de revenu CGP</h3>
-          <ol>
-            <li><strong>Commission d'entrée</strong> — versée à la souscription, plancher marché 0,5 %, plafond typique 2 %. Chez Global Icons, la fourchette négociée avec les partenaires CGP est de 1 % à 1,5 %.</li>
-            <li><strong>Commission de gestion</strong> — versée annuellement pendant la vie de l'opération, sur l'engagement pris. Fourchette 0,25-0,75 %.</li>
-            <li><strong>Quote-part du carried interest</strong> — activée seulement si le hurdle rate est atteint. C'est un partage de la performance de l'opérateur : typiquement 5 à 15 % du carried opérateur.</li>
-          </ol>
+          <h3>Une seule ligne de revenu : la rétrocession upfront</h3>
+          <p>Sur un club deal immobilier prime, le CGP est rémunéré <strong>exclusivement via une rétrocession upfront</strong>, versée à la souscription du client. La fourchette marché se situe entre <strong>3 % et 5 %</strong> de la collecte. Chez Global Icons, la rétrocession négociée avec les partenaires CGP se situe typiquement entre 4 % et 5 %.</p>
 
-          <h3>Pourquoi la performance vs SCPI est structurellement supérieure</h3>
-          <p>Sur du club deal, le CGP capte une part du carried, ce qui n'existe ni sur du SCPI ni sur du OPCI. En régime de croisière (après 3-4 ans de collecte constante), le carried s'ajoute aux entrées + gestion — l'effet composé peut doubler le revenu unitaire.</p>
-          <p>Contrepartie : les tickets client sont plus élevés (100 k€ à 500 k€ vs 15 k€ pour SCPI), donc moins de clients à convaincre mais chacun nécessite un accompagnement approfondi (documentation dense, mise en garde renforcée, KYC LBC-FT).</p>
+          <h3>Ce qui n'existe pas sur un club deal (contrairement à la SCPI)</h3>
+          <ul>
+            <li><strong>Pas de commission de gestion annuelle</strong> — la vie de l'opération (3 à 5 ans typiques) ne génère pas de flux récurrent pour le CGP.</li>
+            <li><strong>Pas de quote-part du carried interest</strong> — la performance de l'opération bénéficie directement à l'investisseur final, pas au distributeur.</li>
+            <li><strong>Pas de commission de sortie</strong> — la liquidation de l'opération n'ouvre pas de nouveau flux.</li>
+          </ul>
+
+          <h3>Pourquoi ce modèle est structurellement pertinent malgré tout</h3>
+          <p>La rémunération upfront reflète l'effort concentré que représente une souscription club deal :</p>
+          <ul>
+            <li><strong>Ticket moyen élevé</strong> — 100 k€ à 500 k€ par client, contre 15-50 k€ en SCPI. La rétrocession 3-5 % sur 150 k€ = 4 500 à 7 500 € par client, versés immédiatement.</li>
+            <li><strong>Devoir de conseil approfondi</strong> — documentation dense à digérer, mise en garde renforcée, KYC/LBC-FT plus poussé.</li>
+            <li><strong>Concentration du revenu</strong> — moins de clients à convaincre par million collecté (7 clients à 150 k€ = 1 M€), mais chacun demande un accompagnement individualisé.</li>
+          </ul>
+          <p>Un CGP faisant 2 M€ de collecte annuelle à 4 % de rétro touche 80 000 €/an, sans travail additionnel après la souscription.</p>
 
           <h3>Ce qui n'est pas simulé</h3>
           <ul>
             <li>La charge fiscale personnelle du CGP (IS pour une SARL de CGP, IR/BNC pour un CGP individuel).</li>
             <li>Les frais de fonctionnement (adhésion association CIF, RC pro, LBC-FT, formation continue).</li>
-            <li>Le risque de non-atteinte du hurdle (le carried peut être nul si l'opération sous-performe).</li>
-            <li>Les frais de sortie de l'opération (limités mais existants).</li>
+            <li>Les éventuels frais de gestion de la plateforme intermédiaire (si distribution via plateforme tierce).</li>
           </ul>
 
           
@@ -275,55 +280,40 @@
       function compute() {
         const collecte = +el('collecte').value;
         const nbOp = +el('nbOp').value;
-        const entree = +el('entree').value / 10000; // 125 -> 1.25%
-        const gestion = +el('gestion').value / 10000;
-        const carried = +el('carried').value / 100;
+        const ticket = +el('ticket').value;
+        const retro = +el('retro').value / 10000; // 400 -> 4.00%
 
         el('collecteValue').textContent = fmt(collecte);
         el('nbOpValue').textContent = nbOp + ' opération' + (nbOp > 1 ? 's' : '');
-        el('entreeValue').textContent = (entree * 100).toFixed(2).replace('.', ',') + ' %';
-        el('gestionValue').textContent = (gestion * 100).toFixed(2).replace('.', ',') + ' %';
-        el('carriedValue').textContent = (carried * 100).toFixed(0) + ' %';
-        el('collecteRef').textContent = fmt(collecte);
+        el('ticketValue').textContent = fmt(ticket);
+        el('retroValue').textContent = (retro * 100).toFixed(1).replace('.', ',') + ' %';
+
+        // Nombre de clients servis (collecte / ticket moyen)
+        const nbClients = Math.round(collecte / ticket);
+
+        // Rétrocession totale
+        const retroTotal = collecte * retro;
+
+        // Répartition par opération et par client
+        const retroParOp = retroTotal / nbOp;
+        const retroParClient = retroTotal / Math.max(1, nbClients);
 
         // Par million collecté
-        const perM = 1000000;
-        const entreeYr1 = perM * entree;
-        const gestionAn = perM * gestion;
-        const gestionCumul4 = gestionAn * 4;
-        // Carried opérateur type : sur value-add TRI 15%, hurdle 8%, split 20/80 -> l'opérateur touche typiquement 2M€ de carried sur un pool ~15M€ (~13% du capital investi).
-        // Simplification : carried opérateur ~ 13% du capital investi = 130k / M€ collecté
-        const carriedOperateur = perM * 0.13;
-        const carriedCGP = carriedOperateur * carried;
+        const retroParMillion = 1000000 * retro;
 
-        const totalPerM = entreeYr1 + gestionCumul4 + carriedCGP;
+        // Projection 3 ans (collecte constante)
+        const retro3ans = retroTotal * 3;
 
-        el('entreeYr1').textContent = fmt(entreeYr1);
-        el('gestionCumul').textContent = fmt(gestionCumul4);
-        el('carriedFinal').textContent = fmt(carriedCGP);
-        el('totalM').textContent = fmt(totalPerM);
-
-        // Sur la collecte réelle
-        const nbM = collecte / 1000000;
-        const revYr1 = collecte * entree + collecte * gestion; // entrée + 1ère année gestion
-        // Régime de croisière : après 3-4 ans de collecte constante, on a 4 générations d'opérations vivantes
-        // + carried arrive de l'opération démarrée il y a 4 ans
-        const cruise = collecte * entree + collecte * gestion * 4 + carriedCGP * nbM;
-
-        el('revYr1').textContent = fmt(revYr1);
-        el('revYrN').textContent = fmt(cruise);
-
-        // Comparatif SCPI
-        // SCPI : ~1,5% entrée (partagée) + 0,4% gestion/an
-        const scpiEntree = collecte * 0.015;
-        const scpiGestion = collecte * 0.004 * 4; // sur 4 ans
-        const scpiTotalAn = scpiEntree + collecte * 0.004; // 1ère année
-        el('scpiCompar').textContent = fmt(scpiTotalAn);
-        const ratio = cruise / scpiTotalAn;
-        el('ratio').textContent = 'x ' + ratio.toFixed(1).replace('.', ',');
+        el('collecteOut').textContent = fmt(collecte);
+        el('nbClients').textContent = nbClients + ' client' + (nbClients > 1 ? 's' : '');
+        el('retroTotal').textContent = fmt(retroTotal);
+        el('retroParOp').textContent = fmt(retroParOp);
+        el('retroParClient').textContent = fmt(retroParClient);
+        el('retroParMillion').textContent = fmt(retroParMillion);
+        el('retro3ans').textContent = fmt(retro3ans);
       }
 
-      ['collecte','nbOp','entree','gestion','carried'].forEach(id => el(id).addEventListener('input', compute));
+      ['collecte','nbOp','ticket','retro'].forEach(id => el(id).addEventListener('input', compute));
       compute();
     })();
   </script>
@@ -336,7 +326,7 @@
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Any",
   "url": "https://www.globalicons.io/outils/simulateur-retrocessions-cgp.html",
-  "description": "Estime les revenus annuels et carried d'un CGP distribuant des club deals immobiliers prime.",
+  "description": "Estime la rétrocession upfront (3-5 %) perçue par un CGP distribuant des club deals immobiliers prime, selon volume de collecte et taux négocié.",
   "offers": {"@type": "Offer", "price": "0"},
   "provider": {"@type": "Organization", "name": "Global Icons"},
   "inLanguage": "fr-FR"
