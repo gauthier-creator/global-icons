@@ -1,6 +1,14 @@
 .DS_Store
 *.log
 
+# Google Cloud service account keys (contiennent des cles privees)
+# NE JAMAIS COMMIT
+*service-account*.json
+*.iam.gserviceaccount.com.json
+able-source-*.json
+credentials.json
+gcp-key.json
+
 # Masters vidéos non compressés (115-405 Mo) — trop lourds pour le dépôt/web.
 # Seules les versions optimisées (luca-itw.mp4, hugo-itw.mp4, julien-itw.mp4) sont versionnées.
 GLOBAL_ICONSl_VF.mp4

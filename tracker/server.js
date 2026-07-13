@@ -13,6 +13,8 @@ const AUTH_PASS = process.env.AUTH_PASS;
 const app = express();
 app.use(express.json());
 
+app.get('/health', (req, res) => res.status(200).json({ ok: true }));
+
 app.use((req, res, next) => {
   if (!AUTH_PASS) return next();
   const creds = basicAuth(req);
