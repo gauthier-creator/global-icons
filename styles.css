@@ -315,11 +315,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .hero__cta { box-shadow: 0 10px 24px -10px rgba(15,15,14,.4); }
 .hero__cta:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgba(15,15,14,.55); }
-.hero__sub { color: var(--paper); opacity: 0.85; font-size: clamp(0.86rem, 1.15vw, 1rem); font-weight: 300; line-height: 1.5; max-width: 42ch; margin: 18px 0 26px; letter-spacing: 0.005em; }
-.hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
-.hero__cta-secondary { color: var(--paper); opacity: 0.75; font-size: 0.86rem; text-decoration: underline; text-underline-offset: 4px; transition: opacity .3s; }
+.hero__sub { color: inherit; opacity: 0.82; font-size: clamp(0.86rem, 1.05vw, 0.98rem); font-weight: 300; line-height: 1.45; margin: 14px 0 24px; letter-spacing: 0.005em; }
+.hero__ctas { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+.hero__cta-secondary { color: inherit; opacity: 0.72; font-size: 0.82rem; text-decoration: underline; text-underline-offset: 4px; transition: opacity .3s; }
 .hero__cta-secondary:hover { opacity: 1; }
-@media (max-width: 640px) { .hero__ctas { gap: 14px; } }
+@media (max-width: 640px) { .hero__ctas { gap: 12px; align-items: flex-end; } }
 
 /* Distrib link CTA (persona cards) */
 .distrib__link { display: inline-flex; align-items: center; margin-top: auto; padding-top: 14px; font-size: 0.86rem; color: var(--paper); opacity: 0.72; text-decoration: none; border-top: 1px solid rgba(255,255,255,0.08); transition: opacity .3s; }
