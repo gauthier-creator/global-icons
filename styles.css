@@ -394,6 +394,46 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* Ne pas empiler avec la sticky mobile CTA */
 body.has-mobile-cta .cookie-banner { bottom: 88px; }
 @media (max-width: 640px) { body.has-mobile-cta .cookie-banner { bottom: 76px; } }
+
+/* ============================================================
+   HUB PAGES (cluster hub thématiques)
+   ============================================================ */
+.hub__intro { max-width: 780px; margin: 0 0 48px; }
+.hub__intro p { font-size: 1.02rem; line-height: 1.65; color: var(--body); margin: 0 0 14px; }
+.hub__intro p:first-child { font-size: 1.08rem; color: var(--head); font-weight: 400; }
+.hub__cluster { margin: 0 0 44px; padding: 0 0 32px; border-bottom: 1px solid var(--line); }
+.hub__cluster:last-of-type { border-bottom: none; }
+.hub__cluster-title { font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 400; color: var(--head); margin: 0 0 22px; letter-spacing: -0.015em; padding-left: 12px; border-left: 3px solid var(--accent); }
+.hub__cluster-links { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 4px 24px; }
+.hub__cluster-links li { padding: 0; }
+.hub__cluster-links a { display: block; padding: 10px 0 10px 22px; font-size: 0.94rem; color: var(--body); text-decoration: none; border-bottom: 1px solid transparent; position: relative; transition: color .2s, padding .2s; }
+.hub__cluster-links a::before { content: '→'; position: absolute; left: 0; top: 10px; opacity: 0.4; transition: opacity .2s, transform .2s; }
+.hub__cluster-links a:hover { color: var(--head); padding-left: 26px; }
+.hub__cluster-links a:hover::before { opacity: 1; transform: translateX(2px); }
+
+/* Pages auteur E-E-A-T */
+.author__header { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: end; margin: 0 0 40px; }
+.author__photo img { width: 100%; height: auto; border-radius: 10px; display: block; }
+.author__intro { padding-bottom: 8px; }
+.author__bio { max-width: 720px; margin: 0 0 40px; }
+.author__bio p { font-size: 1rem; line-height: 1.65; color: var(--body); margin: 0 0 14px; }
+.author__expertise { max-width: 720px; list-style: none; padding: 0; margin: 0 0 40px; }
+.author__expertise li { padding: 12px 0 12px 26px; border-bottom: 1px solid var(--line); position: relative; font-size: 0.96rem; color: var(--body); }
+.author__expertise li::before { content: '✓'; position: absolute; left: 0; top: 12px; color: var(--accent); font-weight: 500; }
+.author__expertise li:last-child { border-bottom: none; }
+@media (max-width: 640px) { .author__header { grid-template-columns: 1fr; } .author__photo { max-width: 200px; } }
+
+/* Team hub grid */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin: 0 0 44px; }
+.team-card { border: 1px solid var(--line); border-radius: 12px; padding: 26px; transition: border-color .3s, transform .3s; background: var(--paper); }
+.team-card:hover { border-color: var(--ink); transform: translateY(-3px); }
+.team-card h2 { font-size: 1.24rem; font-weight: 400; margin: 0 0 4px; color: var(--head); letter-spacing: -0.01em; }
+.team-card h2 a { color: inherit; text-decoration: none; }
+.team-card h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.team-card__role { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin: 0 0 14px; }
+.team-card p { font-size: 0.92rem; line-height: 1.5; color: var(--body); margin: 0 0 14px; }
+.team-card__link { display: inline-block; font-size: 0.86rem; color: var(--head); text-decoration: underline; text-underline-offset: 3px; opacity: 0.8; }
+.team-card__link:hover { opacity: 1; }
 /* Trait de continuité vers la section suivante — se dessine après l'animation deck */
 .hero__cue {
   position: absolute; bottom: clamp(36px, 6vh, 70px); left: 50%;
