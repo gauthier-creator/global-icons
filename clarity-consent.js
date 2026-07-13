@@ -8,7 +8,7 @@
   var STORAGE_KEY = 'gi_clarity_consent';
   var STORAGE_TS = 'gi_clarity_consent_ts';
   var TTL_MS = 365 * 24 * 60 * 60 * 1000; // 12 mois
-  var CLARITY_ID = 'CLARITY_PROJECT_ID';
+  var CLARITY_ID = 'xlr1bp6yfz';
 
   function readConsent() {
     try {
