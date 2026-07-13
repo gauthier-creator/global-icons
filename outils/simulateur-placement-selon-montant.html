@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur : quel placement pour 100k / 500k / 1M / 5M€ ? | Global Icons</title>
+  <meta name="description" content="Simulateur d'allocation patrimoniale selon votre montant. Recommandations concrètes pour placer 100k, 500k, 1M ou 5M€ en 2026. Rendement cible + fiscalité." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://www.globalicons.io/outils/simulateur-placement-selon-montant.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Simulateur : quel placement pour 100k / 500k / 1M / 5M€ ?" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=93" />
+</head>
+<body class="has-mobile-cta">
+  <header class="legal__nav"><div class="legal__nav-inner"><a href="/index.html"><img src="/Logo.svg" alt="Logo Global Icons" class="legal__nav-logo" width="140" height="24" /></a><div class="legal__nav-actions"><a href="/index.html" class="legal__nav-back">Retour</a><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a></div></div></header>
+
+  <main class="content">
+    <section class="sim">
+      <div class="sim__container">
+        <div class="sim__intro">
+          <span class="sim__eyebrow">Outil · Allocation multi-tickets · 2026</span>
+          <h1 class="sim__title">Simulateur : quel placement pour 100k / 500k / 1M / 5M€ ?</h1>
+          <p class="sim__lead">Le bon placement n'existe pas dans l'absolu — il dépend de votre <strong>montant à placer</strong>, votre <strong>horizon</strong> et vos <strong>objectifs</strong>. Ce simulateur vous propose une allocation type selon votre situation avec rendement cible pondéré et fiscalité optimisée.</p>
+        </div>
+
+        <div class="sim__grid">
+          <div>
+            <p class="sim__panel-title">Votre situation</p>
+
+            <div class="sim__field">
+              <label>Montant à placer <span class="sim__field-value" id="montValue">500 000 €</span></label>
+              <input type="range" class="sim__range" id="mont" min="50000" max="10000000" step="10000" value="500000" />
+            </div>
+
+            <div class="sim__field">
+              <label>Horizon <span class="sim__field-value" id="horValue">15 ans</span></label>
+              <input type="range" class="sim__range" id="hor" min="5" max="30" step="1" value="15" />
+            </div>
+
+            <div class="sim__field">
+              <label>Objectif principal</label>
+              <select class="sim__select" id="obj">
+                <option value="croissance">Croissance long terme</option>
+                <option value="rendement" selected>Rendement + croissance équilibrée</option>
+                <option value="securite">Sécurité + transmission</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sim__results">
+            <div class="sim__result-block">
+              <span class="sim__result-label">Allocation immobilier prime</span>
+              <span class="sim__stat-value sim__stat-value--big" id="ap">125 000 €</span>
+              <span class="sim__field-hint" id="apPct">25 % — Co-investissement</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Allocation AV luxembourgeoise</span>
+              <span class="sim__stat-value" id="al">125 000 €</span>
+              <span class="sim__field-hint">25 %</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Allocation actions internationales</span>
+              <span class="sim__stat-value" id="ac">100 000 €</span>
+              <span class="sim__field-hint">20 %</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Allocation AV française fonds euros</span>
+              <span class="sim__stat-value" id="fe">75 000 €</span>
+              <span class="sim__field-hint">15 %</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Allocation PE / alternatifs / liquidité</span>
+              <span class="sim__stat-value" id="pe">75 000 €</span>
+              <span class="sim__field-hint">15 %</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Rendement cible pondéré</span>
+              <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="tri">7-9 %/an</span>
+              <span class="sim__field-hint" id="triCap">Capital cible dans 15 ans</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Capital cible à horizon</span>
+              <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="capFin">1 600 000 €</span>
+              <span class="sim__field-hint">Simulation à rendement moyen 7,5 %/an, hors fiscalité de sortie</span>
+            </div>
+
+            <div class="sim__note">
+              <strong>Méthodologie.</strong> Cette allocation est indicative et adaptée à un profil équilibré. À valider avec un CGP indépendant selon votre situation personnelle (âge, projets, tolérance au risque).
+            </div>
+          </div>
+        </div>
+
+        <div class="sim__narrative">
+          <h2>Comprendre l'allocation type par montant</h2>
+          <table class="glossary__table" style="margin:16px 0;">
+            <thead><tr><th>Montant</th><th>Immo prime</th><th>AV Lux</th><th>Actions</th><th>Fonds euros</th><th>PE / Alt</th></tr></thead>
+            <tbody>
+              <tr><td>100 000 €</td><td>25 %</td><td>0 %</td><td>25 %</td><td>30 %</td><td>20 %</td></tr>
+              <tr><td>500 000 €</td><td>25 %</td><td>25 %</td><td>20 %</td><td>15 %</td><td>15 %</td></tr>
+              <tr><td>1 000 000 €</td><td>30 %</td><td>25 %</td><td>15 %</td><td>10 %</td><td>20 %</td></tr>
+              <tr><td>5 000 000 €</td><td>32 %</td><td>25 %</td><td>13 %</td><td>5 %</td><td>25 %</td></tr>
+            </tbody>
+          </table>
+          <p>Plus votre patrimoine augmente, plus l'allocation en immobilier prime, PE et alternatifs augmente — signature classique des UHNWI. La fraction fonds euros diminue.</p>
+
+          <div class="content__cta">
+            <h2>Structurer votre allocation patrimoniale</h2>
+            <p>Vous cherchez à structurer votre patrimoine 100 k€ - 5 M€ ? Nos analystes vous accompagnent dans la sélection des véhicules concrets.</p>
+            <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer">Prendre rendez-vous →</a>
+          </div>
+
+          <div class="content__related">
+            <h3>Ressources complémentaires</h3>
+            <ul>
+              <li><a href="/guides/meilleur-placement-100000-euros-2026.html">Meilleur placement 100 000 €</a></li>
+              <li><a href="/guides/placer-500000-euros-guide-hnwi-2026.html">Placer 500 000 € HNWI</a></li>
+              <li><a href="/guides/investir-1-million-euros-strategies-uhnwi-2026.html">Investir 1 million UHNWI</a></li>
+              <li><a href="/outils/calculateur-allocation-immobilier-prime.html">Calculateur allocation immo prime</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer__grid"><div class="footer__brand"><img src="/Logo.svg" alt="Logo Global Icons" class="footer__logo-img" width="140" height="52" /></div><div class="footer__col"><a href="mailto:contact@globalicons.io">contact@globalicons.io</a></div></div><div class="container footer__base"><span>© 2026 Global Icons S.à r.l.</span></div></footer>
+
+  <script>
+    (function() {
+      const fmt = n => n >= 1000000 ? (n/1000000).toFixed(2).replace('.', ',') + ' M€' : Math.round(n).toLocaleString('fr-FR') + ' €';
+      const el = id => document.getElementById(id);
+
+      function compute() {
+        const mont = +el('mont').value;
+        const hor = +el('hor').value;
+        const obj = el('obj').value;
+
+        let apPct = 0.25;
+        let alPct = mont >= 500000 ? 0.25 : 0;
+        let acPct = 0.20;
+        let fePct = mont >= 500000 ? 0.15 : 0.35;
+        let pePct = 0;
+
+        if (mont < 500000) { alPct = 0; acPct = 0.25; fePct = 0.30; pePct = 0.20; }
+        if (mont >= 1000000) { apPct = 0.30; alPct = 0.25; acPct = 0.15; fePct = 0.10; pePct = 0.20; }
+        if (mont >= 5000000) { apPct = 0.32; alPct = 0.25; acPct = 0.13; fePct = 0.05; pePct = 0.25; }
+
+        if (obj === 'croissance') { apPct += 0.05; acPct += 0.05; fePct -= 0.10; }
+        else if (obj === 'securite') { apPct -= 0.05; acPct -= 0.05; fePct += 0.10; }
+
+        const total = apPct + alPct + acPct + fePct + pePct;
+        apPct /= total; alPct /= total; acPct /= total; fePct /= total; pePct /= total;
+
+        el('montValue').textContent = fmt(mont);
+        el('horValue').textContent = hor + ' ans';
+        el('ap').textContent = fmt(mont * apPct);
+        el('apPct').textContent = (apPct * 100).toFixed(0) + ' % — Co-investissement prime';
+        el('al').textContent = fmt(mont * alPct);
+        el('ac').textContent = fmt(mont * acPct);
+        el('fe').textContent = fmt(mont * fePct);
+        el('pe').textContent = fmt(mont * pePct);
+
+        let triMoy = 0.075;
+        if (obj === 'croissance') triMoy = 0.085;
+        if (obj === 'securite') triMoy = 0.055;
+        el('tri').textContent = (triMoy * 100 - 1).toFixed(0) + '-' + (triMoy * 100 + 1).toFixed(0) + ' %/an';
+        el('capFin').textContent = fmt(mont * Math.pow(1 + triMoy, hor));
+      }
+
+      ['mont', 'hor', 'obj'].forEach(id => el(id).addEventListener('input', compute));
+      compute();
+    })();
+  </script>
+
+  <aside class="mobile-cta"><span class="mobile-cta__label">Multi-tickets</span><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a></aside>
+  <script defer src="/clarity-consent.js?v=1"></script>
+</body>
+</html>

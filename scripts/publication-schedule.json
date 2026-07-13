@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "description": "Programme de publication automatique des 27 pages en drafts. Publie 1 page/jour ouvré (Lun-Ven) selon date Paris. Kill switch : creer un fichier .publication-paused a la racine.",
+    "generated": "2026-07-13",
+    "cadence": "1/jour ouvre",
+    "start": "2026-07-14",
+    "end": "2026-08-19"
+  },
+  "schedule": [
+    { "date": "2026-07-14", "week": 1, "file": "guides/vente-entreprise-ou-placer-votre-argent-2026.html", "cluster": "cession", "tier": "T1" },
+    { "date": "2026-07-15", "week": 1, "file": "guides/apres-gain-exceptionnel-erreurs-a-eviter-2026.html", "cluster": "cession", "tier": "T1" },
+    { "date": "2026-07-16", "week": 1, "file": "guides/placement-tresorerie-entreprise-2026.html", "cluster": "treso", "tier": "T1" },
+    { "date": "2026-07-17", "week": 1, "file": "guides/placement-tresorerie-sci-2026.html", "cluster": "treso", "tier": "T1" },
+    { "date": "2026-07-20", "week": 1, "file": "guides/heritage-que-faire-strategies-patrimoniales-2026.html", "cluster": "moment-de-vie", "tier": "T1" },
+
+    { "date": "2026-07-21", "week": 2, "file": "guides/placer-500000-euros-guide-hnwi-2026.html", "cluster": "montants", "tier": "T1" },
+    { "date": "2026-07-22", "week": 2, "file": "guides/investir-1-million-euros-strategies-uhnwi-2026.html", "cluster": "montants", "tier": "T1" },
+    { "date": "2026-07-23", "week": 2, "file": "guides/placer-200000-euros-immobilier-prime-2026.html", "cluster": "montants", "tier": "T2" },
+    { "date": "2026-07-24", "week": 2, "file": "guides/meilleur-placement-100000-euros-2026.html", "cluster": "montants", "tier": "T2" },
+    { "date": "2026-07-27", "week": 2, "file": "outils/simulateur-placement-selon-montant.html", "cluster": "outils", "tier": "T2" },
+
+    { "date": "2026-07-28", "week": 3, "file": "comparatifs/meilleures-scpi-2026.html", "cluster": "scpi", "tier": "T2" },
+    { "date": "2026-07-29", "week": 3, "file": "guides/alternatives-crowdfunding-immobilier-2026.html", "cluster": "peurs", "tier": "T2" },
+    { "date": "2026-07-30", "week": 3, "file": "guides/crowdfunding-immobilier-pourquoi-les-riches-partent-2026.html", "cluster": "peurs", "tier": "T2" },
+    { "date": "2026-07-31", "week": 3, "file": "guides/argent-perd-valeur-banque-alternatives-2026.html", "cluster": "peurs", "tier": "T3" },
+    { "date": "2026-08-03", "week": 3, "file": "guides/5-signes-patrimoine-mal-diversifie-2026.html", "cluster": "audit", "tier": "T3" },
+
+    { "date": "2026-08-04", "week": 4, "file": "guides/ou-placent-les-riches-leur-argent-2026.html", "cluster": "prestige", "tier": "T3" },
+    { "date": "2026-08-05", "week": 4, "file": "guides/ou-placent-les-milliardaires-leur-argent-2026.html", "cluster": "prestige", "tier": "T3" },
+    { "date": "2026-08-06", "week": 4, "file": "guides/devenir-coproprietaire-palace-parisien-2026.html", "cluster": "prestige", "tier": "T4" },
+    { "date": "2026-08-07", "week": 4, "file": "guides/investir-champs-elysees-particulier-2026.html", "cluster": "prestige", "tier": "T4" },
+    { "date": "2026-08-10", "week": 4, "file": "guides/actifs-iconiques-investir-immeuble-legendaire-2026.html", "cluster": "prestige", "tier": "T4" },
+
+    { "date": "2026-08-11", "week": 5, "file": "guides/divorce-fortune-reconstruire-patrimoine-2026.html", "cluster": "moment-de-vie", "tier": "T2" },
+    { "date": "2026-08-12", "week": 5, "file": "guides/prendre-sa-retraite-a-30-ans-fire-france-2026.html", "cluster": "fire", "tier": "T3" },
+    { "date": "2026-08-13", "week": 5, "file": "guides/retraite-anticipee-40-ans-combien-patrimoine-2026.html", "cluster": "fire", "tier": "T3" },
+    { "date": "2026-08-14", "week": 5, "file": "investir-immobilier-prime-des-1000-euros/index.html", "cluster": "retail", "tier": "T4" },
+    { "date": "2026-08-17", "week": 5, "file": "comparatifs/assurance-vie-luxembourgeoise-vs-suisse-vs-francaise-2026.html", "cluster": "av-lux", "tier": "T2" },
+
+    { "date": "2026-08-18", "week": 6, "file": "outils/calculateur-allocation-immobilier-prime.html", "cluster": "outils", "tier": "T3" },
+    { "date": "2026-08-19", "week": 6, "file": "guides/lettre-de-mission-cgp-modele-2026.html", "cluster": "b2b-cgp", "tier": "T6" }
+  ]
+}

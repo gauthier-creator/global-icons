@@ -1,0 +1,37 @@
+name: Daily publish
+
+on:
+  schedule:
+    # 08:00 UTC = 10h CET (ete) / 9h CET (hiver) - Lundi a Vendredi
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (ne pousse rien)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-main
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run publication script
+        run: node scripts/publish-daily.mjs
