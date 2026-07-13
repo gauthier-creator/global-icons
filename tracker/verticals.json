@@ -1,0 +1,65 @@
+{
+  "verticals": [
+    {
+      "id": "cgp",
+      "label": "CGP",
+      "description": "Conseillers en gestion de patrimoine",
+      "matchers": ["cgp", "conseiller en gestion", "conseiller gestion patrimoine", "retrocession", "rétrocession", "commissionnement cgp"]
+    },
+    {
+      "id": "family-office",
+      "label": "Family Office",
+      "description": "Multi-family offices, single family offices",
+      "matchers": ["family office", "family-office", "familly office", "multi family", "single family"]
+    },
+    {
+      "id": "banque-privee",
+      "label": "Banque privée",
+      "description": "Banques privées, wealth management institutionnel",
+      "matchers": ["banque privée", "banque privee", "wealth management", "private bank"]
+    },
+    {
+      "id": "club-deal",
+      "label": "Club deal (générique)",
+      "description": "Coeur de métier — club deal immobilier prime",
+      "matchers": ["club deal", "club-deal", "coinvest", "co-investissement", "co investissement"]
+    },
+    {
+      "id": "actifs-iconiques",
+      "label": "Actifs prime & iconiques",
+      "description": "Immobilier prime, Triangle d'or, Paris QCA",
+      "matchers": ["prime", "iconique", "triangle d'or", "triangle dor", "qca", "champs elysees", "champs-élysées", "champs-elysees", "george v", "trophy asset"]
+    },
+    {
+      "id": "assurance-vie-lux",
+      "label": "Assurance-vie Luxembourg",
+      "description": "AV Luxembourgeoise, contrats de capitalisation, UC titrisation",
+      "matchers": ["assurance-vie lux", "assurance vie lux", "av lux", "luxembourgeoise", "contrat capitalisation", "uc titrisation", "titrisation immobili", "fas fid"]
+    },
+    {
+      "id": "fiscalite",
+      "label": "Fiscalité patrimoniale",
+      "description": "IFI, 150-0 B ter, apport-cession, holding",
+      "matchers": ["ifi", "150-0", "apport cession", "apport-cession", "holding", "fiscalité", "fiscalite", "impôt fortune", "impot fortune"]
+    },
+    {
+      "id": "simulateurs",
+      "label": "Simulateurs & outils",
+      "description": "Calculateurs et simulateurs de conversion",
+      "matchers": ["simulateur", "calculateur", "calcul rendement"]
+    },
+    {
+      "id": "comparatifs",
+      "label": "Comparatifs",
+      "description": "SCPI vs club deal, OPCI, dette privée etc.",
+      "matchers": ["vs scpi", "vs opci", "vs immobilier", "comparaison", "comparatif", "scpi ou club", "opci ou"]
+    },
+    {
+      "id": "geo",
+      "label": "Marchés géographiques",
+      "description": "Paris, Neuilly, Luxembourg, Monaco, Genève etc.",
+      "matchers": ["paris ", "neuilly", "monaco", "geneve", "genève", "luxembourg", "bruxelles", "lyon", "bordeaux", "cannes", "nice"]
+    }
+  ],
+  "otherLabel": "Autres / non classé"
+}
