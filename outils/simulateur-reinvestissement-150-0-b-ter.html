@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur réinvestissement 150-0 B ter | Global Icons</title>
+  <meta name="description" content="Calculateur apport-cession 150-0 B ter : montant à réinvestir (70 %), économie fiscale préservée, exposition en cas de défaillance, calendrier 3 ans. Gratuit." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+  <link rel="alternate" hreflang="fr-FR" href="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+  <link rel="alternate" hreflang="fr-LU" href="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+  <link rel="alternate" hreflang="fr-BE" href="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+  <link rel="alternate" hreflang="fr-CH" href="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Global Icons" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:url" content="https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html" />
+  <meta property="og:title" content="Simulateur réinvestissement 150-0 B ter | Global Icons" />
+  <meta property="og:description" content="Calculez en une minute votre montant de réinvestissement 70 %, votre économie fiscale préservée et votre exposition en cas de défaillance." />
+  <meta property="og:image" content="https://www.globalicons.io/og-image.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f0f0e" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=93" />
+  <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8"></script>
+</head>
+<body class="has-mobile-cta">
+
+  <header class="legal__nav">
+    <div class="legal__nav-inner">
+      <a href="/index.html" aria-label="Retour à l'accueil Global Icons">
+        <img src="/Logo.svg" alt="Logo Global Icons" class="legal__nav-logo" width="140" height="24" />
+      </a>
+      <div class="legal__nav-actions">
+        <a href="/index.html" class="legal__nav-back">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Retour
+        </a>
+        <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="sim">
+      <div class="sim__container">
+        <div class="sim__intro">
+          <span class="sim__eyebrow">Outil · Dirigeant · Expert-comptable · CGP</span>
+          <h1 class="sim__title">Simulateur de réinvestissement 150-0 B ter</h1>
+          <p class="sim__lead">Calculez en une minute votre <strong>montant obligatoire à réinvestir</strong> (70 % du produit de cession), votre <strong>économie fiscale préservée</strong> (report d'imposition), et votre <strong>exposition en cas de défaillance</strong> du dispositif. Résultats indicatifs 2026.</p>
+        </div>
+
+        <div class="sim__grid">
+          <div>
+            <p class="sim__panel-title">Votre situation</p>
+
+            <div class="sim__field">
+              <label>Prix de cession envisagé <span class="sim__field-value" id="prixValue">5 000 000 €</span></label>
+              <input type="range" class="sim__range" id="prix" min="500000" max="30000000" step="250000" value="5000000" />
+              <span class="sim__field-hint">Prix de vente de la société d'exploitation</span>
+            </div>
+
+            <div class="sim__field">
+              <label>Prix de revient (fondation) <span class="sim__field-value" id="revientValue">100 000 €</span></label>
+              <input type="range" class="sim__range" id="revient" min="0" max="5000000" step="10000" value="100000" />
+              <span class="sim__field-hint">Capital initial + apports subséquents (base de calcul de la plus-value)</span>
+            </div>
+
+            <div class="sim__field">
+              <label>Année de cession <span class="sim__field-value" id="anneeValue">2026</span></label>
+              <select class="sim__select" id="annee">
+                <option value="2025">Avant 21/02/2026 (règles ancien régime)</option>
+                <option value="2026" selected>À partir du 21/02/2026 (nouvelles règles LF 2026)</option>
+              </select>
+              <span class="sim__field-hint">Détermine seuil (70 % vs 60 %) et délai (3 ans vs 2 ans)</span>
+            </div>
+          </div>
+
+          <div class="sim__results">
+            <div class="sim__result-block">
+              <span class="sim__result-label">Plus-value en report d'imposition</span>
+              <span class="sim__stat-value sim__stat-value--big" id="plusValue">4 900 000 €</span>
+              <span class="sim__field-hint">Base de calcul de la plus-value latente au moment de l'apport</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Économie fiscale préservée (PFU 30 %)</span>
+              <span class="sim__stat-value sim__stat-value--big sim__stat-value--positive" id="economieValue">1 470 000 €</span>
+              <span class="sim__field-hint">Impôt évité tant que le report est maintenu</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Montant à réinvestir obligatoire</span>
+              <span class="sim__stat-value sim__stat-value--big" id="reinvestValue">3 500 000 €</span>
+              <span class="sim__field-hint" id="seuilInfo">70 % du produit de cession (règles LF 2026)</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Cash disponible pour placements libres</span>
+              <span class="sim__stat-value" id="libreValue">1 500 000 €</span>
+              <span class="sim__field-hint">30 % restants placables en véhicules non éligibles (contrat de capitalisation, compte-titres, immobilier patrimonial)</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label">Délai maximum de réinvestissement</span>
+              <span class="sim__stat-value" id="delaiValue">3 ans</span>
+              <span class="sim__field-hint" id="dateLimiteInfo">À partir de la date de cession</span>
+            </div>
+
+            <div class="sim__result-block">
+              <span class="sim__result-label sim__result-label--warn">⚠ Exposition en cas de défaillance du dispositif</span>
+              <span class="sim__stat-value sim__stat-value--big sim__stat-value--negative" id="expoValue">1 470 000 €</span>
+              <span class="sim__field-hint">Impôt exigible immédiatement si moins de 70 % réinvesti dans les 3 ans</span>
+            </div>
+
+            <div class="sim__note">
+              <strong>Rappel réglementaire.</strong> Depuis la Loi de finances 2026, les cessions à partir du 21/02/2026 sont soumises au <strong>seuil de 70 %</strong> et au <strong>délai de 3 ans</strong>. Les cessions antérieures relèvent des règles précédentes (60 % / 2 ans). Après le réinvestissement, une conservation minimum de 12 mois des titres reçus est requise pour éviter la requalification.
+            </div>
+          </div>
+        </div>
+
+        <div class="sim__narrative">
+          <h2>Comment utiliser ce simulateur ?</h2>
+          <p>Ce simulateur calcule les <strong>3 chiffres clés</strong> qu'un dirigeant en apport-cession doit connaître :</p>
+          <ol>
+            <li><strong>Économie fiscale préservée</strong> : le montant d'impôt "évité" temporairement grâce au report d'imposition (PFU 30 % sur la plus-value). Ce chiffre justifie économiquement le montage.</li>
+            <li><strong>Montant à réinvestir obligatoire</strong> : la contrepartie. C'est la somme à orchestrer dans des véhicules éligibles sous 3 ans (règles LF 2026).</li>
+            <li><strong>Exposition en cas de défaillance</strong> : le risque fiscal si le seuil n'est pas atteint. C'est cette exposition qui doit motiver l'anticipation et la rigueur.</li>
+          </ol>
+
+          <h2>Les hypothèses de calcul</h2>
+          <ul>
+            <li><strong>Taux d'imposition PFU 30 %</strong> = 12,8 % IR + 17,2 % PS. Pas de taux marginal ni CEHR (contribution exceptionnelle hauts revenus) pris en compte — la simulation est donc <strong>conservatrice</strong>. En pratique, un dirigeant à revenus élevés pourrait faire face à une taxation supérieure sans le dispositif 150-0 B ter.</li>
+            <li><strong>Seuil de réinvestissement</strong> : 70 % pour cessions ≥ 21/02/2026 (LF 2026), 60 % pour cessions antérieures.</li>
+            <li><strong>Délai de réinvestissement</strong> : 3 ans pour cessions ≥ 21/02/2026, 2 ans antérieurement.</li>
+            <li><strong>Base de calcul de la plus-value</strong> : prix de cession moins prix de revient (fondation + apports subséquents en capital).</li>
+            <li><strong>Non pris en compte</strong> : abattements pour durée de détention (art. 150-0 D), régimes spécifiques dirigeants retraite (art. 150-0 D ter), CEHR, contribution différentielle sur hauts revenus. Cette simulation est indicative et doit être validée par un avocat fiscaliste sur chaque cas concret.</li>
+          </ul>
+
+          <h2>4 profils de dirigeant : ce que le simulateur révèle</h2>
+          <table class="glossary__table" style="margin:16px 0;">
+            <thead>
+              <tr><th>Profil</th><th>Cession</th><th>Enjeu principal</th><th>Économie préservée</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>PME industrielle familiale</strong> (dirigeant 55-65 ans)</td><td>3-8 M€</td><td>Cumuler avec pacte Dutreil pour transmission</td><td>800 k€ - 2,3 M€</td></tr>
+              <tr><td><strong>Fondateur tech / start-up</strong> (35-50 ans)</td><td>5-30 M€</td><td>Réinvestissement dans nouveaux projets entrepreneuriaux + immobilier prime</td><td>1,5 M€ - 9 M€</td></tr>
+              <tr><td><strong>Dirigeant BTP / services B2B</strong> (50-65 ans)</td><td>2-10 M€</td><td>Structuration long terme + revenus récurrents post-cession</td><td>600 k€ - 3 M€</td></tr>
+              <tr><td><strong>Successeur d'entreprise familiale</strong> (30-50 ans)</td><td>1-5 M€</td><td>Continuité patrimoniale, réinvestissement dans nouveaux véhicules opérationnels</td><td>300 k€ - 1,5 M€</td></tr>
+            </tbody>
+          </table>
+
+          <h2>Interpréter le "montant à réinvestir"</h2>
+          <p>Le montant à réinvestir est <strong>70 % du produit brut de cession</strong>, pas 70 % de la plus-value. Cette distinction est critique. Pour un dirigeant qui cède à 5 M€ (prix de revient 100 k€, plus-value 4,9 M€), le réinvestissement obligatoire est de <strong>3,5 M€</strong>, pas 3,43 M€ (70 % de 4,9 M€). Cette différence peut représenter plusieurs centaines de milliers d'euros à déployer dans des véhicules éligibles.</p>
+          <p>Le choix des véhicules de réinvestissement est le vrai enjeu opérationnel. Notre <a href="/guides/apport-cession-150-0-b-ter-immobilier-prime.html">guide 2026 dédié</a> présente la matrice complète des solutions éligibles en immobilier prime.</p>
+
+          <div class="content__cta">
+            <h2>Discuter votre dossier de réinvestissement</h2>
+            <p>Dirigeant en pleine cession, ou expert-comptable / CGP accompagnant un client, nos analystes vous présentent les opérations club deal immobilier prime en cours, structurées pour être compatibles avec le dispositif 150-0 B ter.</p>
+            <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer">Prendre rendez-vous →</a>
+          </div>
+
+          <div class="content__related">
+            <h3>Ressources complémentaires</h3>
+            <ul>
+              <li><a href="/apport-cession/">Hub apport-cession 150-0 B ter</a></li>
+              <li><a href="/guides/apport-cession-150-0-b-ter-immobilier-prime.html">Guide 2026 apport-cession et immobilier prime</a></li>
+              <li><a href="/guides/contrat-capitalisation-family-office.html">Contrat de capitalisation family office</a></li>
+              <li><a href="/guides/fiscalite-club-deal-luxembourg-investisseur-francais.html">Fiscalité club deal Luxembourg</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<footer class="footer">
+    <div class="container footer__resources">
+      <div class="footer__col">
+        <span class="footer__col-title">Marchés</span>
+        <a href="/villes/club-deal-immobilier-prime-paris-8.html">Paris VIII · Triangle d'or</a>
+        <a href="/villes/club-deal-immobilier-prime-paris-6.html">Paris VI · Saint-Germain</a>
+        <a href="/villes/club-deal-immobilier-prime-neuilly-sur-seine.html">Neuilly-sur-Seine</a>
+        <a href="/villes/investir-immobilier-prime-luxembourg.html">Luxembourg</a>
+        <a href="/villes/club-deal-immobilier-prime-monaco.html">Monaco</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Guides partenaires</span>
+        <a href="/guides/cgp-acceder-club-deal-immobilier-prime.html">Accès CGP au club deal</a>
+        <a href="/guides/cgp-retrocessions-club-deal-immobilier.html">Rétrocessions CGP</a>
+        <a href="/guides/family-office-acceder-club-deal-immobilier.html">Family office</a>
+        <a href="/guides/banque-privee-distribution-club-deal-titrise.html">Banque privée</a>
+        <a href="/guides/fiscalite-club-deal-luxembourg-investisseur-francais.html">Fiscalité Luxembourg</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Analyses marché</span>
+        <a href="/analyses/marche-prime-paris-qca-2026.html">Marché Paris QCA 2026</a>
+        <a href="/analyses/rendement-club-deal-vs-scpi-2026.html">Rendement vs SCPI 2026</a>
+        <a href="/analyses/impact-taux-interet-prime-immobilier-2026.html">Impact des taux 2026</a>
+        <a href="/analyses/perspectives-2026-2028-immobilier-prime-francais.html">Perspectives 2026-2028</a>
+        <a href="/analyses/marche-club-deal-immobilier-france-2026-tendances.html">Marché club deal France</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__col-title">Ressources</span>
+        <a href="/apport-cession/">Apport-cession 150-0 B ter</a>
+        <a href="/glossaire/club-deal-immobilier.html">Glossaire patrimonial</a>
+        <a href="/comparatifs/club-deal-vs-scpi.html">Comparatifs d'instruments</a>
+        <a href="/track-record/40-avenue-george-v-paris-8.html">Track record</a>
+        <a href="/equipe/">Équipe</a>
+        <a href="/presse/">Revue de presse</a>
+        <a href="/partenaires-cgp.html">Devenir partenaire</a>
+      </div>
+    </div>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <img src="/Logo.svg" alt="Logo Global Icons" class="footer__logo-img" width="140" height="52" />
+        <p>L'immobilier d'exception pour les distributeurs du patrimoine.<br />Entité de collecte de Foncière Renaissance.</p>
+      </div>
+      <nav class="footer__col" aria-label="Pied de page, navigation">
+        <span class="footer__col-title">Naviguer</span>
+        <a href="/index.html#approche">Approche</a>
+        <a href="/index.html#methode">Méthode</a>
+        <a href="/index.html#trackrecord">Track record</a>
+        <a href="/index.html#equipe">Équipe</a>
+      </nav>
+      <nav class="footer__col" aria-label="Pied de page, légal">
+        <span class="footer__col-title">Informations</span>
+        <a href="/mentions-legales.html">Mentions légales</a>
+        <a href="/confidentialite.html">Politique de confidentialité</a>
+        <a href="/risques.html">Avertissement sur les risques</a>
+      </nav>
+      <div class="footer__col">
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:contact@globalicons.io">contact@globalicons.io</a>
+      </div>
+    </div>
+    <div class="container footer__base">
+      <span>© 2026 Global Icons S.à r.l. Tous droits réservés.</span>
+      <span>Investir comporte un risque de perte en capital.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const fmt = n => (n >= 1000000 ? (n/1000000).toFixed(2).replace('.', ',') + ' M€' : Math.round(n).toLocaleString('fr-FR') + ' €');
+      const el = id => document.getElementById(id);
+
+      function compute() {
+        const prix = +el('prix').value;
+        const revient = +el('revient').value;
+        const annee = el('annee').value;
+        const seuil = annee === '2026' ? 0.70 : 0.60;
+        const delai = annee === '2026' ? 3 : 2;
+
+        const plusValue = Math.max(0, prix - revient);
+        const economie = plusValue * 0.30; // PFU 30%
+        const reinvest = prix * seuil;
+        const libre = prix - reinvest;
+
+        el('prixValue').textContent = fmt(prix);
+        el('revientValue').textContent = fmt(revient);
+        el('anneeValue').textContent = annee === '2026' ? '2026+' : '2025';
+
+        el('plusValue').textContent = fmt(plusValue);
+        el('economieValue').textContent = fmt(economie);
+        el('reinvestValue').textContent = fmt(reinvest);
+        el('libreValue').textContent = fmt(libre);
+        el('delaiValue').textContent = delai + ' ans';
+        el('expoValue').textContent = fmt(economie);
+
+        el('seuilInfo').textContent = seuil === 0.70
+          ? '70 % du produit de cession (règles LF 2026)'
+          : '60 % du produit de cession (ancien régime)';
+        el('dateLimiteInfo').textContent = 'À partir de la date de cession · ' + delai + ' ans max';
+      }
+
+      ['prix','revient','annee'].forEach(id => el(id).addEventListener('input', compute));
+      compute();
+    })();
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Simulateur réinvestissement 150-0 B ter",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "url": "https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html",
+  "description": "Calculateur apport-cession 150-0 B ter : montant à réinvestir (70 %), économie fiscale préservée, exposition en cas de défaillance, calendrier 3 ans.",
+  "offers": {"@type": "Offer", "price": "0"},
+  "provider": {"@type": "Organization", "name": "Global Icons"},
+  "inLanguage": "fr-FR"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.globalicons.io/"},
+    {"@type": "ListItem", "position": 2, "name": "Outils", "item": "https://www.globalicons.io/outils/"},
+    {"@type": "ListItem", "position": 3, "name": "Simulateur réinvestissement 150-0 B ter", "item": "https://www.globalicons.io/outils/simulateur-reinvestissement-150-0-b-ter.html"}
+  ]
+}
+  </script>
+
+  <aside class="mobile-cta" role="complementary" aria-label="Prendre rendez-vous">
+    <span class="mobile-cta__label">Réinvestir 150-0 B ter</span>
+    <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
+  </aside>
+
+  <script defer src="/clarity-consent.js?v=1"></script>
+</body>
+</html>
