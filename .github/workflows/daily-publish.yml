@@ -34,4 +34,6 @@ jobs:
           node-version: '20'
 
       - name: Run publication script
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
         run: node scripts/publish-daily.mjs

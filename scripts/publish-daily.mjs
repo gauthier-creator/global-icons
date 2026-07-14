@@ -5,10 +5,12 @@
 
 import { readFile, writeFile, access } from 'node:fs/promises';
 import { execSync } from 'node:child_process';
+import { createSign } from 'node:crypto';
 import path from 'node:path';
 
 const REPO_ROOT = process.cwd();
 const BASE_URL = 'https://www.globalicons.io';
+const GSC_PROPERTY = 'https://www.globalicons.io/';
 const INDEXNOW_KEY = 'e2f3a9b1c4d5e6f7a8b9c0d1e2f3a4b5';
 const PAUSE_FLAG = '.publication-paused';
 const SCHEDULE_PATH = 'scripts/publication-schedule.json';
@@ -47,6 +49,78 @@ async function updateSitemap(url, today) {
   await writeFile('sitemap.xml', updated, 'utf8');
   log(`Sitemap: URL ajoutee (${url})`);
   return updated;
+}
+
+function b64url(input) {
+  const buf = typeof input === 'string' ? Buffer.from(input) : input;
+  return buf.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+async function getGoogleAccessToken(scopes) {
+  const raw = process.env.GSC_SA_KEY;
+  if (!raw) return null;
+  const sa = JSON.parse(raw);
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: 'RS256', typ: 'JWT', kid: sa.private_key_id };
+  const payload = {
+    iss: sa.client_email,
+    scope: scopes.join(' '),
+    aud: 'https://oauth2.googleapis.com/token',
+    exp: now + 3600,
+    iat: now,
+  };
+  const toSign = `${b64url(JSON.stringify(header))}.${b64url(JSON.stringify(payload))}`;
+  const signer = createSign('RSA-SHA256');
+  signer.update(toSign);
+  const signature = b64url(signer.sign(sa.private_key));
+  const jwt = `${toSign}.${signature}`;
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion: jwt,
+    }),
+  });
+  const data = await res.json();
+  if (!data.access_token) throw new Error(`Token exchange failed: ${JSON.stringify(data)}`);
+  return data.access_token;
+}
+
+async function callGoogleApis(url) {
+  if (!process.env.GSC_SA_KEY) {
+    log('GSC_SA_KEY absent, skip GSC/Indexing API');
+    return;
+  }
+  try {
+    const token = await getGoogleAccessToken([
+      'https://www.googleapis.com/auth/indexing',
+      'https://www.googleapis.com/auth/webmasters.readonly',
+    ]);
+    // Indexing API : demande de crawl
+    const idxRes = await fetch('https://indexing.googleapis.com/v3/urlNotifications:publish', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, type: 'URL_UPDATED' }),
+    });
+    log(`Indexing API: ${idxRes.status}${idxRes.status >= 400 ? ' ' + (await idxRes.text()).slice(0, 200) : ''}`);
+    // URL Inspection API : verdict actuel
+    const inspRes = await fetch('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ inspectionUrl: url, siteUrl: GSC_PROPERTY, languageCode: 'fr-FR' }),
+    });
+    if (inspRes.status === 200) {
+      const data = await inspRes.json();
+      const verdict = data.inspectionResult?.indexStatusResult?.verdict || 'unknown';
+      const coverage = data.inspectionResult?.indexStatusResult?.coverageState || 'unknown';
+      log(`URL Inspection: verdict=${verdict}, coverage=${coverage}`);
+    } else {
+      log(`URL Inspection: ${inspRes.status} ${(await inspRes.text()).slice(0, 200)}`);
+    }
+  } catch (e) {
+    log(`Google APIs error: ${e.message}`);
+  }
 }
 
 async function pingIndexNow(url) {
@@ -133,9 +207,10 @@ async function main() {
     process.exit(1);
   }
 
-  // Attente propagation Railway (30s), puis IndexNow
+  // Attente propagation Railway (30s), puis pings indexation
   await new Promise(r => setTimeout(r, 30000));
   await pingIndexNow(url);
+  await callGoogleApis(url);
 
   log(`Termine : ${url}`);
 }
