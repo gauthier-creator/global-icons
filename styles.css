@@ -419,6 +419,18 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
   .signup-modal__title { font-size: 1.28rem; }
 }
 
+/* Legal footer disclaimer (injecte par legal-footer.js sur pages contenu) */
+.legal-footer { background: var(--paper); border-top: 1px solid var(--line); padding: 32px 0 40px; }
+.legal-footer__inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--gut); }
+.legal-footer__lead { font-size: 0.82rem; line-height: 1.6; color: var(--body); margin: 0 0 14px; opacity: 0.85; }
+.legal-footer__lead strong { color: var(--head); font-weight: 500; }
+.legal-footer__points { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.legal-footer__points li { font-size: 0.76rem; line-height: 1.55; color: var(--body); opacity: 0.75; padding-left: 14px; position: relative; }
+.legal-footer__points li::before { content: '·'; position: absolute; left: 0; top: 0; opacity: 0.5; }
+.legal-footer__points li strong { color: var(--head); font-weight: 500; opacity: 1; }
+.legal-footer__points a { color: var(--head); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.legal-footer__points a:hover { opacity: 0.7; }
+
 /* Bouton S'inscrire (nav content pages) */
 .legal__nav-signup { font-size: 0.82rem; color: var(--ink); background: transparent; border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-family: inherit; transition: border-color .2s, background .2s; white-space: nowrap; }
 .legal__nav-signup:hover { border-color: var(--ink); background: rgba(9,10,13,0.03); }
