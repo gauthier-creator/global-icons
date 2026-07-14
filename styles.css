@@ -396,6 +396,43 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
 @media (max-width: 640px) { body.has-mobile-cta .cookie-banner { bottom: 76px; } }
 
 /* ============================================================
+   SIGNUP MODAL (CTA S'inscrire -> CGP / Investisseur)
+   ============================================================ */
+.signup-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .2s ease; padding: 20px; }
+.signup-modal.is-visible { opacity: 1; pointer-events: auto; }
+.signup-modal__backdrop { position: absolute; inset: 0; background: rgba(9, 10, 13, 0.6); backdrop-filter: blur(4px); }
+.signup-modal__box { position: relative; z-index: 1; background: var(--paper); color: var(--ink); border-radius: 20px; padding: 44px 40px 40px; max-width: 520px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.35); transform: scale(0.96); transition: transform .25s ease; }
+.signup-modal.is-visible .signup-modal__box { transform: scale(1); }
+.signup-modal__close { position: absolute; top: 14px; right: 14px; background: transparent; border: 0; font-size: 1.5rem; line-height: 1; padding: 8px 12px; cursor: pointer; color: var(--ink); opacity: 0.5; transition: opacity .2s; }
+.signup-modal__close:hover { opacity: 1; }
+.signup-modal__title { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--ink); }
+.signup-modal__lead { font-size: 0.94rem; color: var(--body); margin: 0 0 24px; line-height: 1.5; }
+.signup-modal__choices { display: flex; flex-direction: column; gap: 12px; }
+.signup-modal__choice { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; gap: 2px 16px; align-items: center; text-align: left; background: transparent; border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; cursor: pointer; transition: border-color .2s, background .2s, transform .15s; font-family: inherit; }
+.signup-modal__choice:hover { border-color: var(--ink); background: rgba(9,10,13,0.03); transform: translateY(-1px); }
+.signup-modal__choice-title { grid-column: 1; grid-row: 1; font-size: 1.02rem; font-weight: 500; color: var(--ink); }
+.signup-modal__choice-sub { grid-column: 1; grid-row: 2; font-size: 0.82rem; color: var(--body); opacity: 0.7; }
+.signup-modal__choice-arrow { grid-column: 2; grid-row: 1 / span 2; font-size: 1.2rem; color: var(--ink); opacity: 0.5; transition: transform .2s, opacity .2s; }
+.signup-modal__choice:hover .signup-modal__choice-arrow { transform: translateX(4px); opacity: 1; }
+@media (max-width: 640px) {
+  .signup-modal__box { padding: 34px 24px 28px; }
+  .signup-modal__title { font-size: 1.28rem; }
+}
+
+/* Bouton S'inscrire (nav content pages) */
+.legal__nav-signup { font-size: 0.82rem; color: var(--ink); background: transparent; border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-family: inherit; transition: border-color .2s, background .2s; white-space: nowrap; }
+.legal__nav-signup:hover { border-color: var(--ink); background: rgba(9,10,13,0.03); }
+@media (max-width: 640px) { .legal__nav-signup { padding: 7px 12px; font-size: 0.78rem; } }
+
+/* Bouton S'inscrire (nav home ghost secondaire) */
+.nav__cta--signup { background: transparent; border: 1px solid rgba(255,255,255,0.24); color: var(--paper); cursor: pointer; font-family: inherit; }
+.nav__cta--signup:hover { border-color: var(--paper); background: rgba(255,255,255,0.08); }
+
+/* Mobile sticky : petit lien signup discret a cote du CTA principal */
+.mobile-cta__signup { background: transparent; border: 0; color: var(--paper); font-size: 0.76rem; opacity: 0.7; cursor: pointer; font-family: inherit; padding: 4px 8px; text-decoration: underline; }
+.mobile-cta__signup:hover { opacity: 1; }
+
+/* ============================================================
    HUB PAGES (cluster hub thématiques)
    ============================================================ */
 .hub__intro { max-width: 780px; margin: 0 0 48px; }
