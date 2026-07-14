@@ -158,12 +158,18 @@ async function main() {
   log(`Date Paris: ${today}`);
 
   const { schedule } = JSON.parse(await readFile(SCHEDULE_PATH, 'utf8'));
-  const entry = schedule.find(e => e.date === today);
-  if (!entry) {
+  const entries = schedule.filter(e => e.date === today);
+  if (!entries.length) {
     log('Aucune page prevue pour aujourd\'hui. Exit.');
     return;
   }
+  log(`${entries.length} page(s) programmee(s) aujourd'hui`);
+  for (const entry of entries) {
+    await publishOne(entry, today);
+  }
+}
 
+async function publishOne(entry, today) {
   log(`Page programmee: ${entry.file} (cluster ${entry.cluster}, tier ${entry.tier})`);
 
   const filePath = path.join(REPO_ROOT, entry.file);

@@ -6,5 +6,11 @@
     "cluster": "cession",
     "tier": "T1",
     "status": "published"
+  },
+  {
+    "date": "2026-07-14",
+    "file": "guides/vente-entreprise-ou-placer-votre-argent-2026.html",
+    "status": "skipped",
+    "reason": "already_published"
   }
 ]

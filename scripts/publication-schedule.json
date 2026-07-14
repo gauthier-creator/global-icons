@@ -38,6 +38,8 @@
     { "date": "2026-08-17", "week": 5, "file": "comparatifs/assurance-vie-luxembourgeoise-vs-suisse-vs-francaise-2026.html", "cluster": "av-lux", "tier": "T2" },
 
     { "date": "2026-08-18", "week": 6, "file": "outils/calculateur-allocation-immobilier-prime.html", "cluster": "outils", "tier": "T3" },
-    { "date": "2026-08-19", "week": 6, "file": "guides/lettre-de-mission-cgp-modele-2026.html", "cluster": "b2b-cgp", "tier": "T6" }
+    { "date": "2026-08-19", "week": 6, "file": "guides/lettre-de-mission-cgp-modele-2026.html", "cluster": "b2b-cgp", "tier": "T6" },
+    { "date": "2026-08-20", "week": 6, "file": "guides/rapport-adequation-club-deal-cgp.html", "cluster": "b2b-cgp", "tier": "T6", "hubLink": "cgp" },
+    { "date": "2026-08-21", "week": 6, "file": "guides/distribuer-club-deal-sans-psi-cif.html", "cluster": "b2b-cgp", "tier": "T6", "hubLink": "cgp" }
   ]
 }
