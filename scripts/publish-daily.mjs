@@ -116,6 +116,9 @@ async function main() {
   const url = fileToUrl(entry.file);
   await updateSitemap(url, today);
 
+  // Ecrire log entry AVANT git add (sinon le fichier n'existe pas au 1er run)
+  await appendLog({ date: today, file: entry.file, url, cluster: entry.cluster, tier: entry.tier, status: 'published' });
+
   // Git commit + push
   try {
     execSync('git config user.name "publish-bot"', { stdio: 'inherit' });
@@ -134,7 +137,6 @@ async function main() {
   await new Promise(r => setTimeout(r, 30000));
   await pingIndexNow(url);
 
-  await appendLog({ date: today, file: entry.file, url, cluster: entry.cluster, tier: entry.tier, status: 'published' });
   log(`Termine : ${url}`);
 }
 
