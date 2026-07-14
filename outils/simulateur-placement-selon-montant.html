@@ -24,7 +24,7 @@
         <div class="sim__intro">
           <span class="sim__eyebrow">Outil · Allocation multi-tickets · 2026</span>
           <h1 class="sim__title">Simulateur : quel placement pour 100k / 500k / 1M / 5M€ ?</h1>
-          <p class="sim__lead">Le bon placement n'existe pas dans l'absolu — il dépend de votre <strong>montant à placer</strong>, votre <strong>horizon</strong> et vos <strong>objectifs</strong>. Ce simulateur vous propose une allocation type selon votre situation avec rendement cible pondéré et fiscalité optimisée.</p>
+          <p class="sim__lead">Le bon placement n'existe pas dans l'absolu, il dépend de votre <strong>montant à placer</strong>, votre <strong>horizon</strong> et vos <strong>objectifs</strong>. Ce simulateur vous propose une allocation type selon votre situation avec rendement cible pondéré et fiscalité optimisée.</p>
         </div>
 
         <div class="sim__grid">
@@ -55,7 +55,7 @@
             <div class="sim__result-block">
               <span class="sim__result-label">Allocation immobilier prime</span>
               <span class="sim__stat-value sim__stat-value--big" id="ap">125 000 €</span>
-              <span class="sim__field-hint" id="apPct">25 % — Co-investissement</span>
+              <span class="sim__field-hint" id="apPct">25 %, Co-investissement</span>
             </div>
 
             <div class="sim__result-block">
@@ -111,7 +111,7 @@
               <tr><td>5 000 000 €</td><td>32 %</td><td>25 %</td><td>13 %</td><td>5 %</td><td>25 %</td></tr>
             </tbody>
           </table>
-          <p>Plus votre patrimoine augmente, plus l'allocation en immobilier prime, PE et alternatifs augmente — signature classique des UHNWI. La fraction fonds euros diminue.</p>
+          <p>Plus votre patrimoine augmente, plus l'allocation en immobilier prime, PE et alternatifs augmente, signature classique des UHNWI. La fraction fonds euros diminue.</p>
 
           <div class="content__cta">
             <h2>Structurer votre allocation patrimoniale</h2>
@@ -164,7 +164,7 @@
         el('montValue').textContent = fmt(mont);
         el('horValue').textContent = hor + ' ans';
         el('ap').textContent = fmt(mont * apPct);
-        el('apPct').textContent = (apPct * 100).toFixed(0) + ' % — Co-investissement prime';
+        el('apPct').textContent = (apPct * 100).toFixed(0) + ' %, Co-investissement prime';
         el('al').textContent = fmt(mont * alPct);
         el('ac').textContent = fmt(mont * acPct);
         el('fe').textContent = fmt(mont * fePct);
