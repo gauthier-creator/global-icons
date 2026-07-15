@@ -12,5 +12,13 @@
     "file": "guides/vente-entreprise-ou-placer-votre-argent-2026.html",
     "status": "skipped",
     "reason": "already_published"
+  },
+  {
+    "date": "2026-07-15",
+    "file": "guides/apres-gain-exceptionnel-erreurs-a-eviter-2026.html",
+    "url": "https://www.globalicons.io/guides/apres-gain-exceptionnel-erreurs-a-eviter-2026.html",
+    "cluster": "cession",
+    "tier": "T1",
+    "status": "published"
   }
 ]
