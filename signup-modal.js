@@ -1,9 +1,10 @@
 /*
- * Signup modal : bouton "S'inscrire" -> choix CGP vs Investisseur
- * - CGP -> pro.app.globalicons.io
- * - Investisseur (family office, HNWI, particulier) -> app.globalicons.io
+ * Signup modal + tracking de conversion
+ * - Bouton "S'inscrire" -> choix CGP vs Investisseur (CGP -> pro.app, Investisseur -> app)
  * - Memoire du choix en localStorage : au prochain clic, redirection directe
- * - Reset choix : cliquer sur le petit lien "changer de profil" dans la modal
+ * - TRACKING (via umami, deja charge sur toutes les pages) : chaque clic RDV et signup
+ *   est envoye comme evenement, avec la position du CTA. umami capture la page automatiquement.
+ *   Objectif : mesurer quelle page / quel emplacement genere les prises de RDV.
  */
 (function () {
   var STORAGE_KEY = 'gi_signup_profile';
@@ -11,6 +12,38 @@
   var TTL_MS = 90 * 24 * 60 * 60 * 1000; // 90 jours
   var URL_CGP = 'https://pro.app.globalicons.io';
   var URL_INV = 'https://app.globalicons.io';
+
+  // --- Tracking helper (umami, best-effort, ne casse jamais si umami absent) ---
+  function track(name, data) {
+    try {
+      if (window.umami && typeof window.umami.track === 'function') {
+        window.umami.track(name, data || {});
+      }
+    } catch (e) {}
+  }
+
+  // Deduit la position d'un CTA a partir de ses classes (element + parent + section),
+  // pour savoir OU sur la page l'internaute convertit. Beaucoup de CTA ne portent la
+  // classe positionnelle que sur leur conteneur, d'ou la lecture du parent et de la section.
+  function ctaPosition(el) {
+    var own = el.className || '';
+    var parent = (el.parentElement && el.parentElement.className) || '';
+    var section = '';
+    try { var s = el.closest && el.closest('section'); if (s) section = s.className || ''; } catch (e) {}
+    var c = own + ' ' + parent + ' ' + section;
+    if (/legal__nav-cta|nav__cta/.test(c)) return 'nav';
+    if (/mobile-cta/.test(c)) return 'mobile-sticky';
+    if (/hero__cta/.test(c)) return 'hero';
+    if (/banner-cta/.test(c)) return 'banner';
+    if (/mid-cta/.test(c)) return 'mid-content';
+    if (/hub__final-cta/.test(c)) return 'hub-final';
+    if (/content__cta/.test(c)) return 'content-final';
+    if (/distrib__cta/.test(c)) return 'partner-section';
+    if (/methode__cta/.test(c)) return 'method-section';
+    if (/cta__inner/.test(c)) return 'home-final';
+    if (/stats__cta|sol__link/.test(c)) return 'inline';
+    return 'other';
+  }
 
   function readProfile() {
     try {
@@ -93,6 +126,7 @@
     for (var i = 0; i < choices.length; i++) {
       choices[i].addEventListener('click', function () {
         var profile = this.getAttribute('data-profile');
+        track('signup_choice', { profile: profile });
         writeProfile(profile);
         redirect(profile);
         closeModal();
@@ -105,9 +139,23 @@
     e.stopPropagation();
     var profile = readProfile();
     if (profile) {
+      track('signup_direct', { profile: profile, pos: ctaPosition(e.currentTarget) });
       redirect(profile);
     } else {
+      track('signup_open', { pos: ctaPosition(e.currentTarget) });
       showModal();
+    }
+  }
+
+  // Attache le tracking a tous les liens Calendly (prise de RDV), sans changer leur comportement
+  function attachRdvTracking() {
+    var links = document.querySelectorAll('a[href*="calendly.com"]');
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].__rdvBound) continue;
+      links[i].__rdvBound = true;
+      links[i].addEventListener('click', function (e) {
+        track('rdv_click', { pos: ctaPosition(e.currentTarget) });
+      });
     }
   }
 
@@ -118,6 +166,7 @@
       triggers[i].__signupBound = true;
       triggers[i].addEventListener('click', handleSignupClick);
     }
+    attachRdvTracking();
   }
 
   // Expose reset pour dev / support
