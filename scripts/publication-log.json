@@ -20,5 +20,13 @@
     "cluster": "cession",
     "tier": "T1",
     "status": "published"
+  },
+  {
+    "date": "2026-07-16",
+    "file": "guides/placement-tresorerie-entreprise-2026.html",
+    "url": "https://www.globalicons.io/guides/placement-tresorerie-entreprise-2026.html",
+    "cluster": "treso",
+    "tier": "T1",
+    "status": "published"
   }
 ]
