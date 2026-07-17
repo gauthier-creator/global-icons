@@ -2,15 +2,18 @@
  * Signup modal + tracking de conversion
  * - Bouton "S'inscrire" -> choix CGP vs Investisseur (CGP -> pro.app, Investisseur -> app)
  * - Memoire du choix en localStorage : au prochain clic, redirection directe
- * - TRACKING (via umami, deja charge sur toutes les pages). Evenements envoyes :
- *     rdv_click    : clic sur un lien Calendly            (props: pos, page_type)
- *     cta_view     : un CTA est devenu visible >=50%      (props: pos, page_type) -> denominateur du CTR
- *     signup_open  : ouverture de la modale S'inscrire    (props: pos, page_type)
- *     signup_choice: choix CGP vs investisseur            (props: profile, page_type)
- *     signup_direct: re-clic avec profil memorise         (props: profile, pos, page_type)
- *   CTR d'un emplacement = rdv_click(pos) / cta_view(pos). page_type = type de contenu
- *   (home / guide / glossaire / ville / analyse / comparatif / outil / hub / ...).
- *   Objectif : savoir quel emplacement ET quel type de contenu generent les RDV.
+ * - TRACKING (via umami, deja charge sur toutes les pages). La POSITION est encodee dans
+ *   le NOM de l'evenement (visible directement dans la liste Umami), ex : rdv_click_hero,
+ *   cta_view_nav, signup_open_banner. pos et page_type restent aussi en proprietes.
+ *   Evenements envoyes :
+ *     rdv_click_<pos>     : clic sur un lien Calendly
+ *     cta_view_<pos>      : un CTA est devenu visible >=50%  -> denominateur du CTR
+ *     signup_open_<pos>   : ouverture de la modale S'inscrire
+ *     signup_direct_<pos> : re-clic avec profil memorise      (+ prop profile)
+ *     signup_choice       : choix CGP vs investisseur         (prop profile ; pas de position)
+ *   <pos> = nav / hero / banner / mid-content / hub-final / content-final / partner-section /
+ *   method-section / home-final / mobile-sticky / inline / other.
+ *   CTR d'un emplacement = rdv_click_<pos> / cta_view_<pos>. page_type = type de contenu.
  */
 (function () {
   var STORAGE_KEY = 'gi_signup_profile';
@@ -52,6 +55,15 @@
         window.umami.track(name, payload);
       }
     } catch (e) {}
+  }
+
+  // Comme track(), mais encode la position DANS le nom de l'evenement (ex: rdv_click_hero,
+  // cta_view_nav) pour distinguer les emplacements directement dans la liste Umami, sans
+  // avoir a ouvrir les proprietes. pos (et page_type) restent aussi en proprietes.
+  function trackAt(base, pos, extra) {
+    var data = { pos: pos };
+    if (extra) { for (var k in extra) { if (Object.prototype.hasOwnProperty.call(extra, k)) data[k] = extra[k]; } }
+    track(base + '_' + pos, data);
   }
 
   // Deduit la position d'un CTA a partir de ses classes (element + parent + section),
@@ -175,7 +187,7 @@
   function fireView(pos) {
     if (_seenPos[pos]) return;
     _seenPos[pos] = true;
-    track('cta_view', { pos: pos });
+    trackAt('cta_view', pos);
   }
   function ctaObserver() {
     if (_io) return _io;
@@ -202,10 +214,10 @@
     e.stopPropagation();
     var profile = readProfile();
     if (profile) {
-      track('signup_direct', { profile: profile, pos: ctaPosition(e.currentTarget) });
+      trackAt('signup_direct', ctaPosition(e.currentTarget), { profile: profile });
       redirect(profile);
     } else {
-      track('signup_open', { pos: ctaPosition(e.currentTarget) });
+      trackAt('signup_open', ctaPosition(e.currentTarget));
       showModal();
     }
   }
@@ -218,7 +230,7 @@
       if (links[i].__rdvBound) continue;
       links[i].__rdvBound = true;
       links[i].addEventListener('click', function (e) {
-        track('rdv_click', { pos: ctaPosition(e.currentTarget) });
+        trackAt('rdv_click', ctaPosition(e.currentTarget));
       });
     }
   }
