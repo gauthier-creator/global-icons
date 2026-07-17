@@ -33,7 +33,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Railway CLI
+        run: npm i -g @railway/cli
+
       - name: Run publication script
         env:
           GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: node scripts/publish-daily.mjs

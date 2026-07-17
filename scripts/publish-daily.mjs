@@ -15,6 +15,8 @@ const INDEXNOW_KEY = 'e2f3a9b1c4d5e6f7a8b9c0d1e2f3a4b5';
 const PAUSE_FLAG = '.publication-paused';
 const SCHEDULE_PATH = 'scripts/publication-schedule.json';
 const LOG_PATH = 'scripts/publication-log.json';
+// Deploiement Railway (l'auto-deploy GitHub est casse : on deploie explicitement).
+const RAILWAY_SERVICE = '8d5bdf9e-23f4-4e62-9d72-f3b2136c383f';
 
 function log(msg) {
   console.log(`[${new Date().toISOString()}] ${msg}`);
@@ -147,6 +149,43 @@ async function appendLog(entry) {
   await writeFile(LOG_PATH, JSON.stringify(log_, null, 2), 'utf8');
 }
 
+// Deploie la version courante sur Railway (upload du repo, .railwayignore respecte).
+// Sans RAILWAY_TOKEN (ex : run local), on skip proprement.
+function deployRailway() {
+  if (!process.env.RAILWAY_TOKEN) {
+    log('RAILWAY_TOKEN absent -> deploiement Railway SKIP (la page restera noindex en prod tant que non deployee !)');
+    return false;
+  }
+  try {
+    execSync(`railway up --service ${RAILWAY_SERVICE} --detach`, { stdio: 'inherit' });
+    log('Railway: deploiement declenche');
+    return true;
+  } catch (e) {
+    log(`Railway deploy ERREUR: ${e.message}`);
+    return false;
+  }
+}
+
+// Attend que la prod serve la page en version INDEXABLE (plus de meta noindex).
+// Evite de pinger Google/Bing avant que le deploiement soit reellement live. Timeout ~4 min.
+async function waitUntilLive(url) {
+  for (let i = 0; i < 24; i++) {
+    await new Promise(r => setTimeout(r, 10000));
+    try {
+      const res = await fetch(`${url}${url.includes('?') ? '&' : '?'}_cb=${Date.now()}`, { cache: 'no-store' });
+      if (res.status === 200) {
+        const html = await res.text();
+        if (!/name="robots"[^>]*noindex/i.test(html)) {
+          log(`Page live et indexable apres ~${(i + 1) * 10}s`);
+          return true;
+        }
+      }
+    } catch { /* retry */ }
+  }
+  log('ATTENTION: timeout, la page n\'a pas ete confirmee indexable en prod (deploiement lent ou echoue).');
+  return false;
+}
+
 async function main() {
   // Kill switch
   if (await fileExists(PAUSE_FLAG)) {
@@ -213,8 +252,11 @@ async function publishOne(entry, today) {
     process.exit(1);
   }
 
-  // Attente propagation Railway (30s), puis pings indexation
-  await new Promise(r => setTimeout(r, 30000));
+  // Deploiement Railway explicite (l'auto-deploy GitHub est casse), PUIS attente que la
+  // page soit reellement live et indexable AVANT de pinger. Ordre : publie -> deploie ->
+  // verifie live -> pinge. Evite de dire a Google "indexe" alors que la prod sert noindex.
+  deployRailway();
+  await waitUntilLive(url);
   await pingIndexNow(url);
   await callGoogleApis(url);
 
