@@ -2,9 +2,15 @@
  * Signup modal + tracking de conversion
  * - Bouton "S'inscrire" -> choix CGP vs Investisseur (CGP -> pro.app, Investisseur -> app)
  * - Memoire du choix en localStorage : au prochain clic, redirection directe
- * - TRACKING (via umami, deja charge sur toutes les pages) : chaque clic RDV et signup
- *   est envoye comme evenement, avec la position du CTA. umami capture la page automatiquement.
- *   Objectif : mesurer quelle page / quel emplacement genere les prises de RDV.
+ * - TRACKING (via umami, deja charge sur toutes les pages). Evenements envoyes :
+ *     rdv_click    : clic sur un lien Calendly            (props: pos, page_type)
+ *     cta_view     : un CTA est devenu visible >=50%      (props: pos, page_type) -> denominateur du CTR
+ *     signup_open  : ouverture de la modale S'inscrire    (props: pos, page_type)
+ *     signup_choice: choix CGP vs investisseur            (props: profile, page_type)
+ *     signup_direct: re-clic avec profil memorise         (props: profile, pos, page_type)
+ *   CTR d'un emplacement = rdv_click(pos) / cta_view(pos). page_type = type de contenu
+ *   (home / guide / glossaire / ville / analyse / comparatif / outil / hub / ...).
+ *   Objectif : savoir quel emplacement ET quel type de contenu generent les RDV.
  */
 (function () {
   var STORAGE_KEY = 'gi_signup_profile';
@@ -13,11 +19,37 @@
   var URL_CGP = 'https://pro.app.globalicons.io';
   var URL_INV = 'https://app.globalicons.io';
 
+  // Deduit le TYPE de page a partir de l'URL, pour savoir quels contenus generent les RDV
+  // (question SEO -> RDV). Ajoute automatiquement a chaque evenement.
+  function pageType() {
+    try {
+      var p = location.pathname.toLowerCase();
+      if (p === '/' || p === '/index.html') return 'home';
+      if (p.indexOf('/guides/') === 0) return 'guide';
+      if (p.indexOf('/glossaire/') === 0) return 'glossaire';
+      if (p.indexOf('/villes/') === 0) return 'ville';
+      if (p.indexOf('/analyses/') === 0) return 'analyse';
+      if (p.indexOf('/comparatifs/') === 0) return 'comparatif';
+      if (p.indexOf('/outils/') === 0) return 'outil';
+      if (p.indexOf('/track-record/') === 0) return 'track-record';
+      if (p.indexOf('/ressources/') === 0) return 'ressource';
+      if (p.indexOf('/presse') === 0) return 'presse';
+      if (p.indexOf('/equipe') === 0) return 'equipe';
+      // Hubs persona (repertoires de 1er niveau dedies a un profil)
+      if (/^\/(cgp|family-office|apport-cession|investir-immobilier-prime-des-1000-euros|assurance-vie-luxembourgeoise|club-deal-immobilier|vente-entreprise)\b/.test(p)) return 'hub';
+      return 'autre';
+    } catch (e) { return 'autre'; }
+  }
+
   // --- Tracking helper (umami, best-effort, ne casse jamais si umami absent) ---
+  // page_type est injecte sur CHAQUE evenement (rdv_click, cta_view, signup_*),
+  // pour pouvoir croiser "type de contenu" x "emplacement" x "action" dans Umami.
   function track(name, data) {
     try {
       if (window.umami && typeof window.umami.track === 'function') {
-        window.umami.track(name, data || {});
+        var payload = { page_type: pageType() };
+        if (data) { for (var k in data) { if (Object.prototype.hasOwnProperty.call(data, k)) payload[k] = data[k]; } }
+        window.umami.track(name, payload);
       }
     } catch (e) {}
   }
@@ -134,6 +166,37 @@
     }
   }
 
+  // --- Impressions CTA (denominateur du CTR) ---
+  // cta_view(pos) = nb de pageviews ou un CTA de cette position est devenu visible (>= 50%).
+  // Dedupe par position : le CTR d'un emplacement = rdv_click(pos) / cta_view(pos).
+  // Sert aussi de signal "le visiteur a scrolle jusqu'au CTA".
+  var _seenPos = {};
+  var _io = null;
+  function fireView(pos) {
+    if (_seenPos[pos]) return;
+    _seenPos[pos] = true;
+    track('cta_view', { pos: pos });
+  }
+  function ctaObserver() {
+    if (_io) return _io;
+    if (typeof IntersectionObserver === 'undefined') return null;
+    _io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) continue;
+        fireView(ctaPosition(entries[i].target));
+        _io.unobserve(entries[i].target);
+      }
+    }, { threshold: 0.5 });
+    return _io;
+  }
+  function observeCta(el) {
+    if (el.__ctaObserved) return;
+    el.__ctaObserved = true;
+    var io = ctaObserver();
+    if (io) io.observe(el);
+    else fireView(ctaPosition(el)); // fallback navigateurs sans IntersectionObserver
+  }
+
   function handleSignupClick(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -151,6 +214,7 @@
   function attachRdvTracking() {
     var links = document.querySelectorAll('a[href*="calendly.com"]');
     for (var i = 0; i < links.length; i++) {
+      observeCta(links[i]); // impression (denominateur du CTR), meme si deja bound
       if (links[i].__rdvBound) continue;
       links[i].__rdvBound = true;
       links[i].addEventListener('click', function (e) {
@@ -162,6 +226,7 @@
   function attach() {
     var triggers = document.querySelectorAll('[data-signup]');
     for (var i = 0; i < triggers.length; i++) {
+      observeCta(triggers[i]); // impression (denominateur du CTR)
       if (triggers[i].__signupBound) continue;
       triggers[i].__signupBound = true;
       triggers[i].addEventListener('click', handleSignupClick);
