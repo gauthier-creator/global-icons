@@ -1,0 +1,11 @@
+# Fichiers internes NON destines au web (restent dans git : GitHub Actions en a besoin).
+# railway up respecte ce fichier comme .gitignore -> ces chemins ne sont pas servis par Caddy.
+
+# Outillage de publication auto (execute par GitHub Actions, pas par le serveur web)
+scripts/
+
+# Notes de travail internes (strategie SEO, baseline, citations)
+docs/
+
+# Aucun markdown n'est du contenu web (le site sert du .html)
+*.md
