@@ -197,15 +197,21 @@ async function main() {
   log(`Date Paris: ${today}`);
 
   const { schedule } = JSON.parse(await readFile(SCHEDULE_PATH, 'utf8'));
-  const entries = schedule.filter(e => e.date === today);
-  if (!entries.length) {
-    log('Aucune page prevue pour aujourd\'hui. Exit.');
+  // Publication en FILE D'ATTENTE (1 page/jour, 7j/7) : on prend la PROCHAINE page encore
+  // non publiee (meta noindex presente), dans l'ordre du planning, quel que soit le jour.
+  // Le champ "date" du planning n'est plus utilise pour la selection (juste indicatif).
+  let picked = null;
+  for (const entry of schedule) {
+    const fp = path.join(REPO_ROOT, entry.file);
+    if (!(await fileExists(fp))) continue;
+    const html = await readFile(fp, 'utf8');
+    if (html.includes('name="robots"') && html.includes('noindex')) { picked = entry; break; }
+  }
+  if (!picked) {
+    log('File d\'attente vide : plus aucune page non publiee. Exit.');
     return;
   }
-  log(`${entries.length} page(s) programmee(s) aujourd'hui`);
-  for (const entry of entries) {
-    await publishOne(entry, today);
-  }
+  await publishOne(picked, today);
 }
 
 async function publishOne(entry, today) {
