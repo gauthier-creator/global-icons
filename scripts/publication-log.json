@@ -36,5 +36,13 @@
     "cluster": "treso",
     "tier": "T1",
     "status": "published"
+  },
+  {
+    "date": "2026-07-19",
+    "file": "guides/heritage-que-faire-strategies-patrimoniales-2026.html",
+    "url": "https://www.globalicons.io/guides/heritage-que-faire-strategies-patrimoniales-2026.html",
+    "cluster": "moment-de-vie",
+    "tier": "T1",
+    "status": "published"
   }
 ]
