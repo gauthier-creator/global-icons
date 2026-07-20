@@ -44,5 +44,13 @@
     "cluster": "moment-de-vie",
     "tier": "T1",
     "status": "published"
+  },
+  {
+    "date": "2026-07-20",
+    "file": "guides/placer-500000-euros-guide-hnwi-2026.html",
+    "url": "https://www.globalicons.io/guides/placer-500000-euros-guide-hnwi-2026.html",
+    "cluster": "montants",
+    "tier": "T1",
+    "status": "published"
   }
 ]
