@@ -60,5 +60,13 @@
     "cluster": "montants",
     "tier": "T1",
     "status": "published"
+  },
+  {
+    "date": "2026-07-22",
+    "file": "guides/placer-200000-euros-immobilier-prime-2026.html",
+    "url": "https://www.globalicons.io/guides/placer-200000-euros-immobilier-prime-2026.html",
+    "cluster": "montants",
+    "tier": "T2",
+    "status": "published"
   }
 ]
