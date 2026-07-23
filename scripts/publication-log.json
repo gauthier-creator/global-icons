@@ -68,5 +68,13 @@
     "cluster": "montants",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-07-23",
+    "file": "guides/meilleur-placement-100000-euros-2026.html",
+    "url": "https://www.globalicons.io/guides/meilleur-placement-100000-euros-2026.html",
+    "cluster": "montants",
+    "tier": "T2",
+    "status": "published"
   }
 ]
