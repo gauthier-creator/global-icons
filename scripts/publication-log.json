@@ -76,5 +76,13 @@
     "cluster": "montants",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-07-24",
+    "file": "outils/simulateur-placement-selon-montant.html",
+    "url": "https://www.globalicons.io/outils/simulateur-placement-selon-montant.html",
+    "cluster": "outils",
+    "tier": "T2",
+    "status": "published"
   }
 ]
