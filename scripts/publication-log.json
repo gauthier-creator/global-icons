@@ -84,5 +84,13 @@
     "cluster": "outils",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-07-25",
+    "file": "comparatifs/meilleures-scpi-2026.html",
+    "url": "https://www.globalicons.io/comparatifs/meilleures-scpi-2026.html",
+    "cluster": "scpi",
+    "tier": "T2",
+    "status": "published"
   }
 ]
