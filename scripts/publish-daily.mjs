@@ -99,13 +99,16 @@ async function callGoogleApis(url) {
       'https://www.googleapis.com/auth/indexing',
       'https://www.googleapis.com/auth/webmasters.readonly',
     ]);
-    // Indexing API : demande de crawl
+    // Indexing API : ATTENTION, Google n'honore officiellement cet endpoint que
+    // pour JobPosting et BroadcastEvent. Pour du contenu editorial (nos guides),
+    // un statut 200 ne declenche PAS l'indexation : elle depend du crawl naturel,
+    // ou d'un "Demander une indexation" manuel dans la Search Console.
     const idxRes = await fetch('https://indexing.googleapis.com/v3/urlNotifications:publish', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, type: 'URL_UPDATED' }),
     });
-    log(`Indexing API: ${idxRes.status}${idxRes.status >= 400 ? ' ' + (await idxRes.text()).slice(0, 200) : ''}`);
+    log(`Indexing API: ${idxRes.status} (non honore par Google pour du contenu, indexation reelle via crawl naturel ou demande manuelle GSC)${idxRes.status >= 400 ? ' ' + (await idxRes.text()).slice(0, 200) : ''}`);
     // URL Inspection API : verdict actuel
     const inspRes = await fetch('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
       method: 'POST',
@@ -117,6 +120,9 @@ async function callGoogleApis(url) {
       const verdict = data.inspectionResult?.indexStatusResult?.verdict || 'unknown';
       const coverage = data.inspectionResult?.indexStatusResult?.coverageState || 'unknown';
       log(`URL Inspection: verdict=${verdict}, coverage=${coverage}`);
+      if (verdict !== 'PASS') {
+        log(`ATTENTION: ${url} pas encore indexee (verdict=${verdict}). Action requise: "Demander une indexation" manuellement dans la Search Console (galexandrian@globalicons.io).`);
+      }
     } else {
       log(`URL Inspection: ${inspRes.status} ${(await inspRes.text()).slice(0, 200)}`);
     }
