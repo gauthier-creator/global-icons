@@ -108,5 +108,13 @@
     "cluster": "peurs",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-07-28",
+    "file": "guides/argent-perd-valeur-banque-alternatives-2026.html",
+    "url": "https://www.globalicons.io/guides/argent-perd-valeur-banque-alternatives-2026.html",
+    "cluster": "peurs",
+    "tier": "T3",
+    "status": "published"
   }
 ]
