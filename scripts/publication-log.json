@@ -116,5 +116,13 @@
     "cluster": "peurs",
     "tier": "T3",
     "status": "published"
+  },
+  {
+    "date": "2026-07-29",
+    "file": "guides/5-signes-patrimoine-mal-diversifie-2026.html",
+    "url": "https://www.globalicons.io/guides/5-signes-patrimoine-mal-diversifie-2026.html",
+    "cluster": "audit",
+    "tier": "T3",
+    "status": "published"
   }
 ]
