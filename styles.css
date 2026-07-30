@@ -535,6 +535,11 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
 .hub__final-cta-secondary { background: transparent; color: var(--paper); border: 1px solid rgba(255,255,255,0.28); }
 .hub__final-cta-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--paper); }
 @media (max-width: 640px) { .hub__final-cta { padding: 28px 22px; } }
+/* Fix contraste : le bloc final CTA est sur fond sombre (--ink) mais vit dans .content, dont les regles .content h2/p/a (plus bas dans la feuille, meme specificite) ecrasaient les couleurs claires. On remonte la specificite pour rendre le titre, le texte et le lien lisibles. */
+.content .hub__final-cta h2 { color: var(--paper); }
+.content .hub__final-cta p { color: var(--paper); }
+.content .hub__final-cta-secondary { color: var(--paper); text-decoration: none; }
+.content .hub__final-cta-secondary:hover { opacity: 1; }
 
 /* Pages auteur E-E-A-T */
 .author__header { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: end; margin: 0 0 40px; }
