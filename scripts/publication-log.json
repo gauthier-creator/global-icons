@@ -124,5 +124,13 @@
     "cluster": "audit",
     "tier": "T3",
     "status": "published"
+  },
+  {
+    "date": "2026-07-30",
+    "file": "guides/ou-placent-les-riches-leur-argent-2026.html",
+    "url": "https://www.globalicons.io/guides/ou-placent-les-riches-leur-argent-2026.html",
+    "cluster": "prestige",
+    "tier": "T3",
+    "status": "published"
   }
 ]
