@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const basicAuth = require('basic-auth');
 const path = require('path');
-const { fetchQueries } = require('./gsc');
+const cron = require('node-cron');
+const { runScan, loadKeywords } = require('./serp');
 const { groupKeywords, CONFIG } = require('./verticalize');
 const { saveScan, getLatest, getPrevious, attachDeltas } = require('./store');
 
@@ -46,17 +47,27 @@ app.get('/api/data', (req, res) => {
 });
 
 app.post('/api/scan', async (req, res) => {
-  const rangeDays = Math.min(90, Math.max(1, parseInt(req.body?.rangeDays || '30', 10)));
   try {
-    const scan = await fetchQueries({ rangeDays, rowLimit: 1500 });
+    const scan = await runScan();
     saveScan(scan);
-    res.json({ ok: true, scan: { fetchedAt: scan.fetchedAt, startDate: scan.startDate, endDate: scan.endDate, totalKeywords: scan.keywords.length } });
+    res.json({ ok: true, scan: { fetchedAt: scan.fetchedAt, totalKeywords: scan.keywords.length } });
   } catch (err) {
     console.error('Scan failed:', err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
 });
 
+// Scan automatique quotidien à 07:00 UTC (09:00 Paris été)
+cron.schedule('0 7 * * *', async () => {
+  try {
+    const scan = await runScan();
+    saveScan(scan);
+    console.log(`[cron] scan quotidien OK : ${scan.keywords.length} mots-cles a ${scan.fetchedAt}`);
+  } catch (e) {
+    console.error('[cron] scan quotidien ECHEC :', e.message);
+  }
+});
+
 app.listen(PORT, () => {
-  console.log(`Tracker listening on :${PORT}`);
+  console.log(`Tracker listening on :${PORT} — ${loadKeywords().length} mots-cles suivis (source Serper.dev)`);
 });

@@ -17,12 +17,13 @@ function fmtDate(iso) {
 }
 
 function posBadge(pos) {
-  const rounded = pos.toFixed(1);
+  if (pos >= 101) return '<span class="pos-badge pos-badge--out">&gt; 100</span>';
+  const label = Number.isInteger(pos) ? String(pos) : pos.toFixed(1);
   let cls = 'pos-badge--out';
   if (pos <= 3) cls = 'pos-badge--top3';
   else if (pos <= 10) cls = 'pos-badge--top10';
   else if (pos <= 20) cls = 'pos-badge--top20';
-  return `<span class="pos-badge ${cls}">${rounded}</span>`;
+  return `<span class="pos-badge ${cls}">${label}</span>`;
 }
 
 function deltaCell(delta) {
@@ -58,8 +59,6 @@ function renderVertical(group) {
   }
   const kws = group.keywords;
   const total = group.total;
-  const impressions = kws.reduce((s, k) => s + k.impressions, 0);
-  const clicks = kws.reduce((s, k) => s + k.clicks, 0);
 
   const html = `
     <div class="section-title">
@@ -72,8 +71,7 @@ function renderVertical(group) {
       <div class="stat"><div class="stat__label">Mots-clés</div><div class="stat__value">${total}</div></div>
       <div class="stat stat--top3"><div class="stat__label">Top 3</div><div class="stat__value">${group.top3}<span class="stat__unit">/ ${total}</span></div></div>
       <div class="stat stat--top10"><div class="stat__label">Top 10</div><div class="stat__value">${group.top10}<span class="stat__unit">/ ${total}</span></div></div>
-      <div class="stat"><div class="stat__label">Impressions</div><div class="stat__value">${impressions.toLocaleString('fr-FR')}</div></div>
-      <div class="stat"><div class="stat__label">Clics</div><div class="stat__value">${clicks.toLocaleString('fr-FR')}</div></div>
+      <div class="stat"><div class="stat__label">Top 20</div><div class="stat__value">${group.top20}<span class="stat__unit">/ ${total}</span></div></div>
     </div>
     <table class="kw">
       <thead>
@@ -81,9 +79,7 @@ function renderVertical(group) {
           <th>Mot-clé</th>
           <th class="num">Position</th>
           <th class="num">Δ vs scan préc.</th>
-          <th class="num">Impressions</th>
-          <th class="num">Clics</th>
-          <th class="num">CTR</th>
+          <th>Page qui ranke</th>
         </tr>
       </thead>
       <tbody>
@@ -92,9 +88,7 @@ function renderVertical(group) {
             <td class="query-cell" title="${k.query}">${k.query}</td>
             <td class="num">${posBadge(k.position)}</td>
             <td class="num">${deltaCell(k.delta)}</td>
-            <td class="num">${k.impressions.toLocaleString('fr-FR')}</td>
-            <td class="num">${k.clicks.toLocaleString('fr-FR')}</td>
-            <td class="num">${(k.ctr * 100).toFixed(1)}%</td>
+            <td class="url-cell">${k.url ? `<a href="${k.url}" target="_blank" rel="noopener">${k.url.replace(/^https?:\/\/(www\.)?globalicons\.io/, '') || '/'}</a>` : '<span class="muted">—</span>'}</td>
           </tr>
         `).join('')}
       </tbody>
@@ -117,8 +111,8 @@ async function loadData() {
       return;
     }
     state.data = data;
-    $('metaLastScan').textContent = `Dernier scan : ${fmtDate(data.scan.fetchedAt)} (période ${data.scan.startDate} → ${data.scan.endDate})`;
-    $('metaTotal').textContent = `${data.scan.totalKeywords} mots-clés remontés`;
+    $('metaLastScan').textContent = `Dernier scan : ${fmtDate(data.scan.fetchedAt)}`;
+    $('metaTotal').textContent = `${data.scan.totalKeywords} mots-clés suivis`;
 
     if (!state.activeVertical || !data.groups[state.activeVertical] || data.groups[state.activeVertical].total === 0) {
       const first = Object.values(data.groups).filter(g => g.total > 0).sort((a, b) => b.total - a.total)[0];
@@ -137,12 +131,11 @@ async function triggerScan() {
   const btn = $('scanBtn');
   btn.disabled = true;
   btn.textContent = 'Scan…';
-  const rangeDays = parseInt($('rangeSelect').value, 10);
   try {
     const res = await fetch('/api/scan', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ rangeDays })
+      body: '{}'
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Scan échoué');
