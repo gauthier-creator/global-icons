@@ -3,7 +3,12 @@
 //   GOOGLE_ADS_DEVELOPER_TOKEN, GOOGLE_ADS_CLIENT_ID, GOOGLE_ADS_CLIENT_SECRET,
 //   GOOGLE_ADS_REFRESH_TOKEN, GOOGLE_ADS_LOGIN_CUSTOMER_ID
 const CUSTOMER_ID = process.env.GOOGLE_ADS_CUSTOMER_ID || '1913432498';
-const API_VERSION = 'v17';
+// La version de l'API Google Ads est dépréciée ~annuellement. On la résout dynamiquement :
+// on essaie de la plus récente à la plus ancienne et on garde la première qui ne renvoie pas 404.
+const VERSION_CANDIDATES = (process.env.GOOGLE_ADS_API_VERSION
+  ? [process.env.GOOGLE_ADS_API_VERSION]
+  : ['v22', 'v21', 'v20', 'v19', 'v18', 'v17']);
+let cachedVersion = null;
 
 function requireEnv() {
   const need = ['GOOGLE_ADS_DEVELOPER_TOKEN', 'GOOGLE_ADS_CLIENT_ID', 'GOOGLE_ADS_CLIENT_SECRET', 'GOOGLE_ADS_REFRESH_TOKEN', 'GOOGLE_ADS_LOGIN_CUSTOMER_ID'];
@@ -27,20 +32,35 @@ async function getAccessToken() {
   return data.access_token;
 }
 
+function adsHeaders(accessToken) {
+  return {
+    'Authorization': `Bearer ${accessToken}`,
+    'developer-token': process.env.GOOGLE_ADS_DEVELOPER_TOKEN,
+    'login-customer-id': process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID,
+    'Content-Type': 'application/json'
+  };
+}
+
+async function rawSearch(query, accessToken, version) {
+  const url = `https://googleads.googleapis.com/${version}/customers/${CUSTOMER_ID}/googleAds:searchStream`;
+  return fetch(url, { method: 'POST', headers: adsHeaders(accessToken), body: JSON.stringify({ query }) });
+}
+
+// Trouve la version d'API valide : première qui ne renvoie pas 404 (endpoint inexistant).
+async function resolveVersion(accessToken) {
+  if (cachedVersion) return cachedVersion;
+  for (const v of VERSION_CANDIDATES) {
+    const res = await rawSearch(Q.campaigns, accessToken, v);
+    if (res.status !== 404) { cachedVersion = v; return v; }
+  }
+  throw new Error('Aucune version Google Ads API valide (toutes en 404) : ' + VERSION_CANDIDATES.join(','));
+}
+
 // Exécute une requête GAQL en lecture (searchStream). Renvoie un tableau plat de résultats.
 async function gaql(query, accessToken) {
-  const url = `https://googleads.googleapis.com/${API_VERSION}/customers/${CUSTOMER_ID}/googleAds:searchStream`;
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-      'developer-token': process.env.GOOGLE_ADS_DEVELOPER_TOKEN,
-      'login-customer-id': process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query })
-  });
-  if (!res.ok) throw new Error(`Google Ads ${res.status} : ${(await res.text()).slice(0, 300)}`);
+  const version = cachedVersion || (await resolveVersion(accessToken));
+  const res = await rawSearch(query, accessToken, version);
+  if (!res.ok) throw new Error(`Google Ads ${res.status} (${version}) : ${(await res.text()).slice(0, 300)}`);
   const data = await res.json(); // searchStream REST -> tableau de batches {results:[...]}
   const batches = Array.isArray(data) ? data : [data];
   return batches.flatMap(b => b.results || []);
@@ -63,6 +83,7 @@ const Q = {
 async function fetchSea() {
   requireEnv();
   const token = await getAccessToken();
+  await resolveVersion(token); // résout la version UNE fois avant les requêtes parallèles
   const run = q => gaql(q, token);
 
   const [camps, campMx, kws, kwMx, terms, daily, conv] = await Promise.all([
