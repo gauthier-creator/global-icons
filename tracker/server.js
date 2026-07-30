@@ -6,6 +6,7 @@ const fs = require('fs');
 const cron = require('node-cron');
 const { runScan, loadKeywords } = require('./serp');
 const { fetchSea } = require('./googleads');
+const { sendEvents, verifyCalendlySignature } = require('./capi');
 const { groupKeywords, CONFIG } = require('./verticalize');
 const { saveScan, getLatest, getPrevious, attachDeltas } = require('./store');
 
@@ -32,9 +33,58 @@ const AUTH_USER = process.env.AUTH_USER || 'admin';
 const AUTH_PASS = process.env.AUTH_PASS;
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
 
 app.get('/health', (req, res) => res.status(200).json({ ok: true }));
+
+// --- Meta CAPI (endpoints PUBLICS, avant l'auth basique : appeles par le client et par Calendly) ---
+// STAGING : sans META_DATASET_ID / META_CAPI_TOKEN, sendEvents() renvoie une erreur "non configure"
+// et rien ne part vers Meta. Le consentement publicitaire est obligatoire pour pousser des identifiants.
+app.post('/api/meta/capi', async (req, res) => {
+  try {
+    const b = req.body || {};
+    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress;
+    const event = {
+      event_name: b.event_name,
+      event_id: b.event_id,
+      event_source_url: b.event_source_url,
+      consent: b.consent === true,
+      action_source: 'website',
+      user_data: Object.assign({}, b.user_data, { client_ip_address: ip, client_user_agent: req.headers['user-agent'] }),
+      custom_data: b.custom_data
+    };
+    const out = await sendEvents([event]);
+    res.json({ ok: true, meta: out });
+  } catch (e) {
+    const staged = /non configure/.test(e.message || '');
+    res.status(staged ? 200 : 500).json({ ok: false, staged, error: e.message });
+  }
+});
+
+app.post('/api/meta/calendly-webhook', async (req, res) => {
+  const key = process.env.CALENDLY_WEBHOOK_SIGNING_KEY;
+  const sigOk = verifyCalendlySignature(req.rawBody ? req.rawBody.toString() : '', req.headers['calendly-webhook-signature'], key);
+  if (key && !sigOk) return res.status(401).json({ ok: false, error: 'signature Calendly invalide' });
+  try {
+    const p = (req.body && req.body.payload) || {};
+    const name = String(p.name || '').trim();
+    const eventUri = p.event || p.uri || '';
+    const event = {
+      event_name: 'Schedule',
+      event_id: eventUri ? 'cal_' + require('crypto').createHash('sha1').update(eventUri).digest('hex').slice(0, 24) : undefined,
+      action_source: 'website',
+      // Consentement cote serveur : a cabler (capture au booking). Par defaut on NE pousse PAS les PII.
+      consent: p.ad_consent === true,
+      user_data: { email: p.email, first_name: name.split(' ')[0], last_name: name.split(' ').slice(1).join(' '), country: 'fr', external_id: p.email },
+      custom_data: { currency: 'EUR', value: 1000 }
+    };
+    const out = await sendEvents([event]);
+    res.json({ ok: true, meta: out });
+  } catch (e) {
+    const staged = /non configure/.test(e.message || '');
+    res.status(staged ? 200 : 500).json({ ok: false, staged, error: e.message });
+  }
+});
 
 app.use((req, res, next) => {
   if (!AUTH_PASS) return next();
