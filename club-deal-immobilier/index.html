@@ -65,7 +65,7 @@
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Retour
         </a>
-        <button type="button" data-signup class="legal__nav-signup">S'inscrire</button><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
+        <button type="button" data-signup class="legal__nav-signup">S'inscrire</button><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
       </div>
     </div>
   </header>
@@ -158,20 +158,39 @@
       </section>
 
 
+      <!-- Prise de RDV : embed Calendly (mesure de la macro-conversion "RDV pris") -->
+      <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      <section class="rdv-embed" id="prendre-rdv" aria-label="Prendre rendez-vous" style="margin:56px 0 0;">
+        <h2>Prendre rendez-vous avec l'équipe</h2>
+        <p>Échangez avec un membre de l'équipe Global Icons sur les opérations club deal immobilier prime en cours et le cadre pratique de la distribution.</p>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min" style="min-width:320px;height:700px;"></div>
+      </section>
+      <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <script>
+        (function () {
+          function isCalendly(e){ return e.data && typeof e.data.event === 'string' && e.data.event.indexOf('calendly') === 0; }
+          window.addEventListener('message', function (e) {
+            if (isCalendly(e) && e.data.event === 'calendly.event_scheduled' && typeof window.gtag === 'function') {
+              window.gtag('event', 'conversion', { send_to: 'AW-18329831877/Eol3CO-wuNgcEMWTrKRE', value: 1000.0, currency: 'EUR' });
+            }
+          });
+        })();
+      </script>
+
       <section class="banner-cta" aria-label="Prendre rendez-vous">
         <div class="banner-cta__inner">
           <div class="banner-cta__text">
             <h2 class="banner-cta__title">Discuter d'une opération concrète ?</h2>
             <p class="banner-cta__lead">Nos membres de l'équipe vous présentent les opérations club deal en cours et le cadre pratique pour votre cabinet ou votre structure familiale.</p>
           </div>
-          <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="banner-cta__btn">Prendre rendez-vous →</a>
+          <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="banner-cta__btn">Prendre rendez-vous →</a>
         </div>
       </section>
 
       <div class="content__cta">
         <h2>Devenir partenaire distributeur Global Icons</h2>
         <p>CGP indépendants, family offices, banques privées : accédez aux opérations club deal immobilier prime en cours de distribution et à une convention négociée.</p>
-        <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer">Prendre rendez-vous →</a>
+        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer">Prendre rendez-vous →</a>
       </div>
     </div>
   </main>
@@ -282,7 +301,7 @@
 
   <aside class="mobile-cta" role="complementary" aria-label="Prendre rendez-vous">
     <span class="mobile-cta__label">Discuter d'une opération</span>
-    <button type="button" data-signup class="mobile-cta__signup">S'inscrire</button><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
+    <button type="button" data-signup class="mobile-cta__signup">S'inscrire</button><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
   </aside>
 
   <script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=1"></script>
