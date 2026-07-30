@@ -3,6 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Ads : Consent Mode v2 (refus par defaut, obligatoire UE) puis gtag. Consentement pilote par la banniere (signup-modal.js). -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied', 'ad_user_data': 'denied',
+      'ad_personalization': 'denied', 'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+    window.__giAds = true;
+    try { if (localStorage.getItem('gi_consent') === 'granted') {
+      gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});
+    } } catch(e){}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18329831877"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18329831877');
+  </script>
   <title>Value at Risk (VaR) immobilière · Définition | Global Icons</title>
   <meta name="description" content="Définition de la Value at Risk (VaR) appliquée à l'immobilier : mesure du risque de perte maximale sur un horizon, utilisation en asset management." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -200,7 +221,7 @@
     <span class="mobile-cta__label">Accéder aux opérations en cours</span>
     <button type="button" data-signup class="mobile-cta__signup">S'inscrire</button><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
   </aside>
-<script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=1"></script><script defer src="/legal-footer.js?v=1"></script>
+<script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=1"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

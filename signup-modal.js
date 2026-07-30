@@ -231,6 +231,11 @@
       links[i].__rdvBound = true;
       links[i].addEventListener('click', function (e) {
         trackAt('rdv_click', ctaPosition(e.currentTarget));
+        // Micro-conversion Google Ads "Clic RDV". No-op si gtag absent ; le respect du
+        // consentement est gere en amont par Consent Mode (ad_storage denied par defaut).
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'conversion', { send_to: 'AW-18329831877/RPFKCNz_x9gcEMWTrKRE' });
+        }
       });
     }
   }
@@ -249,9 +254,51 @@
   // Expose reset pour dev / support
   window.giSignupReset = function () { clearProfile(); };
 
+  // ---- Banniere de consentement cookies (Google Ads / Consent Mode v2) ----
+  // Ne s'affiche que sur les pages porteuses du tag (window.__giAds pose par le <head>).
+  function consentUpdate(granted) {
+    if (typeof window.gtag !== 'function') return;
+    var v = granted ? 'granted' : 'denied';
+    window.gtag('consent', 'update', {
+      ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v
+    });
+  }
+  function consentGet() { try { return localStorage.getItem('gi_consent'); } catch (e) { return null; } }
+  function consentStore(v) { try { localStorage.setItem('gi_consent', v); } catch (e) {} }
+  function showConsentBanner() {
+    if (document.getElementById('gi-consent')) return;
+    if (!document.getElementById('gi-consent-style')) {
+      var st = document.createElement('style');
+      st.id = 'gi-consent-style';
+      st.textContent = '.gi-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:2147483000;max-width:560px;margin:0 auto;background:#fff;color:#151514;border:1px solid rgba(21,21,20,.14);border-radius:16px;box-shadow:0 18px 48px -18px rgba(15,15,14,.4);padding:20px 22px;font-family:"Hanken Grotesk",-apple-system,Arial,sans-serif;}.gi-consent__t{font-size:.9rem;line-height:1.55;margin:0 0 14px;}.gi-consent__t a{color:#151514;text-decoration:underline;text-underline-offset:2px;}.gi-consent__row{display:flex;gap:10px;flex-wrap:wrap;}.gi-consent__btn{flex:1 1 auto;min-width:130px;padding:11px 18px;border-radius:999px;font-size:.9rem;font-family:inherit;cursor:pointer;border:1px solid #151514;transition:opacity .2s,background .2s;}.gi-consent__btn--refuse{background:transparent;color:#151514;}.gi-consent__btn--refuse:hover{background:rgba(21,21,20,.05);}.gi-consent__btn--accept{background:#0f0f0e;color:#fff;}.gi-consent__btn--accept:hover{opacity:.88;}@media(max-width:480px){.gi-consent{left:10px;right:10px;bottom:10px;padding:18px;}}';
+      document.head.appendChild(st);
+    }
+    var w = document.createElement('div');
+    w.className = 'gi-consent';
+    w.id = 'gi-consent';
+    w.setAttribute('role', 'dialog');
+    w.setAttribute('aria-label', 'Consentement aux cookies');
+    w.innerHTML = '<p class="gi-consent__t">Nous utilisons des cookies de mesure publicitaire (Google Ads) pour évaluer et améliorer nos campagnes. Vous pouvez les accepter ou les refuser. Voir notre <a href="/confidentialite.html">politique de confidentialité</a>.</p><div class="gi-consent__row"><button type="button" class="gi-consent__btn gi-consent__btn--refuse">Refuser</button><button type="button" class="gi-consent__btn gi-consent__btn--accept">Accepter</button></div>';
+    document.body.appendChild(w);
+    w.querySelector('.gi-consent__btn--accept').addEventListener('click', function () {
+      consentUpdate(true); consentStore('granted'); w.remove();
+    });
+    w.querySelector('.gi-consent__btn--refuse').addEventListener('click', function () {
+      consentUpdate(false); consentStore('denied'); w.remove();
+    });
+  }
+  function initConsent() {
+    if (!window.__giAds) return;            // pas de tag Ads sur cette page -> pas de banniere
+    var c = consentGet();
+    if (c === 'granted') { consentUpdate(true); return; }  // deja accepte -> reapplique
+    if (c === 'denied') { return; }                        // deja refuse -> reste denied
+    showConsentBanner();                                   // pas encore de choix -> demande
+  }
+
+  function boot() { attach(); initConsent(); }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', attach);
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    attach();
+    boot();
   }
 })();

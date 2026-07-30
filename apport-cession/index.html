@@ -3,6 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Ads : Consent Mode v2 (refus par defaut, obligatoire UE) puis gtag. Consentement pilote par la banniere (signup-modal.js). -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied', 'ad_user_data': 'denied',
+      'ad_personalization': 'denied', 'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+    window.__giAds = true;
+    try { if (localStorage.getItem('gi_consent') === 'granted') {
+      gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});
+    } } catch(e){}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18329831877"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18329831877');
+  </script>
   <title>Apport-cession 150-0 B ter : réinvestir dans l'immobilier prime | Global Icons</title>
   <meta name="description" content="Apport-cession 150-0 B ter 2026 : le hub complet. 70 % de réinvestissement dans l'immobilier prime éligible, calendriers, solutions club deal, simulateur, guide dirigeant." />
   <meta name="robots" content="index, follow" />
@@ -44,7 +65,7 @@
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 12L6 8l4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Retour
         </a>
-        <button type="button" data-signup class="legal__nav-signup">S'inscrire</button><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
+        <button type="button" data-signup class="legal__nav-signup">S'inscrire</button><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a>
       </div>
     </div>
   </header>
@@ -272,12 +293,31 @@
         </div>
       </section>
 
+      <!-- Prise de RDV : embed Calendly (mesure de la macro-conversion "RDV pris") -->
+      <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      <section class="rdv-embed" id="prendre-rdv" aria-label="Prendre rendez-vous" style="margin:56px 0 0;">
+        <h2>Prendre rendez-vous avec l'équipe</h2>
+        <p>Échangez avec un membre de l'équipe Global Icons sur votre réinvestissement 150-0 B ter et les opérations club deal immobilier prime éligibles en cours.</p>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min" style="min-width:320px;height:700px;"></div>
+      </section>
+      <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <script>
+        (function () {
+          function isCalendly(e){ return e.data && typeof e.data.event === 'string' && e.data.event.indexOf('calendly') === 0; }
+          window.addEventListener('message', function (e) {
+            if (isCalendly(e) && e.data.event === 'calendly.event_scheduled' && typeof window.gtag === 'function') {
+              window.gtag('event', 'conversion', { send_to: 'AW-18329831877/Eol3CO-wuNgcEMWTrKRE', value: 1000.0, currency: 'EUR' });
+            }
+          });
+        })();
+      </script>
+
       <section class="hub__final-cta">
         <h2>Réinvestir votre 150-0 B ter en immobilier prime</h2>
         <p>Vous avez cédé (ou allez céder) votre entreprise et cherchez un véhicule éligible pour votre 70 % ? Nos membres de l'équipe vous présentent les opérations en cours et le cadre pratique 150-0 B ter.</p>
         <div class="hub__final-cta-actions">
           <button type="button" data-signup class="hub__final-cta-primary">S'inscrire →</button>
-          <a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="hub__final-cta-secondary">Prendre RDV avec un membre de l'équipe →</a>
+          <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="hub__final-cta-secondary">Prendre RDV avec un membre de l'équipe →</a>
         </div>
       </section>
     </div>
@@ -391,9 +431,9 @@
 
   <aside class="mobile-cta" role="complementary" aria-label="Prendre rendez-vous">
     <span class="mobile-cta__label">Réinvestir 150-0 B ter</span>
-    <button type="button" data-signup class="mobile-cta__signup">S'inscrire</button><a href="https://calendly.com/lnoriega-globalicons/presentation-dette-privee-george-v-f-renaissance" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
+    <button type="button" data-signup class="mobile-cta__signup">S'inscrire</button><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
   </aside>
 
-  <script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=1"></script><script defer src="/legal-footer.js?v=1"></script>
+  <script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=1"></script>
 </body>
 </html>
