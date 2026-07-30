@@ -151,3 +151,69 @@ async function triggerScan() {
 
 $('scanBtn').addEventListener('click', triggerScan);
 loadData();
+
+// ============ SEA (Google Ads) ============
+const seaState = { loaded: false, data: null };
+const eur = n => (n || 0).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
+const nb = n => (n || 0).toLocaleString('fr-FR');
+const pc = n => (n || 0).toFixed(1) + '%';
+
+function seaTable(title, cols, rows, rowFn) {
+  if (!rows || !rows.length) {
+    return `<div class="section-title"><h2>${title}</h2></div><p class="muted">Aucune donnée (campagnes en pause ou pas d'activité sur la période).</p>`;
+  }
+  return `<div class="section-title"><h2>${title}</h2></div>
+    <table class="kw"><thead><tr>${cols.map(c => `<th class="${c.num ? 'num' : ''}">${c.label}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(rowFn).join('')}</tbody></table>`;
+}
+
+function renderSea(d) {
+  const c = d.campagnes || [], k = d.mots_cles || [], t = d.termes_de_recherche || [], cv = d.conversions_par_action || [];
+  const totCost = c.reduce((s, x) => s + x.cost_eur, 0), totClic = c.reduce((s, x) => s + x.clics, 0), totConv = c.reduce((s, x) => s + x.conversions, 0);
+  $('seaView').innerHTML = `
+    <div class="stats">
+      <div class="stat"><div class="stat__label">Campagnes</div><div class="stat__value">${c.length}</div></div>
+      <div class="stat"><div class="stat__label">Dépensé (30j)</div><div class="stat__value">${eur(totCost)}</div></div>
+      <div class="stat"><div class="stat__label">Clics</div><div class="stat__value">${nb(totClic)}</div></div>
+      <div class="stat stat--top3"><div class="stat__label">Conversions (RDV)</div><div class="stat__value">${nb(totConv)}</div></div>
+    </div>
+    ${seaTable('Campagnes', [{label:'Campagne'},{label:'Statut'},{label:'Budget/j',num:1},{label:'Dépensé',num:1},{label:'Impr.',num:1},{label:'Clics',num:1},{label:'CTR',num:1},{label:'CPC moy.',num:1},{label:'Conv.',num:1},{label:'Coût/conv.',num:1},{label:'Tx conv.',num:1},{label:'IS',num:1},{label:'Budget perdu',num:1}], c, x => `
+      <tr><td class="query-cell">${x.name||''}</td><td>${x.status||''}</td><td class="num">${eur(x.budget_jour_eur)}</td><td class="num">${eur(x.cost_eur)}</td><td class="num">${nb(x.impressions)}</td><td class="num">${nb(x.clics)}</td><td class="num">${pc(x.ctr)}</td><td class="num">${eur(x.cpc_moyen_eur)}</td><td class="num">${nb(x.conversions)}</td><td class="num">${eur(x.cost_par_conv_eur)}</td><td class="num">${pc(x.taux_conv)}</td><td class="num">${pc(x.taux_impression)}</td><td class="num">${pc(x.budget_perdu_impr)}</td></tr>`)}
+    ${seaTable('Mots-clés (Quality Score)', [{label:'Mot-clé'},{label:'Corresp.'},{label:'QS',num:1},{label:'Impr.',num:1},{label:'Clics',num:1},{label:'Coût',num:1},{label:'CTR',num:1},{label:'CPC',num:1},{label:'Conv.',num:1}], k, x => `
+      <tr><td class="query-cell">${x.mot_cle||''}</td><td>${x.correspondance||''}</td><td class="num">${x.quality_score==null?'—':x.quality_score}</td><td class="num">${nb(x.impressions)}</td><td class="num">${nb(x.clics)}</td><td class="num">${eur(x.cost_eur)}</td><td class="num">${pc(x.ctr)}</td><td class="num">${eur(x.cpc_moyen_eur)}</td><td class="num">${nb(x.conversions)}</td></tr>`)}
+    ${seaTable('Termes de recherche réels', [{label:'Terme'},{label:'Campagne'},{label:'Impr.',num:1},{label:'Clics',num:1},{label:'Coût',num:1},{label:'Conv.',num:1}], t.slice(0, 50), x => `
+      <tr><td class="query-cell">${x.terme||''}</td><td>${x.campagne||''}</td><td class="num">${nb(x.impressions)}</td><td class="num">${nb(x.clics)}</td><td class="num">${eur(x.cost_eur)}</td><td class="num">${nb(x.conversions)}</td></tr>`)}
+    ${seaTable('Conversions par action (RDV pris vs Clic RDV)', [{label:'Action'},{label:'Conversions',num:1},{label:'Valeur',num:1}], cv, x => `
+      <tr><td class="query-cell">${x.action||''}</td><td class="num">${nb(x.conversions)}</td><td class="num">${eur(x.valeur_eur)}</td></tr>`)}
+  `;
+}
+
+async function loadSea(force) {
+  $('seaLoading').hidden = false;
+  try {
+    const res = await fetch('/api/sea' + (force ? '?refresh=1' : ''));
+    const data = await res.json();
+    if (data.ok === false) { $('seaMetaInfo').textContent = 'Erreur de connexion Google Ads'; toast(data.error || 'Erreur SEA', 'error'); return; }
+    seaState.data = data; seaState.loaded = true;
+    const when = data.cachedAt ? fmtDate(data.cachedAt) : '—';
+    $('seaMetaInfo').textContent = `Compte ${data.compte || ''} · période ${data.periode || ''} · maj ${when}${data.stale ? ' (cache, échec du refresh)' : ''}`;
+    renderSea(data);
+  } catch (e) {
+    toast('Erreur SEA : ' + e.message, 'error');
+  } finally {
+    $('seaLoading').hidden = true;
+  }
+}
+
+document.querySelectorAll('#modes .mode').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    document.querySelectorAll('#modes .mode').forEach(b => b.classList.toggle('is-active', b === btn));
+    $('seoMode').hidden = mode !== 'seo';
+    $('seaMode').hidden = mode !== 'sea';
+    $('scanBtn').hidden = mode !== 'seo';
+    $('seaRefreshBtn').hidden = mode !== 'sea';
+    if (mode === 'sea' && !seaState.loaded) loadSea(false);
+  });
+});
+$('seaRefreshBtn').addEventListener('click', () => loadSea(true));

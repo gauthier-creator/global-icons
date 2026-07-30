@@ -315,3 +315,12 @@ table.kw tbody tr:last-child td { border-bottom: none; }
   table.kw th, table.kw td { padding: 8px 10px; }
   .query-cell { max-width: 200px; }
 }
+
+/* Basculeur SEO / SEA + classes SEA */
+.modes { display: flex; gap: 8px; padding: 14px 32px 0; }
+.modes .mode { background: transparent; border: 1px solid rgba(255,255,255,0.14); color: #cfcabf; border-radius: 999px; padding: 8px 18px; font: inherit; font-size: 0.9rem; cursor: pointer; transition: all .2s; }
+.modes .mode:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+.modes .mode.is-active { background: #e9e2d0; color: #151514; border-color: #e9e2d0; font-weight: 500; }
+.muted { color: #8a857c; font-size: 0.9rem; padding: 8px 0; }
+.url-cell a { color: #8ab4f8; font-size: 0.82rem; text-decoration: none; }
+.url-cell a:hover { text-decoration: underline; }

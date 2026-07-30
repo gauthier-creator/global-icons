@@ -2,10 +2,30 @@ require('dotenv').config();
 const express = require('express');
 const basicAuth = require('basic-auth');
 const path = require('path');
+const fs = require('fs');
 const cron = require('node-cron');
 const { runScan, loadKeywords } = require('./serp');
+const { fetchSea } = require('./googleads');
 const { groupKeywords, CONFIG } = require('./verticalize');
 const { saveScan, getLatest, getPrevious, attachDeltas } = require('./store');
+
+// Cache SEA (Google Ads) : evite de taper l'API a chaque page. Persiste dans DATA_DIR.
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+const SEA_CACHE = path.join(DATA_DIR, 'sea_cache.json');
+const SEA_TTL_MS = 6 * 60 * 60 * 1000; // 6h
+
+function readSeaCache() {
+  try { return JSON.parse(fs.readFileSync(SEA_CACHE, 'utf8')); } catch (e) { return null; }
+}
+function writeSeaCache(obj) {
+  try { fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(SEA_CACHE, JSON.stringify(obj)); } catch (e) {}
+}
+async function refreshSea() {
+  const data = await fetchSea();
+  const wrapped = { cachedAt: new Date().toISOString(), data };
+  writeSeaCache(wrapped);
+  return wrapped;
+}
 
 const PORT = process.env.PORT || 3000;
 const AUTH_USER = process.env.AUTH_USER || 'admin';
@@ -66,6 +86,28 @@ cron.schedule('0 7 * * *', async () => {
   } catch (e) {
     console.error('[cron] scan quotidien ECHEC :', e.message);
   }
+});
+
+// --- SEA (Google Ads) : lecture seule, cache 6h ---
+app.get('/api/sea', async (req, res) => {
+  const force = req.query.refresh === '1';
+  const cache = readSeaCache();
+  const fresh = cache && (Date.now() - new Date(cache.cachedAt).getTime() < SEA_TTL_MS);
+  if (fresh && !force) return res.json({ cachedAt: cache.cachedAt, cached: true, ...cache.data });
+  try {
+    const wrapped = await refreshSea();
+    res.json({ cachedAt: wrapped.cachedAt, cached: false, ...wrapped.data });
+  } catch (err) {
+    console.error('SEA fetch failed:', err.message);
+    if (cache) return res.json({ cachedAt: cache.cachedAt, cached: true, stale: true, error: err.message, ...cache.data });
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// Rafraichissement SEA automatique toutes les 6h
+cron.schedule('0 */6 * * *', async () => {
+  try { await refreshSea(); console.log('[cron] SEA refresh OK'); }
+  catch (e) { console.error('[cron] SEA refresh ECHEC :', e.message); }
 });
 
 app.listen(PORT, () => {

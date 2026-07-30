@@ -13,30 +13,49 @@
 <body>
   <header class="topbar">
     <div class="topbar__brand">
-      <span class="topbar__title">Cockpit SEO</span>
-      <span class="topbar__sub">Global Icons · rankings par verticale</span>
+      <span class="topbar__title">Cockpit</span>
+      <span class="topbar__sub">Global Icons · SEO &amp; SEA</span>
     </div>
     <div class="topbar__actions">
-      <button id="scanBtn" class="btn btn--primary">Re-scan</button>
+      <button id="scanBtn" class="btn btn--primary">Re-scan SEO</button>
+      <button id="seaRefreshBtn" class="btn btn--primary" hidden>Rafraîchir SEA</button>
     </div>
   </header>
 
-  <section class="meta" id="metaBar">
-    <span id="metaLastScan">Chargement…</span>
-    <span id="metaTotal"></span>
-    <span id="metaSource">Source · positions Google live (Serper.dev)</span>
-  </section>
+  <nav class="modes" id="modes" aria-label="Mode">
+    <button class="mode is-active" data-mode="seo">SEO · Positions</button>
+    <button class="mode" data-mode="sea">SEA · Google Ads</button>
+  </nav>
 
-  <nav class="tabs" id="tabs" aria-label="Verticales"></nav>
+  <!-- MODE SEO -->
+  <div id="seoMode">
+    <section class="meta" id="metaBar">
+      <span id="metaLastScan">Chargement…</span>
+      <span id="metaTotal"></span>
+      <span id="metaSource">Source · positions Google live (Serper.dev)</span>
+    </section>
+    <nav class="tabs" id="tabs" aria-label="Verticales"></nav>
+    <main class="content">
+      <div class="empty" id="emptyState" hidden>
+        <h2>Aucun scan encore</h2>
+        <p>Cliquez sur <strong>Re-scan SEO</strong> en haut à droite pour relever les positions.</p>
+      </div>
+      <div class="loading" id="loadingState" hidden>Chargement…</div>
+      <div id="verticalView"></div>
+    </main>
+  </div>
 
-  <main class="content" id="content">
-    <div class="empty" id="emptyState" hidden>
-      <h2>Aucun scan encore</h2>
-      <p>Cliquez sur <strong>Re-scan</strong> en haut à droite pour interroger Google Search Console.</p>
-    </div>
-    <div class="loading" id="loadingState" hidden>Chargement…</div>
-    <div id="verticalView"></div>
-  </main>
+  <!-- MODE SEA -->
+  <div id="seaMode" hidden>
+    <section class="meta" id="seaMeta">
+      <span id="seaMetaInfo">Chargement…</span>
+      <span id="seaMetaSource">Source · Google Ads API (lecture seule)</span>
+    </section>
+    <main class="content">
+      <div class="loading" id="seaLoading" hidden>Chargement…</div>
+      <div id="seaView"></div>
+    </main>
+  </div>
 
   <div class="toast" id="toast" hidden></div>
 
