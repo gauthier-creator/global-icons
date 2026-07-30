@@ -17,7 +17,7 @@ function fmtDate(iso) {
 }
 
 function posBadge(pos) {
-  if (pos >= 101) return '<span class="pos-badge pos-badge--out">&gt; 100</span>';
+  if (pos > 30) return '<span class="pos-badge pos-badge--out">&gt; 30</span>';
   const label = Number.isInteger(pos) ? String(pos) : pos.toFixed(1);
   let cls = 'pos-badge--out';
   if (pos <= 3) cls = 'pos-badge--top3';
