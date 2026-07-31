@@ -6,7 +6,7 @@ const fs = require('fs');
 const cron = require('node-cron');
 const { runScan, loadKeywords } = require('./serp');
 const { fetchSea } = require('./googleads');
-const { sendEvents, verifyCalendlySignature } = require('./capi');
+const { buildInternalEvent, dispatch, verifyCalendlySignature } = require('./conversions');
 const { groupKeywords, CONFIG } = require('./verticalize');
 const { saveScan, getLatest, getPrevious, attachDeltas } = require('./store');
 
@@ -37,52 +37,77 @@ app.use(express.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
 
 app.get('/health', (req, res) => res.status(200).json({ ok: true }));
 
-// --- Meta CAPI (endpoints PUBLICS, avant l'auth basique : appeles par le client et par Calendly) ---
-// STAGING : sans META_DATASET_ID / META_CAPI_TOKEN, sendEvents() renvoie une erreur "non configure"
-// et rien ne part vers Meta. Le consentement publicitaire est obligatoire pour pousser des identifiants.
-app.post('/api/meta/capi', async (req, res) => {
+// --- Mesure conversion NEUTRE (endpoints PUBLICS, avant l'auth : appeles par le client et par Calendly) ---
+// Un seul coeur, plusieurs regies (adaptateurs). Consentement obligatoire pour tout envoi d'identifiant.
+// STAGING : sans adaptateur configure (Pixel/token absents), dispatch() ne fait que skip -> rien ne part.
+function clientMeta(req) {
+  return {
+    client_ip_address: (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress,
+    client_user_agent: req.headers['user-agent']
+  };
+}
+
+// Relais client (evenements navigateur type Lead formulaire). ClicRDV reste Pixel-only, ne passe pas ici.
+app.post('/api/conversion', async (req, res) => {
   try {
     const b = req.body || {};
-    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress;
-    const event = {
-      event_name: b.event_name,
-      event_id: b.event_id,
-      event_source_url: b.event_source_url,
+    const cm = clientMeta(req);
+    const ev = buildInternalEvent({
+      event_type: b.event_type, event_id: b.event_id, event_source_url: b.event_source_url,
       consent: b.consent === true,
-      action_source: 'website',
-      user_data: Object.assign({}, b.user_data, { client_ip_address: ip, client_user_agent: req.headers['user-agent'] }),
-      custom_data: b.custom_data
-    };
-    const out = await sendEvents([event]);
-    res.json({ ok: true, meta: out });
+      email: b.email, phone: b.phone, first_name: b.first_name, last_name: b.last_name, external_id: b.external_id,
+      country: b.country, click_ids: b.click_ids, value: b.value, currency: b.currency,
+      client_ip_address: cm.client_ip_address, client_user_agent: cm.client_user_agent
+    });
+    res.json({ ok: true, dispatched: await dispatch(ev) });
   } catch (e) {
-    const staged = /non configure/.test(e.message || '');
-    res.status(staged ? 200 : 500).json({ ok: false, staged, error: e.message });
+    res.status(500).json({ ok: false, error: e.message });
   }
 });
 
-app.post('/api/meta/calendly-webhook', async (req, res) => {
+// Webhook Calendly (invitee.created) : la source serveur a fort EMQ pour "RDV pris".
+// Les identifiants de clic + le consentement sont passes en champs caches (Q&A / UTM) et rejoues ici.
+function calendlyFields(p) {
+  const map = {};
+  (p.questions_and_answers || []).forEach(qa => { if (qa && qa.question) map[String(qa.question).toLowerCase().trim()] = qa.answer; });
+  const t = p.tracking || {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'salesforce_uuid'].forEach(k => { if (t[k]) map[k] = t[k]; });
+  const pick = (...keys) => { for (const k of keys) { const v = map[k.toLowerCase()]; if (v) return v; } return undefined; };
+  return {
+    gclid: pick('gi_gclid', 'gclid'),
+    fbc: pick('gi_fbc', 'fbc'),
+    fbp: pick('gi_fbp', 'fbp'),
+    li_fat_id: pick('gi_li_fat_id', 'li_fat_id'),
+    consent: String(pick('gi_consent', 'consent') || '').toLowerCase() === 'granted'
+  };
+}
+
+app.post('/api/calendly-webhook', async (req, res) => {
   const key = process.env.CALENDLY_WEBHOOK_SIGNING_KEY;
   const sigOk = verifyCalendlySignature(req.rawBody ? req.rawBody.toString() : '', req.headers['calendly-webhook-signature'], key);
   if (key && !sigOk) return res.status(401).json({ ok: false, error: 'signature Calendly invalide' });
+  const kind = (req.body && req.body.event) || '';
+  const p = (req.body && req.body.payload) || {};
+  // Annulations : on logue en interne, on ne renvoie RIEN aux regies (Meta ne sait pas annuler une conv).
+  if (kind === 'invitee.canceled') { console.log('[calendly] invitee.canceled (log interne, non transmis)'); return res.json({ ok: true, logged: 'canceled' }); }
   try {
-    const p = (req.body && req.body.payload) || {};
+    const f = calendlyFields(p);
     const name = String(p.name || '').trim();
-    const eventUri = p.event || p.uri || '';
-    const event = {
-      event_name: 'Schedule',
-      event_id: eventUri ? 'cal_' + require('crypto').createHash('sha1').update(eventUri).digest('hex').slice(0, 24) : undefined,
-      action_source: 'website',
-      // Consentement cote serveur : a cabler (capture au booking). Par defaut on NE pousse PAS les PII.
-      consent: p.ad_consent === true,
-      user_data: { email: p.email, first_name: name.split(' ')[0], last_name: name.split(' ').slice(1).join(' '), country: 'fr', external_id: p.email },
-      custom_data: { currency: 'EUR', value: 1000 }
-    };
-    const out = await sendEvents([event]);
-    res.json({ ok: true, meta: out });
+    const inviteeUri = p.uri || ''; // URI de l'INVITE (unique par personne) -> event_id partage avec le Pixel
+    const cm = clientMeta(req);
+    const ev = buildInternalEvent({
+      event_type: 'RDV pris',
+      event_id: inviteeUri ? 'cal_' + require('crypto').createHash('sha1').update(inviteeUri).digest('hex').slice(0, 24) : undefined,
+      event_time: Math.floor(Date.now() / 1000), // horodatage de la PRISE de RDV (invitee.created), pas la date du RDV
+      consent: f.consent,
+      email: p.email, first_name: name.split(' ')[0], last_name: name.split(' ').slice(1).join(' '), external_id: p.email,
+      country: 'fr', click_ids: { gclid: f.gclid, fbc: f.fbc, fbp: f.fbp, li_fat_id: f.li_fat_id },
+      value: 1000, currency: 'EUR',
+      client_ip_address: cm.client_ip_address, client_user_agent: cm.client_user_agent
+    });
+    res.json({ ok: true, consent: f.consent, dispatched: await dispatch(ev) });
   } catch (e) {
-    const staged = /non configure/.test(e.message || '');
-    res.status(staged ? 200 : 500).json({ ok: false, staged, error: e.message });
+    res.status(500).json({ ok: false, error: e.message });
   }
 });
 
