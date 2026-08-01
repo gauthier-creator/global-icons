@@ -140,5 +140,13 @@
     "cluster": "prestige",
     "tier": "T3",
     "status": "published"
+  },
+  {
+    "date": "2026-08-01",
+    "file": "guides/devenir-coproprietaire-palace-parisien-2026.html",
+    "url": "https://www.globalicons.io/guides/devenir-coproprietaire-palace-parisien-2026.html",
+    "cluster": "prestige",
+    "tier": "T4",
+    "status": "published"
   }
 ]
