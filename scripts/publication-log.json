@@ -164,5 +164,13 @@
     "cluster": "prestige",
     "tier": "T4",
     "status": "published"
+  },
+  {
+    "date": "2026-08-04",
+    "file": "guides/divorce-fortune-reconstruire-patrimoine-2026.html",
+    "url": "https://www.globalicons.io/guides/divorce-fortune-reconstruire-patrimoine-2026.html",
+    "cluster": "moment-de-vie",
+    "tier": "T2",
+    "status": "published"
   }
 ]
