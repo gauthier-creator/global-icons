@@ -172,5 +172,13 @@
     "cluster": "moment-de-vie",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-08-05",
+    "file": "guides/prendre-sa-retraite-a-30-ans-fire-france-2026.html",
+    "url": "https://www.globalicons.io/guides/prendre-sa-retraite-a-30-ans-fire-france-2026.html",
+    "cluster": "fire",
+    "tier": "T3",
+    "status": "published"
   }
 ]
