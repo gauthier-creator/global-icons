@@ -188,5 +188,13 @@
     "cluster": "fire",
     "tier": "T3",
     "status": "published"
+  },
+  {
+    "date": "2026-08-07",
+    "file": "investir-immobilier-prime-des-1000-euros/index.html",
+    "url": "https://www.globalicons.io/investir-immobilier-prime-des-1000-euros/",
+    "cluster": "retail",
+    "tier": "T4",
+    "status": "published"
   }
 ]
