@@ -196,5 +196,13 @@
     "cluster": "retail",
     "tier": "T4",
     "status": "published"
+  },
+  {
+    "date": "2026-08-08",
+    "file": "comparatifs/assurance-vie-luxembourgeoise-vs-suisse-vs-francaise-2026.html",
+    "url": "https://www.globalicons.io/comparatifs/assurance-vie-luxembourgeoise-vs-suisse-vs-francaise-2026.html",
+    "cluster": "av-lux",
+    "tier": "T2",
+    "status": "published"
   }
 ]
