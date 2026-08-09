@@ -204,5 +204,13 @@
     "cluster": "av-lux",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-08-09",
+    "file": "outils/calculateur-allocation-immobilier-prime.html",
+    "url": "https://www.globalicons.io/outils/calculateur-allocation-immobilier-prime.html",
+    "cluster": "outils",
+    "tier": "T3",
+    "status": "published"
   }
 ]
