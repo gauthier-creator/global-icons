@@ -212,5 +212,13 @@
     "cluster": "outils",
     "tier": "T3",
     "status": "published"
+  },
+  {
+    "date": "2026-08-10",
+    "file": "guides/lettre-de-mission-cgp-modele-2026.html",
+    "url": "https://www.globalicons.io/guides/lettre-de-mission-cgp-modele-2026.html",
+    "cluster": "b2b-cgp",
+    "tier": "T6",
+    "status": "published"
   }
 ]
