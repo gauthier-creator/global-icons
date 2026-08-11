@@ -220,5 +220,13 @@
     "cluster": "b2b-cgp",
     "tier": "T6",
     "status": "published"
+  },
+  {
+    "date": "2026-08-11",
+    "file": "guides/rapport-adequation-club-deal-cgp.html",
+    "url": "https://www.globalicons.io/guides/rapport-adequation-club-deal-cgp.html",
+    "cluster": "b2b-cgp",
+    "tier": "T6",
+    "status": "published"
   }
 ]
