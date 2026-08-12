@@ -1,0 +1,36 @@
+name: Deploy site (manuel)
+
+# Deploiement Railway manuel, DECOUPLE de la publication quotidienne.
+# Le script publish-daily sort avant de deployer quand la file d'attente est vide -> ce workflow
+# permet de pousser en prod l'etat courant d'origin/main (CTA, correctifs, pages debloquees) a la demande.
+# Contrairement a publish-daily, l'echec du deploiement FAIT ECHOUER le job (pas de try/catch qui avale).
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: npm i -g @railway/cli
+
+      - name: Railway up (site)
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          if [ -z "$RAILWAY_TOKEN" ]; then
+            echo "::error::RAILWAY_TOKEN absent dans les secrets GitHub -> impossible de deployer."
+            exit 1
+          fi
+          railway up --service 8d5bdf9e-23f4-4e62-9d72-f3b2136c383f --detach
