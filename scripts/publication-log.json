@@ -228,5 +228,13 @@
     "cluster": "b2b-cgp",
     "tier": "T6",
     "status": "published"
+  },
+  {
+    "date": "2026-08-12",
+    "file": "guides/distribuer-club-deal-sans-psi-cif.html",
+    "url": "https://www.globalicons.io/guides/distribuer-club-deal-sans-psi-cif.html",
+    "cluster": "b2b-cgp",
+    "tier": "T6",
+    "status": "published"
   }
 ]
