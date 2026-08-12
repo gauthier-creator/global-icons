@@ -3,6 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Ads : Consent Mode v2 (refus par defaut, obligatoire UE) puis gtag. Consentement pilote par la banniere (signup-modal.js). -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied', 'ad_user_data': 'denied',
+      'ad_personalization': 'denied', 'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+    window.__giAds = true;
+    try { if (localStorage.getItem('gi_consent') === 'granted') {
+      gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});
+    } } catch(e){}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18329831877"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18329831877');
+  </script>
   <title>Calculateur : combien investir en immobilier prime selon mon patrimoine ? | Global Icons</title>
   <meta name="description" content="Calculateur gratuit : combien investir en immobilier prime selon votre patrimoine total ? Recommandations 2026 basées sur allocations UHNWI." />
 <link rel="canonical" href="https://www.globalicons.io/outils/calculateur-allocation-immobilier-prime.html" />
@@ -13,6 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css?v=96" />
+  <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8" data-domains="globalicons.io,www.globalicons.io"></script>
 </head>
 <body class="has-mobile-cta">
   <header class="legal__nav"><div class="legal__nav-inner"><a href="/index.html"><img src="/Logo.svg" alt="Logo Global Icons" class="legal__nav-logo" width="140" height="24" /></a><div class="legal__nav-actions"><a href="/index.html" class="legal__nav-back">Retour</a><button type="button" data-signup class="legal__nav-signup">S'inscrire</button><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="legal__nav-cta">Prendre RDV →</a></div></div></header>
