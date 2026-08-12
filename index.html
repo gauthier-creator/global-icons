@@ -860,6 +860,26 @@
             window.gtag('event', 'conversion', { send_to: 'AW-18329831877/Eol3CO-wuNgcEMWTrKRE', value: 1000.0, currency: 'EUR' });
           }
         });
+
+        // Les CTA de la page renvoient vers la section de reservation au lieu d'ouvrir un
+        // onglet : sinon la reservation se fait sur calendly.com, une autre origine, et
+        // l'evenement event_scheduled ne revient jamais. On ne fait que preventDefault et
+        // defiler : le clic continue de se propager, donc la micro-conversion "Clic RDV"
+        // posee par signup-modal.js se declenche toujours.
+        document.addEventListener('DOMContentLoaded', function () {
+          var cible = document.getElementById('prendre-rdv');
+          if (!cible) return;
+          var liens = document.querySelectorAll('a[href*="calendly.com"]');
+          for (var i = 0; i < liens.length; i++) {
+            if (cible.contains(liens[i])) continue;
+            liens[i].addEventListener('click', function (ev) {
+              if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
+              ev.preventDefault();
+              cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              if (history.replaceState) history.replaceState(null, '', '#prendre-rdv');
+            });
+          }
+        });
       })();
     </script>
 
