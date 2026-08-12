@@ -184,6 +184,25 @@
         <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer">Prendre rendez-vous →</a>
       </div>
 
+      <!-- Prise de RDV : embed Calendly (mesure de la macro-conversion "RDV pris") -->
+      <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      <section class="rdv-embed" id="prendre-rdv" aria-label="Prendre rendez-vous" style="margin:56px 0 0;">
+        <h2>Prendre rendez-vous avec l'équipe</h2>
+        <p>Échangez avec un membre de l'équipe Global Icons sur les opérations de private equity immobilier prime en cours et le cadre pratique de la souscription.</p>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min" style="min-width:320px;height:700px;"></div>
+      </section>
+      <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <script>
+        (function () {
+          function isCalendly(e){ return e.data && typeof e.data.event === 'string' && e.data.event.indexOf('calendly') === 0; }
+          window.addEventListener('message', function (e) {
+            if (isCalendly(e) && e.data.event === 'calendly.event_scheduled' && typeof window.gtag === 'function') {
+              window.gtag('event', 'conversion', { send_to: 'AW-18329831877/Eol3CO-wuNgcEMWTrKRE', value: 1000.0, currency: 'EUR' });
+            }
+          });
+        })();
+      </script>
+
       <h2>Questions fréquentes</h2>
 
       <h3>Quelle différence entre private equity immobilier et SCPI ?</h3>
