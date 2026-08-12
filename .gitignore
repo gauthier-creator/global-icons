@@ -18,3 +18,6 @@ JULIEN ITW FINAL.mp4
 ITW LUCA FINAL.mp4
 ITW HUGO FINAL.mp4
 ITW JULIEN FINAL.mp4
+
+# Config locale Claude Code (hooks de coordination) : ne pas publier
+.claude/settings.local.json
