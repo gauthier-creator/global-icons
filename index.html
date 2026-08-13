@@ -909,8 +909,15 @@
               // arretee, et Lenis l'est tant que le prechargeur n'a pas rendu la main
               // (onglet en arriere-plan, connexion lente, clic avant la fin de
               // l'animation). Sans force, le bouton principal ne fait rien.
+              // duration explicite : sans elle Lenis retombe sur son lerp de 0.09, qui
+              // met plusieurs secondes a couvrir les ~12 700 px jusqu'a la section et
+              // donne une impression de latence. L'easing cubique demarre franchement
+              // et arrive en douceur.
               if (window.__giLenis && typeof window.__giLenis.scrollTo === 'function') {
-                window.__giLenis.scrollTo(cible, { offset: 0, force: true });
+                window.__giLenis.scrollTo(cible, {
+                  offset: 0, force: true, duration: 0.9,
+                  easing: function (t) { return 1 - Math.pow(1 - t, 3); }
+                });
               } else {
                 cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
@@ -1119,7 +1126,7 @@
   </script>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="script.js?v=86"></script>
+  <script src="script.js?v=87"></script>
 <script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=1"></script>
 </body>
 </html>

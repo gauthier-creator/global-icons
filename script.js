@@ -61,9 +61,13 @@
         // arretee, et Lenis l'est tant que le prechargeur n'a pas rendu la main.
         // Un clic est une intention explicite, un etat de chargement residuel ne
         // doit pas l'annuler.
-        if (id === "#" || id === "#top") { e.preventDefault(); lenis.scrollTo(0, { force: true }); return; }
+        // duration explicite : sans elle, Lenis retombe sur son lerp de 0.09, qui
+        // met plusieurs secondes a couvrir une longue distance et donne une
+        // impression de latence. Le site utilise deja duration: 1.0 ailleurs.
+        const glisse = { force: true, duration: 0.9, easing: (t) => 1 - Math.pow(1 - t, 3) };
+        if (id === "#" || id === "#top") { e.preventDefault(); lenis.scrollTo(0, glisse); return; }
         const target = document.querySelector(id);
-        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: 0, force: true }); }
+        if (target) { e.preventDefault(); lenis.scrollTo(target, Object.assign({ offset: 0 }, glisse)); }
       });
     });
   }
