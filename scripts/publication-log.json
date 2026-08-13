@@ -236,5 +236,13 @@
     "cluster": "b2b-cgp",
     "tier": "T6",
     "status": "published"
+  },
+  {
+    "date": "2026-08-13",
+    "file": "guides/dette-privee-immobiliere.html",
+    "url": "https://www.globalicons.io/guides/dette-privee-immobiliere.html",
+    "cluster": "hors-planning",
+    "tier": "T2",
+    "status": "published"
   }
 ]
