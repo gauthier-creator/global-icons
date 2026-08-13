@@ -50,7 +50,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=99" />
+  <link rel="stylesheet" href="/styles.css?v=100" />
   <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8" data-domains="globalicons.io,www.globalicons.io"></script>
 </head>
 <body class="has-mobile-cta">
@@ -88,47 +88,113 @@
 
       <h2>Les sept opérations</h2>
 
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">40 Avenue George V, Paris VIII</h3>
-        <p>Opération value-add sur l'une des adresses les plus recherchées du Triangle d'or. Acquisition de 128 M€, la plus importante du portefeuille. Repositionnement d'un actif mixte en cœur de marché prime parisien.</p>
-        <p class="hub__cluster-links"><a href="/track-record/40-avenue-george-v-paris-8.html">Voir la fiche de l'opération</a></p>
-      </div>
-
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">91 Champs-Élysées, Paris VIII</h3>
-        <p>Commerce prime sur l'avenue des Champs-Élysées, ticket institutionnel de référence. Un emplacement dont la rareté constitue l'essentiel de la valeur.</p>
-        <p class="hub__cluster-links"><a href="/track-record/91-champs-elysees-paris-8.html">Voir la fiche de l'opération</a></p>
-      </div>
-
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">73 Rue de Miromesnil, Paris VIII</h3>
-        <p>Hôtel particulier du VIIIe arrondissement, acquis 15,7 M€. Actif de niche, dont la valeur tient à la typologie autant qu'à l'adresse.</p>
-        <p class="hub__cluster-links"><a href="/track-record/73-rue-miromesnil-paris-8.html">Voir la fiche de l'opération</a></p>
-      </div>
-
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">48 Rue de Provence, Paris IX</h3>
-        <p>Opération de bureaux débouclée : acquisition 19,8 M€, revente 36,3 M€. Le cycle complet est documenté sur la fiche, de l'acquisition à la cession.</p>
-        <p class="hub__cluster-links"><a href="/track-record/48-rue-de-provence-paris-9.html">Voir la fiche de l'opération</a></p>
-      </div>
-
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">48 Notre-Dame-des-Victoires, Paris IX</h3>
-        <p>Bureaux prime dans le quartier de la Bourse, acquisition de 90 M€. Deuxième opération du portefeuille par la taille.</p>
-        <p class="hub__cluster-links"><a href="/track-record/48-notre-dame-des-victoires-paris-9.html">Voir la fiche de l'opération</a></p>
-      </div>
-
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">37 Rue de Bellefond, Paris IX</h3>
-        <p>Opération de bureaux débouclée : acquisition 14,1 M€, revente 38,6 M€. Comme Provence, le cycle complet est consultable sur la fiche.</p>
-        <p class="hub__cluster-links"><a href="/track-record/37-rue-de-bellefond-paris-9.html">Voir la fiche de l'opération</a></p>
-      </div>
-
-      <div class="hub__cluster">
-        <h3 class="hub__cluster-title">27 Rue du Grand Prieuré, Paris XI</h3>
-        <p>Bureaux dans le XIe arrondissement, acquisition de 16,9 M€. Opération de diversification hors des quartiers centraux d'affaires.</p>
-        <p class="hub__cluster-links"><a href="/track-record/27-rue-du-grand-prieure-paris-11.html">Voir la fiche de l'opération</a></p>
-      </div>
+      <ul class="ops-grid">
+        <li>
+          <a class="card" href="/track-record/40-avenue-george-v-paris-8.html">
+            <div class="card__media">
+              <img src="/40AVENUEGEORGEV_track.webp" alt="40 Avenue George V, value-add Paris VIII opéré par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--live">En cours</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris VIII · Value-add</span>
+              <h3 class="card__title">40 Avenue George V</h3>
+              <ul class="card__facts"><li><span>Surface estimée</span><b>7 900 m²</b></li><li><span>Acquisition</span><b>128 M€</b></li><li><span>LTV</span><b>54 %</b></li></ul>
+              <span class="card__metric">23,3 % <em>TRI opérateur (proj.)</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="/track-record/91-champs-elysees-paris-8.html">
+            <div class="card__media">
+              <img src="/91CHAMPSELYSEE.webp" alt="91 Champs-Élysées, commerce prime Paris VIII opéré par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--live">En cours</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris VIII · Commerce prime</span>
+              <h3 class="card__title">91 Champs-Élysées</h3>
+              <ul class="card__facts"><li><span>Surface</span><b>4 200 m²</b></li><li><span>Acquisition</span><b>320 M€</b></li><li><span>Durée</span><b>3 à 5 ans</b></li></ul>
+              <span class="card__metric card__metric--soon">À venir <em>TRI opérateur</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="/track-record/73-rue-miromesnil-paris-8.html">
+            <div class="card__media">
+              <img src="/73RUEDEMIROMESNIL.webp" alt="73 Rue de Miromesnil, hôtel particulier Paris VIII opéré par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--live">En cours</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris VIII · Hôtel particulier</span>
+              <h3 class="card__title">73 Rue de Miromesnil</h3>
+              <ul class="card__facts"><li><span>Surface</span><b>1 200 m²</b></li><li><span>Acquisition</span><b>15,7 M€</b></li><li><span>Durée</span><b>2 ans</b></li></ul>
+              <span class="card__metric">58,4 % <em>TRI opérateur (estimé)</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="/track-record/48-rue-de-provence-paris-9.html">
+            <div class="card__media">
+              <img src="/48RUEDEPROVENCE.webp" alt="48 Rue de Provence, bureaux Paris IX opérés par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--sold">Vendu</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris IX · Bureaux</span>
+              <h3 class="card__title">48 Rue de Provence</h3>
+              <ul class="card__facts"><li><span>Surface</span><b>1 800 m²</b></li><li><span>Acquisition</span><b>19,8 M€</b></li><li><span>Vente</span><b>36,3 M€</b></li><li><span>Durée</span><b>2 ans</b></li></ul>
+              <span class="card__metric">59,8 % <em>TRI opérateur</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="/track-record/48-notre-dame-des-victoires-paris-9.html">
+            <div class="card__media">
+              <img src="/48notredamedesvictoires.webp" alt="48 Notre-Dame-des-Victoires, bureaux prime Paris IX opérés par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--live">En cours</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris IX · Bureaux</span>
+              <h3 class="card__title">48 Notre-Dame-des-Victoires</h3>
+              <ul class="card__facts"><li><span>Surface</span><b>7 100 m²</b></li><li><span>Acquisition</span><b>90 M€</b></li><li><span>Durée</span><b>2,5 ans</b></li></ul>
+              <span class="card__metric">25,3 % <em>TRI opérateur (estimé)</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="/track-record/37-rue-de-bellefond-paris-9.html">
+            <div class="card__media">
+              <img src="/37RUEDEBELFOND.webp" alt="37 Rue de Bellefond, bureaux Paris IX opérés par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--sold">Vendu</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris IX · Bureaux</span>
+              <h3 class="card__title">37 Rue de Bellefond</h3>
+              <ul class="card__facts"><li><span>Surface</span><b>1 300 m²</b></li><li><span>Acquisition</span><b>14,1 M€</b></li><li><span>Vente</span><b>38,6 M€</b></li><li><span>Durée</span><b>3,5 ans</b></li></ul>
+              <span class="card__metric">15 % <em>TRI opérateur</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="/track-record/27-rue-du-grand-prieure-paris-11.html">
+            <div class="card__media">
+              <img src="/27ruegrandprieure.webp" alt="27 Rue du Grand Prieuré, bureaux Paris XI opérés par Foncière Renaissance" loading="lazy" width="800" height="600" />
+              <span class="card__status card__status--live">En cours</span>
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Paris XI · Bureaux</span>
+              <h3 class="card__title">27 Rue du Grand Prieuré</h3>
+              <ul class="card__facts"><li><span>Surface</span><b>1 800 m²</b></li><li><span>Acquisition</span><b>16,9 M€</b></li><li><span>Durée</span><b>4,5 ans</b></li></ul>
+              <span class="card__metric">8,5 % <em>TRI opérateur (estimé)</em></span>
+              <span class="card__cta">Voir la fiche de l'opération →</span>
+            </div>
+          </a>
+        </li>
+      </ul>
 
       <h2>Ce que ces opérations disent de la méthode</h2>
 

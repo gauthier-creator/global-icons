@@ -1478,3 +1478,33 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
   .rdv__widget { border-radius: 14px; }
   .rdv__widget .calendly-inline-widget { height: 640px !important; }
 }
+
+/* ============================================================
+   Grille d'operations (page hub /track-record/)
+   Reprend les cartes du carrousel de l'accueil, mais en grille
+   statique : pas de dependance au JS du carrousel. Chaque carte
+   est un lien vers la fiche de l'operation.
+   ============================================================ */
+.ops-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: clamp(18px, 2vw, 28px);
+  margin: 34px 0 8px;
+  padding: 0;
+}
+.ops-grid .card { flex: none; display: block; color: inherit; text-decoration: none; }
+.ops-grid .card__title { color: var(--head); }
+.ops-grid .card:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.ops-grid .card__cta {
+  display: block;
+  margin-top: 18px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: color .3s var(--ease);
+}
+.ops-grid .card:hover .card__cta { color: var(--head); }
+@media (max-width: 640px) {
+  .ops-grid { grid-template-columns: 1fr; }
+}
