@@ -3,7 +3,7 @@
 // Kill switch : creer un fichier .publication-paused a la racine du repo.
 // Idempotent : si la page est deja publiee (pas de meta noindex), skip.
 
-import { readFile, writeFile, access } from 'node:fs/promises';
+import { readFile, writeFile, access, readdir } from 'node:fs/promises';
 import { execSync } from 'node:child_process';
 import { createSign } from 'node:crypto';
 import path from 'node:path';
@@ -213,11 +213,56 @@ async function main() {
     const html = await readFile(fp, 'utf8');
     if (html.includes('name="robots"') && html.includes('noindex')) { picked = entry; break; }
   }
+  // Repli : le planning a ete genere une fois pour 27 pages et s'epuise. Une page creee
+  // apres coup n'y figure pas, donc elle serait invisible pour le pipeline et resterait en
+  // brouillon indefiniment. On balaie donc le repo a la recherche de tout brouillon restant.
+  if (!picked) {
+    log('Planning epuise. Recherche de brouillons hors planning...');
+    const orphelins = await trouverBrouillonsHorsPlanning(schedule);
+    if (orphelins.length) {
+      log(`${orphelins.length} brouillon(s) hors planning : ${orphelins.join(', ')}`);
+      picked = { file: orphelins[0], cluster: 'hors-planning', tier: 'T2' };
+    }
+  }
+
   if (!picked) {
     log('File d\'attente vide : plus aucune page non publiee. Exit.');
     return;
   }
   await publishOne(picked, today);
+}
+
+// Pages legitimement en noindex, a ne JAMAIS publier.
+const JAMAIS_PUBLIER = [
+  'mentions-legales.html',
+  'confidentialite.html',
+  'risques.html',
+];
+
+async function trouverBrouillonsHorsPlanning(schedule) {
+  const dejaPrevues = new Set(schedule.map((e) => e.file));
+  const trouves = [];
+
+  async function parcourir(rel) {
+    const abs = path.join(REPO_ROOT, rel);
+    let entrees;
+    try { entrees = await readdir(abs, { withFileTypes: true }); } catch { return; }
+    for (const e of entrees) {
+      const relEnfant = rel ? `${rel}/${e.name}` : e.name;
+      if (e.isDirectory()) {
+        if (['.git', 'node_modules', 'tracker', 'scripts', 'docs'].includes(e.name)) continue;
+        await parcourir(relEnfant);
+      } else if (e.name.endsWith('.html')) {
+        if (dejaPrevues.has(relEnfant)) continue;
+        if (JAMAIS_PUBLIER.includes(relEnfant)) continue;
+        const html = await readFile(path.join(REPO_ROOT, relEnfant), 'utf8');
+        if (html.includes('name="robots"') && html.includes('noindex')) trouves.push(relEnfant);
+      }
+    }
+  }
+
+  await parcourir('');
+  return trouves.sort();
 }
 
 async function publishOne(entry, today) {
