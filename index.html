@@ -73,7 +73,7 @@
   <link rel="preload" as="image" href="BG.webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=98" />
+  <link rel="stylesheet" href="styles.css?v=99" />
   <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8" data-domains="globalicons.io,www.globalicons.io"></script>
 </head>
 <body>
@@ -844,11 +844,37 @@
          Place apres la section de contact, pour ne pas transformer l'accueil en page
          de capture : qui cherche la marque vient d'abord savoir qui nous sommes. -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
-    <section class="rdv-embed section" id="prendre-rdv" aria-label="Prendre rendez-vous">
-      <div class="container">
-        <h2>Prendre rendez-vous avec l'équipe</h2>
-        <p>Échangez avec un membre de l'équipe Global Icons sur les opérations club deal immobilier prime en cours et le cadre pratique de la distribution.</p>
-        <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min" style="min-width:320px;height:700px;"></div>
+    <section class="rdv section" id="prendre-rdv" aria-labelledby="rdv-titre">
+      <div class="container rdv__inner">
+
+        <div class="rdv__aside">
+          <p class="eyebrow">Prendre rendez-vous</p>
+          <h2 class="rdv__title" id="rdv-titre">30 minutes avec l'équipe.</h2>
+          <p class="rdv__lead">Un échange direct sur les opérations en cours, le cadre de distribution et ce que l'accès implique concrètement pour votre cabinet ou votre structure familiale.</p>
+
+          <ul class="rdv__points">
+            <li>
+              <span class="rdv__point-title">Ce qu'on couvre</span>
+              <span class="rdv__point-desc">Les opérations club deal immobilier prime ouvertes, leur structuration et leur calendrier.</span>
+            </li>
+            <li>
+              <span class="rdv__point-title">Avec qui</span>
+              <span class="rdv__point-desc">Un membre de l'équipe Global Icons, pas un service commercial externalisé.</span>
+            </li>
+            <li>
+              <span class="rdv__point-title">Sans engagement</span>
+              <span class="rdv__point-desc">L'accès se fait sur sélection. Un rendez-vous ne vaut ni souscription, ni conseil personnalisé.</span>
+            </li>
+          </ul>
+
+          <p class="rdv__alt">Vous préférez écrire ? <a href="mailto:contact@globalicons.io">contact@globalicons.io</a></p>
+        </div>
+
+        <div class="rdv__widget">
+          <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min?hide_gdpr_banner=1&amp;primary_color=151514" style="min-width:320px;height:720px;"></div>
+          <noscript><p class="rdv__noscript"><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer">Ouvrir le calendrier de prise de rendez-vous</a></p></noscript>
+        </div>
+
       </div>
     </section>
     <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -875,7 +901,15 @@
             liens[i].addEventListener('click', function (ev) {
               if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
               ev.preventDefault();
-              cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              // Lenis pilote le scroll de la page : tant que sa boucle RAF tourne, elle
+              // ecrase la position posee par scrollIntoView natif, qui reste donc sans
+              // effet. On passe par son instance quand elle existe, comme le fait deja
+              // script.js pour les ancres internes.
+              if (window.__giLenis && typeof window.__giLenis.scrollTo === 'function') {
+                window.__giLenis.scrollTo(cible, { offset: 0 });
+              } else {
+                cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
               if (history.replaceState) history.replaceState(null, '', '#prendre-rdv');
             });
           }
@@ -1081,7 +1115,7 @@
   </script>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="script.js?v=84"></script>
+  <script src="script.js?v=85"></script>
 <script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=1"></script>
 </body>
 </html>

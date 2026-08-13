@@ -46,6 +46,9 @@
   let lenis = null;
   if (!reduce && window.Lenis) {
     lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
+    /* Expose pour les scripts inline : Lenis pilote le scroll, donc scrollIntoView
+       natif est neutralise tant que sa boucle RAF tourne. */
+    window.__giLenis = lenis;
     function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
     lenis.stop();

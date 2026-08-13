@@ -1416,3 +1416,65 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
   .trophy--center { opacity: 1 !important; }
   .trophy--center .trophy__photo, .trophy--center .trophy__scrim { opacity: 1 !important; }
 }
+
+/* ============================================================
+   Section de prise de rendez-vous (accueil + hubs)
+   Deux colonnes : le cadre de l'echange a gauche, le calendrier
+   a droite. Le widget Calendly est encapsule dans une carte pour
+   qu'il ne flotte pas nu sur la page.
+   ============================================================ */
+.rdv { background: var(--paper-2); }
+.rdv__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 4.5vw, 72px);
+  align-items: start;
+}
+.rdv__title {
+  font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 10px 0 18px;
+}
+.rdv__lead {
+  font-size: 1.02rem;
+  line-height: 1.62;
+  color: var(--ink-2);
+  opacity: 0.86;
+  max-width: 46ch;
+  margin: 0 0 30px;
+}
+.rdv__points { list-style: none; margin: 0 0 28px; padding: 0; }
+.rdv__points li {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 5px;
+}
+.rdv__points li:last-child { border-bottom: 1px solid var(--line); }
+.rdv__point-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-weight: 500;
+}
+.rdv__point-desc { font-size: 0.94rem; line-height: 1.55; opacity: 0.72; }
+.rdv__alt { font-size: 0.92rem; opacity: 0.72; margin: 0; }
+.rdv__alt a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.rdv__widget {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -34px rgba(15, 15, 14, 0.32);
+}
+.rdv__widget .calendly-inline-widget { border-radius: 18px; }
+.rdv__noscript { padding: 28px; text-align: center; }
+
+@media (max-width: 900px) {
+  .rdv__inner { grid-template-columns: 1fr; gap: 34px; }
+  .rdv__lead { max-width: none; }
+  .rdv__widget { border-radius: 14px; }
+  .rdv__widget .calendly-inline-widget { height: 640px !important; }
+}
