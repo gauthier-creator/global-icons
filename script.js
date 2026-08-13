@@ -57,9 +57,13 @@
     $$('a[href^="#"]').forEach((a) => {
       a.addEventListener("click", (e) => {
         const id = a.getAttribute("href");
-        if (id === "#" || id === "#top") { e.preventDefault(); lenis.scrollTo(0); return; }
+        // force: true est indispensable : scrollTo() est INERTE sur une instance
+        // arretee, et Lenis l'est tant que le prechargeur n'a pas rendu la main.
+        // Un clic est une intention explicite, un etat de chargement residuel ne
+        // doit pas l'annuler.
+        if (id === "#" || id === "#top") { e.preventDefault(); lenis.scrollTo(0, { force: true }); return; }
         const target = document.querySelector(id);
-        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: 0 }); }
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: 0, force: true }); }
       });
     });
   }
@@ -74,7 +78,10 @@
   const setFill = (p) => { if (logoFill) logoFill.style.clipPath = "inset(0 " + (100 - p) + "% 0 0)"; };
   document.body.classList.add("is-loading");
 
+  let loadFinished = false;
   function finishLoad() {
+    if (loadFinished) return;
+    loadFinished = true;
     document.body.classList.remove("is-loading");
     if (lenis) lenis.start();
     loader.classList.add("is-done");
@@ -87,6 +94,14 @@
       document.body.classList.add("page-ready");
     }, 450);
   }
+
+  // Filet de securite : quoi qu'il arrive (onglet ouvert en arriere-plan, timers
+  // brides, connexion lente), la page rend la main au bout de 5 secondes. Sans ca
+  // Lenis reste arrete et toutes les ancres du site sont inertes.
+  setTimeout(finishLoad, 5000);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden && !loadFinished) finishLoad();
+  });
 
   if (reduce) {
     setFill(100);

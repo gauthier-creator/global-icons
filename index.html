@@ -905,8 +905,12 @@
               // ecrase la position posee par scrollIntoView natif, qui reste donc sans
               // effet. On passe par son instance quand elle existe, comme le fait deja
               // script.js pour les ancres internes.
+              // force: true est indispensable : scrollTo() est INERTE sur une instance
+              // arretee, et Lenis l'est tant que le prechargeur n'a pas rendu la main
+              // (onglet en arriere-plan, connexion lente, clic avant la fin de
+              // l'animation). Sans force, le bouton principal ne fait rien.
               if (window.__giLenis && typeof window.__giLenis.scrollTo === 'function') {
-                window.__giLenis.scrollTo(cible, { offset: 0 });
+                window.__giLenis.scrollTo(cible, { offset: 0, force: true });
               } else {
                 cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
@@ -1115,7 +1119,7 @@
   </script>
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script src="script.js?v=85"></script>
+  <script src="script.js?v=86"></script>
 <script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=1"></script>
 </body>
 </html>
