@@ -9,3 +9,10 @@ docs/
 
 # Aucun markdown n'est du contenu web (le site sert du .html)
 *.md
+
+# Pages de comparaison nommant des concurrents : NE PAS SERVIR tant que le conseil
+# de Gauthier ne les a pas relues. Elles restent dans le depot pour la relecture,
+# mais ne doivent pas etre publiquement accessibles.
+# La page Mimco est en outre ABANDONNEE et contient un fait faux.
+comparatifs/mimco-et-global-icons-deux-approches.html
+comparatifs/wally-invest-et-global-icons-deux-approches.html
