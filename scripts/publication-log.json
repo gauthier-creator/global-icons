@@ -244,5 +244,13 @@
     "cluster": "hors-planning",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-08-14",
+    "file": "comparatifs/mimco-et-global-icons-deux-approches.html",
+    "url": "https://www.globalicons.io/comparatifs/mimco-et-global-icons-deux-approches.html",
+    "cluster": "hors-planning",
+    "tier": "T2",
+    "status": "published"
   }
 ]
