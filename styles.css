@@ -1508,3 +1508,15 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
 @media (max-width: 640px) {
   .ops-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   Panorama de marche : tableau large a defilement horizontal
+   ============================================================ */
+.pano-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--line); border-radius: 10px; }
+.pano-wrap table { margin: 0; border: 0; min-width: 1100px; font-size: 0.88rem; }
+.pano-wrap th, .pano-wrap td { padding: 12px 14px; vertical-align: top; }
+.pano-wrap thead th { position: sticky; top: 0; background: var(--paper-2); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.07em; }
+.pano-wrap tbody tr:target { background: var(--paper-2); }
+.pano-vide { color: var(--muted); font-style: italic; }
+.pano-nous { background: rgba(21,21,20,.04); }
+.pano-scroll-note { font-size: 0.84rem; color: var(--muted); margin: 0 0 8px; }
