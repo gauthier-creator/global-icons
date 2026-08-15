@@ -252,5 +252,13 @@
     "cluster": "hors-planning",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-08-15",
+    "file": "comparatifs/wally-invest-et-global-icons-deux-approches.html",
+    "url": "https://www.globalicons.io/comparatifs/wally-invest-et-global-icons-deux-approches.html",
+    "cluster": "hors-planning",
+    "tier": "T2",
+    "status": "published"
   }
 ]
