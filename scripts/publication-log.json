@@ -260,5 +260,13 @@
     "cluster": "hors-planning",
     "tier": "T2",
     "status": "published"
+  },
+  {
+    "date": "2026-08-16",
+    "file": "guides/private-equity-immobilier.html",
+    "url": "https://www.globalicons.io/guides/private-equity-immobilier.html",
+    "cluster": "hors-planning",
+    "tier": "T2",
+    "status": "published"
   }
 ]
