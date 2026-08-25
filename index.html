@@ -887,42 +887,11 @@
           }
         });
 
-        // Les CTA de la page renvoient vers la section de reservation au lieu d'ouvrir un
-        // onglet : sinon la reservation se fait sur calendly.com, une autre origine, et
-        // l'evenement event_scheduled ne revient jamais. On ne fait que preventDefault et
-        // defiler : le clic continue de se propager, donc la micro-conversion "Clic RDV"
-        // posee par signup-modal.js se declenche toujours.
-        document.addEventListener('DOMContentLoaded', function () {
-          var cible = document.getElementById('prendre-rdv');
-          if (!cible) return;
-          var liens = document.querySelectorAll('a[href*="calendly.com"]');
-          for (var i = 0; i < liens.length; i++) {
-            if (cible.contains(liens[i])) continue;
-            liens[i].addEventListener('click', function (ev) {
-              if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
-              ev.preventDefault();
-              // Lenis pilote le scroll de la page : tant que sa boucle RAF tourne, elle
-              // ecrase la position posee par scrollIntoView natif, qui reste donc sans
-              // effet. On passe par son instance quand elle existe, comme le fait deja
-              // script.js pour les ancres internes.
-              // force: true est indispensable : scrollTo() est INERTE sur une instance
-              // arretee, et Lenis l'est tant que le prechargeur n'a pas rendu la main
-              // (onglet en arriere-plan, connexion lente, clic avant la fin de
-              // l'animation). Sans force, le bouton principal ne fait rien.
-              // duration explicite : sans elle Lenis retombe sur son lerp de 0.09, qui
-              // met plusieurs secondes a couvrir les ~12 700 px jusqu'a la section et
-              // donne une impression de latence. L'easing cubique demarre franchement
-              // et arrive en douceur.
-              if (window.__giLenis && typeof window.__giLenis.scrollTo === 'function') {
-                window.__giLenis.scrollTo(cible, {
-                  offset: 0, force: true, duration: 0.9,
-                  easing: function (t) { return 1 - Math.pow(1 - t, 3); }
-                });
-              } else {
-                cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-              if (history.replaceState) history.replaceState(null, '', '#prendre-rdv');
-            });
+        // Les CTA de cette page sont traites par signup-modal.js, qui ouvre le
+        // calendrier en POPUP sur notre origine. C'est ce qui permet a l'evenement
+        // calendly.event_scheduled de revenir et a la conversion "RDV pris" de se
+        // declencher. L'ancien renvoi vers la section par defilement est retire : il
+        // faisait le meme travail moins bien, et il entrerait en conflit avec la popup.
           }
         });
       })();
@@ -1127,6 +1096,6 @@
 
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="script.js?v=87"></script>
-<script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=2"></script><script defer src="/legal-footer.js?v=2"></script>
+<script defer src="/clarity-consent.js?v=1"></script><script defer src="/signup-modal.js?v=3"></script><script defer src="/legal-footer.js?v=2"></script>
 </body>
 </html>

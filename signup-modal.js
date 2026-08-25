@@ -222,6 +222,75 @@
     }
   }
 
+
+  /* ------------------------------------------------------------------
+     Prise de RDV en POPUP Calendly, et non en nouvel onglet.
+
+     Un lien vers calendly.com ouvre un onglet : la reservation se produit
+     alors sur une AUTRE ORIGINE, et l'evenement calendly.event_scheduled
+     ne revient jamais vers nous. La conversion "RDV pris" etait donc
+     inatteignable pour quiconque passait par un CTA, sur 141 pages sur 142.
+
+     La popup s'affiche par-dessus notre page : l'evenement remonte et la
+     conversion se declenche. C'est la seule facon de mesurer une
+     reservation issue d'un bouton.
+
+     Le script Calendly est charge a la demande, au premier clic, pour ne
+     pas alourdir les 130 pages qui ne le portaient pas.
+     ------------------------------------------------------------------ */
+  var CAL_CSS = 'https://assets.calendly.com/assets/external/widget.css';
+  var CAL_JS = 'https://assets.calendly.com/assets/external/widget.js';
+  var calChargement = null;
+
+  function chargerCalendly() {
+    if (window.Calendly) return Promise.resolve();
+    if (calChargement) return calChargement;
+    calChargement = new Promise(function (resolve, reject) {
+      if (!document.querySelector('link[href="' + CAL_CSS + '"]')) {
+        var l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.href = CAL_CSS;
+        document.head.appendChild(l);
+      }
+      var sc = document.createElement('script');
+      sc.src = CAL_JS;
+      sc.async = true;
+      sc.onload = function () { resolve(); };
+      sc.onerror = function () { reject(new Error('calendly')); };
+      document.head.appendChild(sc);
+    });
+    return calChargement;
+  }
+
+  function ouvrirPopupRdv(url) {
+    return chargerCalendly().then(function () {
+      if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+        window.Calendly.initPopupWidget({ url: url });
+        return true;
+      }
+      return false;
+    });
+  }
+
+  /* Conversion "RDV pris". L'evenement remonte de la popup comme de l'embed.
+     Les pages qui portent deja un embed inline ont leur propre ecouteur : on
+     ne branche pas le notre, sinon la conversion partirait en double. */
+  function brancherConversionRdv() {
+    if (window.__giRdvConversionBound) return;
+    if (document.querySelector('.calendly-inline-widget')) return;
+    window.__giRdvConversionBound = true;
+    window.addEventListener('message', function (e) {
+      if (!e.data || typeof e.data.event !== 'string') return;
+      if (e.data.event !== 'calendly.event_scheduled') return;
+      track('rdv_pris', { source: 'popup' });
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-18329831877/Eol3CO-wuNgcEMWTrKRE', value: 1000.0, currency: 'EUR'
+        });
+      }
+    });
+  }
+
   // Attache le tracking a tous les liens Calendly (prise de RDV), sans changer leur comportement
   function attachRdvTracking() {
     var links = document.querySelectorAll('a[href*="calendly.com"]');
@@ -236,6 +305,16 @@
         if (typeof window.gtag === 'function') {
           window.gtag('event', 'conversion', { send_to: 'AW-18329831877/RPFKCNz_x9gcEMWTrKRE' });
         }
+        // Clic milieu ou avec modificateur : on laisse le navigateur ouvrir un onglet.
+        if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        var url = e.currentTarget.getAttribute('href');
+        if (!url) return;
+        e.preventDefault();
+        ouvrirPopupRdv(url).then(function (ok) {
+          if (!ok) window.open(url, '_blank', 'noopener');
+        }).catch(function () {
+          window.open(url, '_blank', 'noopener');
+        });
       });
     }
   }
@@ -295,7 +374,7 @@
     showConsentBanner();                                   // pas encore de choix -> demande
   }
 
-  function boot() { attach(); initConsent(); }
+  function boot() { attach(); brancherConversionRdv(); initConsent(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
