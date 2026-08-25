@@ -22,7 +22,17 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18329831877"></script>
   <script>
     gtag('js', new Date());
-    gtag('config', 'AW-18329831877');
+    // Liste NOIRE, pas liste blanche : le garde doit echouer vers le bruit, jamais
+    // vers le silence. Si la detection rate, estLocal reste false et gtag se
+    // configure quand meme. Une mesure polluee se nettoie, une mesure absente est
+    // perdue. Sans ce garde, chaque test local envoyait a Google l'URL complete de
+    // la page testee, brouillons non publies compris.
+    var estLocal = false;
+    try {
+      var giHote = location.hostname;
+      estLocal = (giHote === 'localhost' || giHote === '127.0.0.1' || giHote === '::1' || giHote === '[::1]' || giHote.slice(-6) === '.local');
+    } catch (e) { estLocal = false; }
+    if (!estLocal) { gtag('config', 'AW-18329831877'); }
   </script>
   <title>Investir 100 000 € dans l'immobilier non coté : qui fait quoi sur le marché français | Global Icons</title>
   <meta name="description" content="Panorama factuel des acteurs français du non coté immobilier : ticket d'entrée, nature des actifs, géographie, statut réglementaire avec numéro d'agrément, actif identifié ou non avant souscription. Sources datées." />

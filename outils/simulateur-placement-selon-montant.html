@@ -22,7 +22,17 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18329831877"></script>
   <script>
     gtag('js', new Date());
-    gtag('config', 'AW-18329831877');
+    // Liste NOIRE, pas liste blanche : le garde doit echouer vers le bruit, jamais
+    // vers le silence. Si la detection rate, estLocal reste false et gtag se
+    // configure quand meme. Une mesure polluee se nettoie, une mesure absente est
+    // perdue. Sans ce garde, chaque test local envoyait a Google l'URL complete de
+    // la page testee, brouillons non publies compris.
+    var estLocal = false;
+    try {
+      var giHote = location.hostname;
+      estLocal = (giHote === 'localhost' || giHote === '127.0.0.1' || giHote === '::1' || giHote === '[::1]' || giHote.slice(-6) === '.local');
+    } catch (e) { estLocal = false; }
+    if (!estLocal) { gtag('config', 'AW-18329831877'); }
   </script>
   <title>Simulateur : quel placement pour 100k / 500k / 1M / 5M€ ? | Global Icons</title>
   <meta name="description" content="Simulateur d'allocation patrimoniale selon votre montant. Approches illustratives pour placer 100k, 500k, 1M ou 5M€ en 2026. Rendement cible + fiscalité." />
