@@ -1535,3 +1535,7 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
 }
 .section--ink .cta-reassure { color: var(--muted-light); }
 .banner-cta .cta-reassure { margin-top: 10px; }
+
+/* CTA contextuel de milieu de page : moins appuye que le CTA final, pour ne pas
+   couper la lecture de quelqu'un qui n'est pas encore convaincu. */
+.cta-milieu { margin: 44px 0; }
