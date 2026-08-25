@@ -239,9 +239,41 @@ const JAMAIS_PUBLIER = [
   'risques.html',
 ];
 
+// Une page exclue du serveur web par .railwayignore N'EST PAS un brouillon en
+// attente : c'est une page volontairement non servie. La publier revient a lui
+// retirer son noindex et a l'inscrire au sitemap, donc a declarer a Google une
+// URL qui repond 404.
+//
+// C'est arrive les 14 et 15/08/2026 : le repli ci-dessus a publie deux pages de
+// comparaison concurrent, dont une connue pour contenir un fait faux. Elles ont
+// ete retirees du sitemap et remises en noindex.
+//
+// Regle : ne jamais publier ce que le serveur ne sert pas.
+async function cheminsExclusDuServeur() {
+  try {
+    const brut = await readFile(path.join(REPO_ROOT, '.railwayignore'), 'utf8');
+    return brut
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l && !l.startsWith('#'));
+  } catch {
+    return [];
+  }
+}
+
+function estExcluDuServeur(rel, motifs) {
+  return motifs.some((m) => {
+    if (m.endsWith('/')) return rel.startsWith(m);
+    if (m.startsWith('*.')) return rel.endsWith(m.slice(1));
+    return rel === m || rel.startsWith(m + '/');
+  });
+}
+
 async function trouverBrouillonsHorsPlanning(schedule) {
   const dejaPrevues = new Set(schedule.map((e) => e.file));
   const trouves = [];
+
+  const motifsExclus = await cheminsExclusDuServeur();
 
   async function parcourir(rel) {
     const abs = path.join(REPO_ROOT, rel);
@@ -255,6 +287,7 @@ async function trouverBrouillonsHorsPlanning(schedule) {
       } else if (e.name.endsWith('.html')) {
         if (dejaPrevues.has(relEnfant)) continue;
         if (JAMAIS_PUBLIER.includes(relEnfant)) continue;
+        if (estExcluDuServeur(relEnfant, motifsExclus)) continue;
         const html = await readFile(path.join(REPO_ROOT, relEnfant), 'utf8');
         if (html.includes('name="robots"') && html.includes('noindex')) trouves.push(relEnfant);
       }
