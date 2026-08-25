@@ -1520,3 +1520,18 @@ body.has-mobile-cta .cookie-banner { bottom: 88px; }
 .pano-vide { color: var(--muted); font-style: italic; }
 .pano-nous { background: rgba(21,21,20,.04); }
 .pano-scroll-note { font-size: 0.84rem; color: var(--muted); margin: 0 0 8px; }
+
+/* ============================================================
+   Ligne de reassurance sous le CTA principal.
+   Un bouton dit ce qu'on obtient ; cette ligne dit ce qui se passe
+   quand on clique. Elle desamorce l'hesitation sans promettre.
+   ============================================================ */
+.cta-reassure {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.section--ink .cta-reassure { color: var(--muted-light); }
+.banner-cta .cta-reassure { margin-top: 10px; }

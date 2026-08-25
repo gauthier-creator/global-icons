@@ -73,10 +73,10 @@
   <link rel="preload" as="image" href="BG.webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=101" />
+  <link rel="stylesheet" href="styles.css?v=102" />
   <script defer src="https://umami-production-5ea0.up.railway.app/script.js" data-website-id="792802ae-eb81-41a1-8988-30eb1b837bb8" data-domains="globalicons.io,www.globalicons.io"></script>
 </head>
-<body>
+<body class="has-mobile-cta">
 
   <!-- ===================== LOADER ===================== -->
   <div class="loader" id="loader" aria-hidden="true">
@@ -133,7 +133,7 @@
           <h1 class="hero__tagline">Investissez aux côtés de <em>Foncière Renaissance</em>.</h1>
           <p class="hero__sub">Réservée aux CGP, family offices et banques privées.</p>
           <div class="hero__ctas">
-            <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="hero__cta">Prendre rendez-vous<span class="btn__arrow" aria-hidden="true">→</span></a>
+            <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="hero__cta">Échanger avec l'équipe<span class="btn__arrow" aria-hidden="true">→</span></a>
             <a href="https://pro.app.globalicons.io/auth/login" target="_blank" rel="noopener noreferrer" class="hero__cta-secondary">Déjà partenaire ? Accéder à la plateforme →</a>
           </div>
         </div>
@@ -711,7 +711,7 @@
           <h2 class="banner-cta__title">Envie de discuter d'une opération en cours ?</h2>
           <p class="banner-cta__lead">CGP, family offices, banques privées : nos membres de l'équipe vous présentent les opérations en cours et le cadre de la distribution partenaire dans un échange confidentiel.</p>
         </div>
-        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="banner-cta__btn">Prendre rendez-vous →</a>
+        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="banner-cta__btn">Voir les opérations en cours →</a>
       </div>
     </section>
 
@@ -835,7 +835,8 @@
       <div class="container cta__inner">
         <h2 class="cta__title" data-split-text>Devenez partenaire distributeur.</h2>
         <p class="cta__lead reveal" style="--d:.16s">Référencez votre cabinet et ouvrez l'immobilier d'exception à vos clients. L'accès se fait sur sélection.</p>
-        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--light reveal" style="--d:.24s">Prendre rendez-vous<span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="btn btn--solid btn--light reveal" style="--d:.24s">Échanger avec l'équipe<span class="btn__arrow" aria-hidden="true">→</span></a>
+        <span class="cta-reassure">30 minutes en visio avec un membre de l'équipe. Sans engagement, et l'accès se fait sur sélection.</span>
         <a href="mailto:contact@globalicons.io" class="cta__mailto reveal" style="--d:.32s">ou écrivez-nous à contact@globalicons.io</a>
       </div>
     </section>
@@ -900,7 +901,12 @@
   </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
+    <aside class="mobile-cta" role="complementary" aria-label="Prendre rendez-vous">
+    <span class="mobile-cta__label">Échanger avec l'équipe</span>
+    <button type="button" data-signup class="mobile-cta__signup">S'inscrire</button><a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer" class="mobile-cta__btn">Prendre RDV →</a>
+  </aside>
+
+<footer class="footer">
         <div class="container footer__resources">
       <div class="footer__col">
         <span class="footer__col-title">Marchés</span>
