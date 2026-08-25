@@ -3,12 +3,50 @@
  * - Umami (analytics quantitatif, cookie-less) : chargé toujours
  * - Clarity (session recording, cookies) : chargé UNIQUEMENT après acceptation
  * - Stocke le choix dans localStorage 12 mois
+ *
+ * Mode interne (25/08) : nos propres visites de test faussaient la mesure de ce
+ * qu'on testait. Sur 20 sessions en 3 jours, 55 % de visiteurs récurrents, donc
+ * une part importante était nous. Visiter n'importe quelle page avec ?interne=1
+ * marque le navigateur comme interne : Clarity ne se charge plus et Umami est
+ * désactivé via son opt-out officiel. ?interne=0 annule.
+ *
+ * Limite à connaître : le marquage vit dans le localStorage du navigateur. Il ne
+ * suit ni le téléphone, ni la navigation privée, ni un autre profil. Chaque
+ * appareil doit être marqué une fois.
  */
 (function () {
   var STORAGE_KEY = 'gi_clarity_consent';
   var STORAGE_TS = 'gi_clarity_consent_ts';
+  var INTERNE_KEY = 'gi_interne';
+  var UMAMI_OFF_KEY = 'umami.disabled'; // clé d'opt-out lue par le traceur Umami à chaque envoi
   var TTL_MS = 365 * 24 * 60 * 60 * 1000; // 12 mois
   var CLARITY_ID = 'xlr1bp6yfz';
+
+  // Lit ?interne=1 / ?interne=0 dans l'URL et met à jour le marquage.
+  // Retourne true si ce navigateur est marqué interne.
+  function visiteInterne() {
+    try {
+      var v = null;
+      var m = window.location.search.match(/[?&]interne=([01])(?:&|$)/);
+      if (m) { v = m[1]; }
+
+      if (v === '1') {
+        localStorage.setItem(INTERNE_KEY, '1');
+        localStorage.setItem(UMAMI_OFF_KEY, '1');
+      } else if (v === '0') {
+        localStorage.removeItem(INTERNE_KEY);
+        localStorage.removeItem(UMAMI_OFF_KEY);
+        return false;
+      }
+
+      if (localStorage.getItem(INTERNE_KEY) !== '1') return false;
+
+      // Re-pose l'opt-out Umami à chaque page : si la clé a été effacée d'un côté
+      // sans l'autre, les deux marquages se resynchronisent au lieu de diverger.
+      localStorage.setItem(UMAMI_OFF_KEY, '1');
+      return true;
+    } catch (e) { return false; }
+  }
 
   function readConsent() {
     try {
@@ -82,6 +120,10 @@
   }
 
   function init() {
+    // Visite interne : ni Clarity, ni Umami, ni banniere. Rien a demander a
+    // quelqu'un qu'on ne mesure pas.
+    if (visiteInterne()) return;
+
     var consent = readConsent();
     if (consent === 'accepted') { loadClarity(); return; }
     if (consent === 'refused') return;
