@@ -21,6 +21,9 @@
   var UMAMI_OFF_KEY = 'umami.disabled'; // clé d'opt-out lue par le traceur Umami à chaque envoi
   var TTL_MS = 365 * 24 * 60 * 60 * 1000; // 12 mois
   var CLARITY_ID = 'xlr1bp6yfz';
+  // Memes hotes que le data-domains d'Umami : un hote qui ne merite pas d'etre
+  // mesure par l'un ne merite pas de l'etre par l'autre.
+  var HOTES_MESURES = ['globalicons.io', 'www.globalicons.io'];
 
   // Lit ?interne=1 / ?interne=0 dans l'URL et met à jour le marquage.
   // Retourne true si ce navigateur est marqué interne.
@@ -69,6 +72,11 @@
 
   function loadClarity() {
     if (!CLARITY_ID || CLARITY_ID === 'CLARITY_PROJECT_ID') return;
+    // Sans ce garde, chaque test en local creait une vraie session dans Clarity,
+    // avec son visiteur recurrent et sa profondeur de defilement. Umami y
+    // echappait deja grace a son data-domains ; Clarity n'avait aucune
+    // restriction, donc lui seul comptait nos allers-retours de developpement.
+    if (HOTES_MESURES.indexOf(window.location.hostname) === -1) return;
     if (window.__clarityLoaded) return;
     window.__clarityLoaded = true;
     (function(c,l,a,r,i,t,y){
