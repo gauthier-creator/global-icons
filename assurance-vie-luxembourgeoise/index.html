@@ -115,12 +115,15 @@
 
       <section class="hub__cluster">
 
-      <div class="content__cta cta-milieu">
-        <h2>Ce que vous pouvez y loger, concrètement</h2>
-        <p>Un échange court pour passer en revue les actifs immobiliers prime que nous opérons et le cadre pratique de leur détention.</p>
-        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer">Échanger sur ce que vous pouvez y loger →</a>
-        <span class="cta-reassure">30 minutes en visio avec un membre de l'équipe. Sans engagement, et l'accès se fait sur sélection.</span>
-      </div>
+      <!-- Prise de RDV : embed Calendly (mesure de la macro-conversion "RDV pris").
+           Un lien sortant ne declenche jamais event_scheduled, la reservation ayant
+           lieu sur une autre origine. -->
+      <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      <section class="rdv-embed" id="prendre-rdv" aria-label="Prendre rendez-vous" style="margin:44px 0;">
+        <h2>Prendre rendez-vous avec l'équipe</h2>
+        <p>Échangez avec un membre de l'équipe Global Icons sur les actifs immobiliers prime que nous opérons et sur le cadre pratique de leur détention.</p>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min" style="min-width:320px;height:700px;"></div>
+      </section>
 
         <h2 class="hub__cluster-title">Outils interactifs</h2>
         <ul class="hub__cluster-links">
@@ -153,15 +156,12 @@
 
 
 
-      <!-- Prise de RDV : embed Calendly (mesure de la macro-conversion "RDV pris").
-           Un lien sortant ne declenche jamais event_scheduled, la reservation ayant
-           lieu sur une autre origine. -->
-      <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
-      <section class="rdv-embed" id="prendre-rdv" aria-label="Prendre rendez-vous" style="margin:56px 0 0;">
-        <h2>Prendre rendez-vous avec l'equipe</h2>
-        <p>Echangez avec un membre de l'equipe Global Icons sur les actifs immobiliers prime que nous operons et sur le cadre pratique de leur detention.</p>
-        <div class="calendly-inline-widget" data-url="https://calendly.com/team-globalicons/30min" style="min-width:320px;height:700px;"></div>
-      </section>
+      <div class="content__cta cta-milieu">
+        <h2>Ce que vous pouvez y loger, concrètement</h2>
+        <p>Un échange court pour passer en revue les actifs immobiliers prime que nous opérons et le cadre pratique de leur détention.</p>
+        <a href="https://calendly.com/team-globalicons/30min" target="_blank" rel="noopener noreferrer">Échanger sur ce que vous pouvez y loger →</a>
+        <span class="cta-reassure">30 minutes en visio avec un membre de l'équipe. Sans engagement, et l'accès se fait sur sélection.</span>
+      </div>
       <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
       <script>
         (function () {
